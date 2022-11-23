@@ -24,20 +24,15 @@ public class UserRepository {
      */
     public User create(User user) {
         Session session = sf.openSession();
-        User rslUser = new User();
         try {
             session.beginTransaction();
-            Query<User> query = session.createQuery("INSERT INTO User (login, password) VALUES (:log, :pass)");
-                            query.setParameter("log", user.getLogin());
-                            query.setParameter("pass", user.getPassword());
-                            query.executeUpdate();
-            rslUser = query.uniqueResult();
+            session.save(user);
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
-        return rslUser;
+        return user;
     }
 
     /**
@@ -149,7 +144,7 @@ public class UserRepository {
         Optional<User> user = Optional.empty();
         try {
             session.beginTransaction();
-            Query<User> query =  session.createQuery("FROM User WHERE login = :log");
+            Query<User> query = session.createQuery("FROM User WHERE login = :log");
                     query.setParameter("log", login);
                     user = query.uniqueResultOptional();
             session.getTransaction().commit();
