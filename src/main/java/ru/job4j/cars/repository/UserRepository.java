@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- *  User repository class
+ * User repository class
  */
 @AllArgsConstructor
 public class UserRepository {
@@ -19,6 +19,7 @@ public class UserRepository {
 
     /**
      * Save user in DB
+     *
      * @param user User
      * @return User with id
      */
@@ -28,15 +29,17 @@ public class UserRepository {
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();
-            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return user;
     }
 
     /**
      * Update user in DB
+     *
      * @param user User
      */
     public void update(User user) {
@@ -48,14 +51,16 @@ public class UserRepository {
                     .setParameter("uLogin", user.getLogin())
                     .executeUpdate();
             session.getTransaction().commit();
-            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
     }
 
     /**
      * Delete user by id
+     *
      * @param userId ID
      */
     public void delete(int userId) {
@@ -66,14 +71,16 @@ public class UserRepository {
                     .setParameter("uId", userId)
                     .executeUpdate();
             session.getTransaction().commit();
-            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
     }
 
     /**
      * List of users sorted by id
+     *
      * @return List of users
      */
     public List<User> findAllOrderById() {
@@ -81,19 +88,20 @@ public class UserRepository {
         List<User> users = new ArrayList<>();
         try {
             session.beginTransaction();
-            Query<User> query = session.createQuery("FROM User");
-            query.executeUpdate();
-            users = query.stream().sorted().toList();
+            Query<User> query = session.createQuery("FROM User ORDER BY id ASC", User.class);
+            users = query.list();
             session.getTransaction().commit();
-            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return users;
     }
 
     /**
      * Find user by id
+     *
      * @return User
      */
     public Optional<User> findById(int userId) {
@@ -101,19 +109,21 @@ public class UserRepository {
         Optional<User> user = Optional.empty();
         try {
             session.beginTransaction();
-            Query<User> query = session.createQuery("FROM User WHERE id = :uId");
-                    query.setParameter("uId", userId);
+            Query<User> query = session.createQuery("FROM User WHERE id = :uId", User.class);
+            query.setParameter("uId", userId);
             user = query.uniqueResultOptional();
             session.getTransaction().commit();
-            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return user;
     }
 
     /**
      * List of users by login LIKE %key%
+     *
      * @param key Key
      * @return List of users
      */
@@ -122,20 +132,22 @@ public class UserRepository {
         List<User> users = new ArrayList<>();
         try {
             session.beginTransaction();
-            Query<User> query = session.createQuery("FROM User WHERE login LIKE :key");
-                    query.setParameter("key", key);
-                    query.executeUpdate();
+            Query<User> query = session.createQuery("FROM User WHERE login LIKE :key", User.class);
+            query.setParameter("key", key);
+            query.executeUpdate();
             users = new ArrayList<>(query.list());
             session.getTransaction().commit();
-            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return users;
     }
 
     /**
      * Find user by login
+     *
      * @param login Login
      * @return Optional of user or empty Optional
      */
@@ -144,13 +156,14 @@ public class UserRepository {
         Optional<User> user = Optional.empty();
         try {
             session.beginTransaction();
-            Query<User> query = session.createQuery("FROM User WHERE login = :log");
-                    query.setParameter("log", login);
-                    user = query.uniqueResultOptional();
+            Query<User> query = session.createQuery("FROM User WHERE login = :log", User.class);
+            query.setParameter("log", login);
+            user = query.uniqueResultOptional();
             session.getTransaction().commit();
-            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
         return user;
     }

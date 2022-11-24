@@ -16,11 +16,12 @@ public class UserUsage {
             var user = new User();
             user.setLogin("admin");
             user.setPassword("admin");
-            userRepository.create(user);
+            user = userRepository.create(user);
             userRepository.findAllOrderById()
                     .forEach(System.out::println);
             userRepository.findByLikeLogin("e")
                     .forEach(System.out::println);
+            System.out.println(userRepository.findByLikeLogin("adm"));
             userRepository.findById(user.getId())
                     .ifPresent(System.out::println);
             userRepository.findByLogin("admin")
@@ -32,7 +33,6 @@ public class UserUsage {
             userRepository.delete(user.getId());
             userRepository.findAllOrderById()
                     .forEach(System.out::println);
-            System.out.println("Hi");
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
         }
