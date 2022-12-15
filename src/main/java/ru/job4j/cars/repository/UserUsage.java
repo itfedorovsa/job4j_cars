@@ -6,13 +6,16 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.cars.model.User;
 
+/**
+ * Demonstration check class
+ */
 public class UserUsage {
     public static void main(String[] args) {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         try (SessionFactory sf = new MetadataSources(registry)
                 .buildMetadata().buildSessionFactory()) {
-            var userRepository = new UserRepository(sf);
+            var userRepository = new HibernateUserRepository(new CrudRepository(sf));
             var user = new User();
             user.setLogin("admin");
             user.setPassword("admin");
