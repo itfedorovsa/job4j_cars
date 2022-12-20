@@ -5,8 +5,9 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <include file="scripts/001_ddl_create_auto_user_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/002_ddl_create_auto_post_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/003_insert_auto_user_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/001_ddl_create_users_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/002_ddl_create_posts_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/003_dml_insert_users_data.sql" relativeToChangelogFile="true"/>
     <include file="scripts/004_ddl_create_price_history_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/005_ddl_create_participates_table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

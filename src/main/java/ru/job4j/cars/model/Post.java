@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "auto_post")
+@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +29,15 @@ public class Post {
     private int userId;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "auto_post_id")
+    @JoinColumn(name = "post_id")
     private List<PriceHistory> priceHistories;
+
+    @ManyToMany
+    @JoinTable(
+            name = "participates",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+    )
+    private List<User> participates;
+
 }
