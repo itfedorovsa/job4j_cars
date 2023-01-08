@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Hibernate repository class
+ * Hibernate User repository
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
@@ -20,6 +20,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @ThreadSafe
 public class HibernateUserRepository implements UserRepository {
+
     private final CrudRepository crudRepository;
 
     /**

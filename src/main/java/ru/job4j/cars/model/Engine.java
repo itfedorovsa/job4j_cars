@@ -5,27 +5,25 @@ import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
- * Price history model
+ * Engine model
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
- * @since 15.12.22
+ * @since 08.01.23
  */
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "prices_history")
-public class PriceHistory {
+@Table(name = "engines")
+public class Engine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Include
     private int id;
-    private int before;
-    private int after;
-    private LocalDateTime created;
+
+    private String name;
 
 }

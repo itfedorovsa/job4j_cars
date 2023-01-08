@@ -10,4 +10,7 @@
     <include file="scripts/003_dml_insert_users_data.sql" relativeToChangelogFile="true"/>
     <include file="scripts/004_ddl_create_price_history_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/005_ddl_create_participates_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/006_ddl_create_engines_and_cars_tables.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/007_ddl_create_owners_and_owners_history_tables.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/008_ddl_alter_posts_table_add_column.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

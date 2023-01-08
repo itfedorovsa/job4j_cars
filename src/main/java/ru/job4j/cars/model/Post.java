@@ -20,13 +20,17 @@ import java.util.List;
 @Entity
 @Table(name = "posts")
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Include
     private int id;
     private String text;
     private LocalDateTime created;
-    private int userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
@@ -39,5 +43,9 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
     private List<User> participates;
+
+    @OneToMany
+    @JoinColumn(name = "car_id")
+    private Car car;
 
 }
