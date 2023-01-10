@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS posts(
     id SERIAL PRIMARY KEY,
-    text TEXT,
+    description TEXT,
     created TIMESTAMP WITHOUT TIME ZONE,
     user_id INT NOT NULL REFERENCES users(id)
 );
