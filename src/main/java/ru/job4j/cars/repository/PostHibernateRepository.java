@@ -24,7 +24,10 @@ public class PostHibernateRepository implements PostRepository {
     private final CrudRepository crudRepository;
 
     private static final String FIND_BY_LAST_DAY = """
-            SELECT date(created) FROM Post WHERE date(created) = :pYesterday
+            SELECT *
+            FROM Post
+            WHERE created
+            BETWEEN now()::timestamp - interval '1' day AND now()::timestamp
             """;
 
     private static final String FIND_WITH_PHOTO = "FROM Post WHERE photo IS NOT NULL";
@@ -48,5 +51,10 @@ public class PostHibernateRepository implements PostRepository {
                 Post.class,
                 Map.of("pBrand", brand, "pModel", model));
     }
+
+    /*@Override
+    public void close() {
+        StandardServiceRegistryBuilder.destroy(registry);
+    }*/
 
 }

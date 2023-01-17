@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.service;
 
 import ru.job4j.cars.model.User;
 
@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * User repository interface
+ * User service interface
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
- * @since 23.11.22
+ * @since 15.01.23
  */
-public interface UserRepository {
+public interface UserService {
 
     Optional<User> add(User user);
 
@@ -31,5 +31,3 @@ public interface UserRepository {
     Optional<User> findByLoginAndPassword(String login, String password);
 
 }
-
-

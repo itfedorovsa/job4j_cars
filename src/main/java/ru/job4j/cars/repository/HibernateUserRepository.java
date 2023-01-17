@@ -21,17 +21,24 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateUserRepository implements UserRepository {
 
+    private static final String FIND_BY_LOGIN_AND_PASSWORD = "FROM User WHERE login = :uLogin AND password = :uPass";
+
     private final CrudRepository crudRepository;
 
     /**
      * Save user in DB
      *
      * @param user User
-     * @return User with id
+     * @return Optional of User
      */
-    public User create(User user) {
-        crudRepository.run(session -> session.persist(user));
-        return user;
+    public Optional<User> add(User user) {
+        Optional<User> temp = Optional.empty();
+        try {
+            crudRepository.run(session -> session.save(user));
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+        return user.getId() == 0 ? temp : Optional.of(user);
     }
 
     /**
@@ -56,7 +63,7 @@ public class HibernateUserRepository implements UserRepository {
     }
 
     /**
-     * List of users sorted by id
+     * Find list of users sorted by id
      *
      * @return List of users
      */
@@ -100,5 +107,26 @@ public class HibernateUserRepository implements UserRepository {
                 "FROM User WHERE login = :uLogin", User.class,
                 Map.of("uLogin", login)
         );
+    }
+
+    /**
+     * Find user by login and password
+     *
+     * @param login    Login
+     * @param password Password
+     * @return Optional of user or empty Optional
+     */
+    @Override
+    public Optional<User> findByLoginAndPassword(String login, String password) {
+        Optional<User> user = Optional.empty();
+        try {
+            user = crudRepository.optional(
+                    FIND_BY_LOGIN_AND_PASSWORD,
+                    User.class,
+                    Map.of("uLogin", login, "uPass", password));
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

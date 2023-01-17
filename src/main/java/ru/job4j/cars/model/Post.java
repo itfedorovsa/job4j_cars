@@ -44,7 +44,7 @@ public class Post {
     )
     private List<User> participates;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
 

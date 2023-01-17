@@ -6,6 +6,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.cars.model.User;
 
+import java.util.Optional;
+
 /**
  * User usage demo class
  */
@@ -19,7 +21,7 @@ public class UserUsage {
             var user = new User();
             user.setLogin("admin");
             user.setPassword("admin");
-            user = userRepository.create(user);
+            Optional<User> userOpt = userRepository.add(user);
             userRepository.findAllOrderById()
                     .forEach(System.out::println);
             userRepository.findByLikeLogin("e")

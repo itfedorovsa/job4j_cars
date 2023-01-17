@@ -1,5 +1,7 @@
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
-    login TEXT,
-    password TEXT
+    login VARCHAR NOT NULL UNIQUE,
+    password VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
+    timezone VARCHAR NOT NULL DEFAULT 'UTC'
 );
