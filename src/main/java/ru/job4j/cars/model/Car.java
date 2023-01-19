@@ -26,13 +26,33 @@ public class Car {
     @Include
     private int id;
 
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model_id")
+    private Model model;
 
     private String vin;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "engine_id", referencedColumnName = "id")
-    private Engine engine;
+    private int mileage;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "body_id")
+    private Body body;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "colour_id")
+    private Colour colour;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "year_id")
+    private ReleaseYear releaseYear;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "engine_volume_id")
+    private EngineVolume engineVolume;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "history_owners", joinColumns = {

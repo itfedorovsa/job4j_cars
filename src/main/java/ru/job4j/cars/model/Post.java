@@ -25,7 +25,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Include
     private int id;
-    private String text;
+
+    private String description;
+
     private LocalDateTime created;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,5 +51,7 @@ public class Post {
     private Car car;
 
     private byte[] photo;
+
+    private int price;
 
 }

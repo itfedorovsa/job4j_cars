@@ -1,0 +1,2 @@
+ALTER TABLE owners_history ALTER COLUMN start_at SET NOT NULL;
+ALTER TABLE owners_history ALTER COLUMN end_at SET NOT NULL;

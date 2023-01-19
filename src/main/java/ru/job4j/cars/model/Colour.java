@@ -2,26 +2,25 @@ package ru.job4j.cars.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
 
 /**
- * Engine model
+ * Colour model
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
- * @since 08.01.23
+ * @since 19.01.23
  */
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "engines")
-public class Engine {
+@Table(name = "colours")
+public class Colour {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Include
+    @EqualsAndHashCode.Include
     private int id;
 
     private String name;

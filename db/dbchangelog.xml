@@ -15,4 +15,23 @@
     <include file="scripts/008_ddl_create_owners_history_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/009_ddl_alter_posts_table_add_columns.sql" relativeToChangelogFile="true"/>
     <include file="scripts/010_ddl_alter_users_table_add_columns.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/011_ddl_create_bodies_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/012_ddl_create_colours_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/013_ddl_create_release_years_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/014_ddl_create_transmissions_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/015_ddl_create_engines_volume_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/016_ddl_create_brands_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/017_ddl_create_models_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/018_ddl_alter_cars_table_add_columns.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/019_ddl_alter_cars_table_delete_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/020_ddl_alter_cars_table_delete_constraint.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/021_ddl_alter_owners_history_table_add_constraints.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/022_ddl_alter_posts_table_add_constraint.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/023_ddl_alter_posts_table_update_columns.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/024_ddl_alter_owners_table_add_constraints.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/025_ddl_alter_posts_table_add_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/026_ddl_alter_users_table_add_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/027_ddl_alter_posts_table_add_constraint.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/028_ddl_drop_engines_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/029_ddl_alter_cars_table_drop_column.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

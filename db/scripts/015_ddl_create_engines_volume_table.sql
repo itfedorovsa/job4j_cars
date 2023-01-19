@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS engines_volume(
+    id SERIAL PRIMARY KEY,
+    engine_volume DOUBLE PRECISION NOT NULL
+);

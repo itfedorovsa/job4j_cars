@@ -24,8 +24,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Include
     private int id;
+
     private String login;
+
     private String password;
+
     private String name;
+
     private String timezone;
+
+    private String phone;
+
 }
