@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.TimeZone;
 
 /**
- * UserController
+ * User controller
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0

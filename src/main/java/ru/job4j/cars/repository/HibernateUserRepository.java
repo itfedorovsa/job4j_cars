@@ -26,7 +26,7 @@ public class HibernateUserRepository implements UserRepository {
     private final CrudRepository crudRepository;
 
     /**
-     * Save user in DB
+     * Save User in DB
      *
      * @param user User
      * @return Optional of User
@@ -42,7 +42,7 @@ public class HibernateUserRepository implements UserRepository {
     }
 
     /**
-     * Update user in DB
+     * Update User in DB
      *
      * @param user User
      */
@@ -51,9 +51,9 @@ public class HibernateUserRepository implements UserRepository {
     }
 
     /**
-     * Delete user by id
+     * Delete User by id
      *
-     * @param userId ID
+     * @param userId User id
      */
     public void delete(int userId) {
         crudRepository.run(
@@ -63,16 +63,16 @@ public class HibernateUserRepository implements UserRepository {
     }
 
     /**
-     * Find list of users sorted by id
+     * Find list of User sorted by id
      *
-     * @return List of users
+     * @return List of User
      */
     public List<User> findAllOrderById() {
         return crudRepository.query("FROM User ORDER BY id ASC", User.class);
     }
 
     /**
-     * Find user by id
+     * Find User by id
      *
      * @return User
      */
@@ -84,10 +84,10 @@ public class HibernateUserRepository implements UserRepository {
     }
 
     /**
-     * List of users by login LIKE %key%
+     * List of User by login LIKE %key%
      *
      * @param key Key
-     * @return List of users
+     * @return List of User
      */
     public List<User> findByLikeLogin(String key) {
         return crudRepository.query(
@@ -97,10 +97,10 @@ public class HibernateUserRepository implements UserRepository {
     }
 
     /**
-     * Find user by login
+     * Find User by login
      *
      * @param login Login
-     * @return Optional of user or empty Optional
+     * @return Optional of User or empty Optional
      */
     public Optional<User> findByLogin(String login) {
         return crudRepository.optional(
@@ -110,11 +110,11 @@ public class HibernateUserRepository implements UserRepository {
     }
 
     /**
-     * Find user by login and password
+     * Find User by login and password
      *
      * @param login    Login
      * @param password Password
-     * @return Optional of user or empty Optional
+     * @return Optional of User or empty Optional
      */
     @Override
     public Optional<User> findByLoginAndPassword(String login, String password) {

@@ -27,10 +27,6 @@ public class Car {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "model_id")
     private Model model;
 
@@ -65,5 +61,17 @@ public class Car {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private Owner owner;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "drivetrain_id")
+    private Drivetrain drivetrain;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fuel_type_id")
+    private FuelType fuelType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "door_count_id")
+    private DoorCount doorCount;
 
 }

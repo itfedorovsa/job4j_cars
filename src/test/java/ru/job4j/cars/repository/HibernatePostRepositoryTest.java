@@ -5,13 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.junit.AfterClass;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import ru.job4j.cars.model.Post;
-
-import static org.assertj.core.api.Assertions.*;
 
 /**
  * Post hibernate repository test class
@@ -20,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
  * @version 1.0
  * @since 15.01.23
  */
-public class PostHibernateRepositoryTest {
+public class HibernatePostRepositoryTest {
 
     private static final StandardServiceRegistry REGISTRY = new StandardServiceRegistryBuilder()
             .configure().build();
@@ -32,7 +27,7 @@ public class PostHibernateRepositoryTest {
 
     CrudRepository crudRepository = new CrudRepository(sf);
 
-    PostHibernateRepository repository = new PostHibernateRepository(crudRepository);
+    HibernatePostRepository repository = new HibernatePostRepository(crudRepository);
 
     @AfterEach
     public void wipeTable() {

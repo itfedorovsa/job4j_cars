@@ -34,4 +34,14 @@
     <include file="scripts/027_ddl_alter_posts_table_add_constraint.sql" relativeToChangelogFile="true"/>
     <include file="scripts/028_ddl_drop_engines_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/029_ddl_alter_cars_table_drop_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/030_ddl_alter_posts_table_drop_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/031_ddl_alter_posts_table_add_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/032_ddl_alter_participates_table_rename.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/033_ddl_create_drivetrains_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/034_ddl_alter_models_table_add_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/035_ddl_alter_cars_table_delete_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/036_ddl_create_fuel_types_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/037_ddl_create_doors_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/038_ddl_alter_engines_volume_table_rename.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/039_ddl_alter_cars_table_add_columns.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

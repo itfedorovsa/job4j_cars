@@ -1,0 +1,1 @@
+ALTER TABLE cars drop COLUMN brand_id;

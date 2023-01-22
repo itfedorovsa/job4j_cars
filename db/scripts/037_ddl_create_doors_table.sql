@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS doors(
+    id SERIAL PRIMARY KEY,
+    amount TEXT NOT NULL
+);

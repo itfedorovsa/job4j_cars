@@ -1,0 +1,1 @@
+INSERT INTO doors (amount) VALUES ('2 doors'), ('3 doors'), ('4 doors'), ('5 doors'), ('Other');

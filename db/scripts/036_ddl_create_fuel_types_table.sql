@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS fuel_types(
+    id SERIAL PRIMARY KEY,
+    type TEXT
+);

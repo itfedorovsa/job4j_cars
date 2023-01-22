@@ -19,7 +19,7 @@ import java.util.Map;
 @Repository
 @AllArgsConstructor
 @ThreadSafe
-public class PostHibernateRepository implements PostRepository {
+public class HibernatePostRepository implements PostRepository {
 
     private final CrudRepository crudRepository;
 
@@ -27,7 +27,7 @@ public class PostHibernateRepository implements PostRepository {
             SELECT *
             FROM Post
             WHERE created
-            BETWEEN now()::timestamp - interval '1' day AND now()::timestamp
+            BETWEEN :pMinusDay AND :pNow
             """;
 
     private static final String FIND_WITH_PHOTO = "FROM Post WHERE photo IS NOT NULL";
@@ -36,7 +36,9 @@ public class PostHibernateRepository implements PostRepository {
 
     @Override
     public List<Post> findPostsByLastDay() {
-        return crudRepository.query(FIND_BY_LAST_DAY, Post.class, Map.of("pYesterday", LocalDate.now().minusDays(1)));
+        return crudRepository.query(FIND_BY_LAST_DAY,
+                Post.class,
+                Map.of("pMinusDay", LocalDate.now().minusDays(1), "pNow", LocalDate.now()));
     }
 
     @Override
@@ -51,10 +53,5 @@ public class PostHibernateRepository implements PostRepository {
                 Post.class,
                 Map.of("pBrand", brand, "pModel", model));
     }
-
-    /*@Override
-    public void close() {
-        StandardServiceRegistryBuilder.destroy(registry);
-    }*/
 
 }

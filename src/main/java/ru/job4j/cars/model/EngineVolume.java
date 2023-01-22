@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "engines_volume")
+@Table(name = "engine_volumes")
 public class EngineVolume {
 
     @Id

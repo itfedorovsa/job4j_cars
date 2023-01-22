@@ -50,8 +50,8 @@ public class Post {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    private byte[] photo;
-
     private int price;
+
+    private int fileId;
 
 }

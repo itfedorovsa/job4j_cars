@@ -10,7 +10,7 @@ import ru.job4j.cars.model.User;
 import javax.servlet.http.HttpSession;
 
 /**
- * Index Controller
+ * Index controller
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
