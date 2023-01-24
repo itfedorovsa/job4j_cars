@@ -24,12 +24,12 @@ public class SimpleColourService implements ColourService {
     private final ColourRepository store;
 
     @Override
-    public List<Colour> getAllColours() {
-        return store.getAllColours();
+    public List<Colour> findAllColours() {
+        return store.findAllColours();
     }
 
     @Override
-    public Optional<Colour> getColourById(int id) {
-        return store.getColourById(id);
+    public Optional<Colour> findColourById(int colourId) {
+        return store.findColourById(colourId);
     }
 }

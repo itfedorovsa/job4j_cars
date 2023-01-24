@@ -23,7 +23,7 @@ public class HibernateBrandRepository implements BrandRepository {
 
     private static final String FIND_ALL_BRANDS = "FROM Brand";
 
-    private static final String FIND_BRAND_BY_ID = "FROM Brand WHERE id = :pId";
+    private static final String FIND_BRAND_BY_ID = "FROM Brand WHERE id = :bId";
 
     private final CrudRepository crudRepository;
 
@@ -33,22 +33,22 @@ public class HibernateBrandRepository implements BrandRepository {
      * @return List of Brand
      */
     @Override
-    public List<Brand> getAllBrands() {
+    public List<Brand> findAllBrands() {
         return crudRepository.query(FIND_ALL_BRANDS, Brand.class);
     }
 
     /**
      * Find Brand by id
      *
-     * @param id Brand id
+     * @param brandId Brand id
      * @return Optional of Brand or empty Optional
      */
     @Override
-    public Optional<Brand> getBrandById(int id) {
+    public Optional<Brand> findBrandById(int brandId) {
         return crudRepository.optional(
                 FIND_BRAND_BY_ID,
                 Brand.class,
-                Map.of("pId", id));
+                Map.of("bId", brandId));
     }
 
 }

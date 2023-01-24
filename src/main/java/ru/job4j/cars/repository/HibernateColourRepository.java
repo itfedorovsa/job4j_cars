@@ -23,7 +23,7 @@ public class HibernateColourRepository implements ColourRepository {
 
     private static final String FIND_ALL_COLOURS = "FROM Colour";
 
-    private static final String FIND_COLOUR_BY_ID = "FROM Colour WHERE id = :pId";
+    private static final String FIND_COLOUR_BY_ID = "FROM Colour WHERE id = :cId";
 
     private final CrudRepository crudRepository;
 
@@ -33,22 +33,22 @@ public class HibernateColourRepository implements ColourRepository {
      * @return List of Colour
      */
     @Override
-    public List<Colour> getAllColours() {
+    public List<Colour> findAllColours() {
         return crudRepository.query(FIND_ALL_COLOURS, Colour.class);
     }
 
     /**
      * Find Colour by id
      *
-     * @param id Colour id
+     * @param colourId Colour id
      * @return Optional of Colour or empty Optional
      */
     @Override
-    public Optional<Colour> getColourById(int id) {
+    public Optional<Colour> findColourById(int colourId) {
         return crudRepository.optional(
                 FIND_COLOUR_BY_ID,
                 Colour.class,
-                Map.of("pId", id));
+                Map.of("cId", colourId));
     }
 
 }

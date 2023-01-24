@@ -1,8 +1,5 @@
 package ru.job4j.cars.repository;
 
-import lombok.AllArgsConstructor;
-import net.jcip.annotations.ThreadSafe;
-import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.File;
 
 import java.util.Optional;
@@ -18,8 +15,8 @@ public interface FileRepository {
 
     File save(File file);
 
-    Optional<File> findById(int id);
+    Optional<File> findById(int fileId);
 
-    boolean deleteById(int id);
+    boolean deleteById(int fileId);
 
 }

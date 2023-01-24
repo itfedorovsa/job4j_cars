@@ -14,8 +14,8 @@ import java.util.Optional;
  */
 public interface BodyService {
 
-    List<Body> getAllBodies();
+    List<Body> findAllBodies();
 
-    Optional<Body> getBodyById(int id);
+    Optional<Body> findBodyById(int bodyId);
 
 }

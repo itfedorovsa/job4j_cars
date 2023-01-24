@@ -21,6 +21,16 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateUserRepository implements UserRepository {
 
+    private static final String DELETE_USER = "DELETE FROM User WHERE id = :uId";
+
+    private static final String FIND_ALL_USERS_ORDER_BY_ID = "FROM User ORDER BY id ASC";
+
+    private static final String FIND_USER_BY_ID = "FROM User WHERE id = :uId";
+
+    private static final String FIND_USER_BY_LIKE_LOGIN = "FROM User WHERE login LIKE :uKey";
+
+    private static final String FIND_USER_BY_LOGIN = "FROM User WHERE login = :uLogin";
+
     private static final String FIND_BY_LOGIN_AND_PASSWORD = "FROM User WHERE login = :uLogin AND password = :uPass";
 
     private final CrudRepository crudRepository;
@@ -32,13 +42,12 @@ public class HibernateUserRepository implements UserRepository {
      * @return Optional of User
      */
     public Optional<User> add(User user) {
-        Optional<User> temp = Optional.empty();
         try {
-            crudRepository.run(session -> session.save(user));
+            crudRepository.run(session -> session.persist(user));
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
-        return user.getId() == 0 ? temp : Optional.of(user);
+        return user.getId() == 0 ? Optional.empty() : Optional.of(user);
     }
 
     /**
@@ -56,10 +65,7 @@ public class HibernateUserRepository implements UserRepository {
      * @param userId User id
      */
     public void delete(int userId) {
-        crudRepository.run(
-                "DELETE FROM User WHERE id = :uId",
-                Map.of("uId", userId)
-        );
+        crudRepository.run(DELETE_USER, Map.of("uId", userId));
     }
 
     /**
@@ -67,8 +73,8 @@ public class HibernateUserRepository implements UserRepository {
      *
      * @return List of User
      */
-    public List<User> findAllOrderById() {
-        return crudRepository.query("FROM User ORDER BY id ASC", User.class);
+    public List<User> findAllUsersOrderById() {
+        return crudRepository.query(FIND_ALL_USERS_ORDER_BY_ID, User.class);
     }
 
     /**
@@ -76,9 +82,10 @@ public class HibernateUserRepository implements UserRepository {
      *
      * @return User
      */
-    public Optional<User> findById(int userId) {
+    public Optional<User> findUserById(int userId) {
         return crudRepository.optional(
-                "FROM User WHERE id = :uId", User.class,
+                FIND_USER_BY_ID,
+                User.class,
                 Map.of("uId", userId)
         );
     }
@@ -89,9 +96,10 @@ public class HibernateUserRepository implements UserRepository {
      * @param key Key
      * @return List of User
      */
-    public List<User> findByLikeLogin(String key) {
+    public List<User> findUserByLikeLogin(String key) {
         return crudRepository.query(
-                "FROM User WHERE login LIKE :uKey", User.class,
+                FIND_USER_BY_LIKE_LOGIN,
+                User.class,
                 Map.of("uKey", "%" + key + "%")
         );
     }
@@ -102,9 +110,10 @@ public class HibernateUserRepository implements UserRepository {
      * @param login Login
      * @return Optional of User or empty Optional
      */
-    public Optional<User> findByLogin(String login) {
+    public Optional<User> findUserByLogin(String login) {
         return crudRepository.optional(
-                "FROM User WHERE login = :uLogin", User.class,
+                FIND_USER_BY_LOGIN,
+                User.class,
                 Map.of("uLogin", login)
         );
     }
@@ -117,7 +126,7 @@ public class HibernateUserRepository implements UserRepository {
      * @return Optional of User or empty Optional
      */
     @Override
-    public Optional<User> findByLoginAndPassword(String login, String password) {
+    public Optional<User> findUserByLoginAndPassword(String login, String password) {
         Optional<User> user = Optional.empty();
         try {
             user = crudRepository.optional(

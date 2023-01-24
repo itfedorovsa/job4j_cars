@@ -14,8 +14,8 @@ import java.util.Optional;
  */
 public interface DoorCountService {
 
-    List<DoorCount> getAllDoorCounts();
+    List<DoorCount> findAllDoorCounts();
 
-    Optional<DoorCount> getDoorCountById(int id);
+    Optional<DoorCount> findDoorCountById(int doorCountId);
 
 }

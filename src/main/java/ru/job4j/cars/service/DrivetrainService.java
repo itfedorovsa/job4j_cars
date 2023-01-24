@@ -14,8 +14,8 @@ import java.util.Optional;
  */
 public interface DrivetrainService {
 
-    List<Drivetrain> getAllDrivetrains();
+    List<Drivetrain> findAllDrivetrains();
 
-    Optional<Drivetrain> getDrivetrainById(int id);
+    Optional<Drivetrain> findDrivetrainById(int drivetrainId);
 
 }

@@ -24,12 +24,12 @@ public class SimpleDoorCountService implements DoorCountService {
     private final DoorCountRepository store;
 
     @Override
-    public List<DoorCount> getAllDoorCounts() {
-        return store.getAllDoorCounts();
+    public List<DoorCount> findAllDoorCounts() {
+        return store.findAllDoorCounts();
     }
 
     @Override
-    public Optional<DoorCount> getDoorCountById(int id) {
-        return store.getDoorCountById(id);
+    public Optional<DoorCount> findDoorCountById(int doorCountId) {
+        return store.findDoorCountById(doorCountId);
     }
 }

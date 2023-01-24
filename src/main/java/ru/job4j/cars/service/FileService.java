@@ -16,8 +16,8 @@ public interface FileService {
 
     File save(FileDto fileDto);
 
-    Optional<FileDto> getFileById(int id);
+    Optional<FileDto> getFileById(int fileId);
 
-    boolean deleteById(int id);
+    boolean deleteById(int fileId);
 
 }

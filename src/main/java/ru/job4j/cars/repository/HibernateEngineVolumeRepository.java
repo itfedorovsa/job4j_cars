@@ -23,7 +23,7 @@ public class HibernateEngineVolumeRepository implements EngineVolumeRepository {
 
     private static final String FIND_ALL_ENGINE_VOLUMES = "FROM EngineVolume";
 
-    private static final String FIND_ENGINE_VOLUME_BY_ID = "FROM EngineVolume WHERE id = :pId";
+    private static final String FIND_ENGINE_VOLUME_BY_ID = "FROM EngineVolume WHERE id = :eId";
 
     private final CrudRepository crudRepository;
 
@@ -33,22 +33,19 @@ public class HibernateEngineVolumeRepository implements EngineVolumeRepository {
      * @return List of EngineVolume
      */
     @Override
-    public List<EngineVolume> getAllEngineVolumes() {
+    public List<EngineVolume> findAllEngineVolumes() {
         return crudRepository.query(FIND_ALL_ENGINE_VOLUMES, EngineVolume.class);
     }
 
     /**
      * Find EngineVolume by id
      *
-     * @param id EngineVolume id
+     * @param engineVolumeId EngineVolume id
      * @return Optional of EngineVolume or empty Optional
      */
     @Override
-    public Optional<EngineVolume> getEngineVolumeById(int id) {
-        return crudRepository.optional(
-                FIND_ENGINE_VOLUME_BY_ID,
-                EngineVolume.class,
-                Map.of("pId", id));
+    public Optional<EngineVolume> findEngineVolumeById(int engineVolumeId) {
+        return crudRepository.optional(FIND_ENGINE_VOLUME_BY_ID, EngineVolume.class, Map.of("eId", engineVolumeId));
     }
 
 }

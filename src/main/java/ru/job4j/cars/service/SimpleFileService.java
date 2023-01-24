@@ -87,12 +87,12 @@ public class SimpleFileService implements FileService {
     /**
      * Finds FindDto by id
      *
-     * @param id File id
+     * @param fileId File id
      * @return Optional of FileDto
      */
     @Override
-    public Optional<FileDto> getFileById(int id) {
-        Optional<File> fileOptional = fileRepository.findById(id);
+    public Optional<FileDto> getFileById(int fileId) {
+        Optional<File> fileOptional = fileRepository.findById(fileId);
         if (fileOptional.isEmpty()) {
             return Optional.empty();
         }
@@ -117,17 +117,17 @@ public class SimpleFileService implements FileService {
     /**
      * Deletes file from repository
      *
-     * @param id File id
+     * @param fileId File id
      * @return true if deleted, otherwise false
      */
     @Override
-    public boolean deleteById(int id) {
-        Optional<File> fileOptional = fileRepository.findById(id);
+    public boolean deleteById(int fileId) {
+        Optional<File> fileOptional = fileRepository.findById(fileId);
         if (fileOptional.isEmpty()) {
             return false;
         }
         deleteFile(fileOptional.get().getPath());
-        return fileRepository.deleteById(id);
+        return fileRepository.deleteById(fileId);
     }
 
     /**

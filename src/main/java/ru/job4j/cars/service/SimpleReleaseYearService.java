@@ -24,12 +24,12 @@ public class SimpleReleaseYearService implements ReleaseYearService {
     private final ReleaseYearRepository store;
 
     @Override
-    public List<ReleaseYear> getAllReleaseYears() {
-        return store.getAllReleaseYears();
+    public List<ReleaseYear> findAllReleaseYears() {
+        return store.findAllReleaseYears();
     }
 
     @Override
-    public Optional<ReleaseYear> getReleaseYearById(int id) {
-        return store.getReleaseYearById(id);
+    public Optional<ReleaseYear> findReleaseYearById(int releaseYearId) {
+        return store.findReleaseYearById(releaseYearId);
     }
 }

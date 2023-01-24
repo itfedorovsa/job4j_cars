@@ -23,7 +23,7 @@ public class HibernateDrivetrainRepository implements DrivetrainRepository {
 
     private static final String FIND_ALL_DRIVETRAINS = "FROM Drivetrain";
 
-    private static final String FIND_DRIVETRAIN_BY_ID = "FROM Drivetrain WHERE id = :pId";
+    private static final String FIND_DRIVETRAIN_BY_ID = "FROM Drivetrain WHERE id = :dId";
 
     private final CrudRepository crudRepository;
 
@@ -33,22 +33,22 @@ public class HibernateDrivetrainRepository implements DrivetrainRepository {
      * @return List of Drivetrain
      */
     @Override
-    public List<Drivetrain> getAllDrivetrains() {
+    public List<Drivetrain> findAllDrivetrains() {
         return crudRepository.query(FIND_ALL_DRIVETRAINS, Drivetrain.class);
     }
 
     /**
      * Find Drivetrain by id
      *
-     * @param id Drivetrain id
+     * @param drivetrainId Drivetrain id
      * @return Optional of Drivetrain or empty Optional
      */
     @Override
-    public Optional<Drivetrain> getDrivetrainById(int id) {
+    public Optional<Drivetrain> findDrivetrainById(int drivetrainId) {
         return crudRepository.optional(
                 FIND_DRIVETRAIN_BY_ID,
                 Drivetrain.class,
-                Map.of("pId", id));
+                Map.of("dId", drivetrainId));
     }
 
 }

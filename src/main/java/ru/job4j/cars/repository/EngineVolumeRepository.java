@@ -14,8 +14,8 @@ import java.util.Optional;
  */
 public interface EngineVolumeRepository {
 
-    List<EngineVolume> getAllEngineVolumes();
+    List<EngineVolume> findAllEngineVolumes();
 
-    Optional<EngineVolume> getEngineVolumeById(int id);
+    Optional<EngineVolume> findEngineVolumeById(int engineVolumeId);
 
 }

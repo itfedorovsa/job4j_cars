@@ -23,7 +23,7 @@ public class HibernateTransmissionRepository implements TransmissionRepository {
 
     private static final String FIND_ALL_TRANSMISSIONS = "FROM Transmission";
 
-    private static final String FIND_TRANSMISSION_BY_ID = "FROM Transmission WHERE id = :pId";
+    private static final String FIND_TRANSMISSION_BY_ID = "FROM Transmission WHERE id = :tId";
 
     private final CrudRepository crudRepository;
 
@@ -33,22 +33,22 @@ public class HibernateTransmissionRepository implements TransmissionRepository {
      * @return List of Transmission
      */
     @Override
-    public List<Transmission> getAllTransmissions() {
+    public List<Transmission> findAllTransmissions() {
         return crudRepository.query(FIND_ALL_TRANSMISSIONS, Transmission.class);
     }
 
     /**
      * Find Transmission by id
      *
-     * @param id Transmission id
+     * @param transmissionId Transmission id
      * @return Optional of Transmission or empty Optional
      */
     @Override
-    public Optional<Transmission> getTransmissionById(int id) {
+    public Optional<Transmission> findTransmissionById(int transmissionId) {
         return crudRepository.optional(
                 FIND_TRANSMISSION_BY_ID,
                 Transmission.class,
-                Map.of("pId", id));
+                Map.of("tId", transmissionId));
     }
 
 }

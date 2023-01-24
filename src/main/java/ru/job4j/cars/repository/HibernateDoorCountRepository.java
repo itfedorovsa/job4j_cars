@@ -23,7 +23,7 @@ public class HibernateDoorCountRepository implements DoorCountRepository {
 
     private static final String FIND_ALL_DOOR_COUNTS = "FROM DoorCount";
 
-    private static final String FIND_DOOR_COUNT_BY_ID = "FROM DoorCount WHERE id = :pId";
+    private static final String FIND_DOOR_COUNT_BY_ID = "FROM DoorCount WHERE id = :dId";
 
     private final CrudRepository crudRepository;
 
@@ -33,22 +33,22 @@ public class HibernateDoorCountRepository implements DoorCountRepository {
      * @return List of DoorCount
      */
     @Override
-    public List<DoorCount> getAllDoorCounts() {
+    public List<DoorCount> findAllDoorCounts() {
         return crudRepository.query(FIND_ALL_DOOR_COUNTS, DoorCount.class);
     }
 
     /**
      * Find DoorCount by id
      *
-     * @param id DoorCount id
+     * @param doorCountId DoorCount id
      * @return Optional of DoorCount or empty Optional
      */
     @Override
-    public Optional<DoorCount> getDoorCountById(int id) {
+    public Optional<DoorCount> findDoorCountById(int doorCountId) {
         return crudRepository.optional(
                 FIND_DOOR_COUNT_BY_ID,
                 DoorCount.class,
-                Map.of("pId", id));
+                Map.of("dId", doorCountId));
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Memory File repository
+ * MemoryFile repository
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
@@ -26,6 +26,10 @@ public class MemoryFileRepository implements FileRepository {
 
     private final Map<Integer, File> files = new ConcurrentHashMap<>();
 
+    /**
+     * @param file
+     * @return
+     */
     @Override
     public File save(File file) {
         file.setId(nextId.incrementAndGet());
@@ -33,14 +37,22 @@ public class MemoryFileRepository implements FileRepository {
         return file;
     }
 
+    /**
+     * @param fileId
+     * @return
+     */
     @Override
-    public Optional<File> findById(int id) {
-        return Optional.ofNullable(files.get(id));
+    public Optional<File> findById(int fileId) {
+        return Optional.ofNullable(files.get(fileId));
     }
 
+    /**
+     * @param fileId
+     * @return
+     */
     @Override
-    public boolean deleteById(int id) {
-        return files.remove(id) != null;
+    public boolean deleteById(int fileId) {
+        return files.remove(fileId) != null;
     }
 
 }

@@ -39,27 +39,27 @@ public class SimpleUserService implements UserService {
     }
 
     @Override
-    public List<User> findAllOrderById() {
-        return store.findAllOrderById();
+    public List<User> findAllUsersOrderById() {
+        return store.findAllUsersOrderById();
     }
 
     @Override
-    public Optional<User> findById(int userId) {
-        return store.findById(userId);
+    public Optional<User> findUserById(int userId) {
+        return store.findUserById(userId);
     }
 
     @Override
-    public List<User> findByLikeLogin(String key) {
-        return store.findByLikeLogin(key);
+    public List<User> findUserByLikeLogin(String key) {
+        return store.findUserByLikeLogin(key);
     }
 
     @Override
-    public Optional<User> findByLogin(String login) {
-        return store.findByLogin(login);
+    public Optional<User> findUserByLogin(String login) {
+        return store.findUserByLogin(login);
     }
 
     @Override
-    public Optional<User> findByLoginAndPassword(String login, String password) {
-        return store.findByLoginAndPassword(login, password);
+    public Optional<User> findUserByLoginAndPassword(String login, String password) {
+        return store.findUserByLoginAndPassword(login, password);
     }
 }

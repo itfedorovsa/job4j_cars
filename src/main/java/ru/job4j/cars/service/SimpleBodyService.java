@@ -24,12 +24,12 @@ public class SimpleBodyService implements BodyService {
     private final BodyRepository store;
 
     @Override
-    public List<Body> getAllBodies() {
-        return store.getAllBodies();
+    public List<Body> findAllBodies() {
+        return store.findAllBodies();
     }
 
     @Override
-    public Optional<Body> getBodyById(int id) {
-        return store.getBodyById(id);
+    public Optional<Body> findBodyById(int bodyId) {
+        return store.findBodyById(bodyId);
     }
 }

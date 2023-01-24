@@ -23,7 +23,7 @@ public class HibernateReleaseYearRepository implements ReleaseYearRepository {
 
     private static final String FIND_ALL_RELEASE_YEARS = "FROM ReleaseYear";
 
-    private static final String FIND_RELEASE_YEAR_BY_ID = "FROM ReleaseYear WHERE id = :pId";
+    private static final String FIND_RELEASE_YEAR_BY_ID = "FROM ReleaseYear WHERE id = :rId";
 
     private final CrudRepository crudRepository;
 
@@ -33,22 +33,22 @@ public class HibernateReleaseYearRepository implements ReleaseYearRepository {
      * @return List of ReleaseYear
      */
     @Override
-    public List<ReleaseYear> getAllReleaseYears() {
+    public List<ReleaseYear> findAllReleaseYears() {
         return crudRepository.query(FIND_ALL_RELEASE_YEARS, ReleaseYear.class);
     }
 
     /**
      * Find ReleaseYear by id
      *
-     * @param id ReleaseYear id
+     * @param releaseYearId ReleaseYear id
      * @return Optional of ReleaseYear or empty Optional
      */
     @Override
-    public Optional<ReleaseYear> getReleaseYearById(int id) {
+    public Optional<ReleaseYear> findReleaseYearById(int releaseYearId) {
         return crudRepository.optional(
                 FIND_RELEASE_YEAR_BY_ID,
                 ReleaseYear.class,
-                Map.of("pId", id));
+                Map.of("rId", releaseYearId));
     }
 
 }

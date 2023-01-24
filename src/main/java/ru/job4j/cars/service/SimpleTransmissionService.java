@@ -24,12 +24,12 @@ public class SimpleTransmissionService implements TransmissionService {
     private final TransmissionRepository store;
 
     @Override
-    public List<Transmission> getAllTransmissions() {
-        return store.getAllTransmissions();
+    public List<Transmission> findAllTransmissions() {
+        return store.findAllTransmissions();
     }
 
     @Override
-    public Optional<Transmission> getTransmissionById(int id) {
-        return store.getTransmissionById(id);
+    public Optional<Transmission> findTransmissionById(int transmissionId) {
+        return store.findTransmissionById(transmissionId);
     }
 }

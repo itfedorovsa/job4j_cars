@@ -24,13 +24,13 @@ public class SimpleFuelTypeService implements FuelTypeService {
     private final FuelTypeRepository store;
 
     @Override
-    public List<FuelType> getAllFuelTypes() {
-        return store.getAllFuelTypes();
+    public List<FuelType> findAllFuelTypes() {
+        return store.findAllFuelTypes();
     }
 
     @Override
-    public Optional<FuelType> getFuelTypeById(int id) {
-        return store.getFuelTypeById(id);
+    public Optional<FuelType> findFuelTypeById(int fuelTypeId) {
+        return store.findFuelTypeById(fuelTypeId);
     }
 
 }

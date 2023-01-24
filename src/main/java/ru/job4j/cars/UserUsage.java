@@ -24,21 +24,21 @@ public class UserUsage {
             user.setLogin("admin");
             user.setPassword("admin");
             Optional<User> userOpt = userRepository.add(user);
-            userRepository.findAllOrderById()
+            userRepository.findAllUsersOrderById()
                     .forEach(System.out::println);
-            userRepository.findByLikeLogin("e")
+            userRepository.findUserByLikeLogin("e")
                     .forEach(System.out::println);
-            System.out.println(userRepository.findByLikeLogin("adm"));
-            userRepository.findById(user.getId())
+            System.out.println(userRepository.findUserByLikeLogin("adm"));
+            userRepository.findUserById(user.getId())
                     .ifPresent(System.out::println);
-            userRepository.findByLogin("admin")
+            userRepository.findUserByLogin("admin")
                     .ifPresent(System.out::println);
             user.setPassword("password");
             userRepository.update(user);
-            userRepository.findById(user.getId())
+            userRepository.findUserById(user.getId())
                     .ifPresent(System.out::println);
             userRepository.delete(user.getId());
-            userRepository.findAllOrderById()
+            userRepository.findAllUsersOrderById()
                     .forEach(System.out::println);
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);

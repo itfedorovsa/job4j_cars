@@ -14,8 +14,8 @@ import java.util.Optional;
  */
 public interface ColourRepository {
 
-    List<Colour> getAllColours();
+    List<Colour> findAllColours();
 
-    Optional<Colour> getColourById(int id);
+    Optional<Colour> findColourById(int colourId);
 
 }

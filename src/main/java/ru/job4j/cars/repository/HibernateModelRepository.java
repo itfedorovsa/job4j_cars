@@ -21,9 +21,9 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateModelRepository implements ModelRepository {
 
-    private static final String FIND_ALL_MODELS = "FROM Model WHERE brand_id = :pId";
+    private static final String FIND_ALL_MODELS = "FROM Model WHERE brand_id = :bId";
 
-    private static final String FIND_MODEL_BY_ID = "FROM Model WHERE id = :pId";
+    private static final String FIND_MODEL_BY_ID = "FROM Model WHERE id = :mId";
 
     private final CrudRepository crudRepository;
 
@@ -37,7 +37,7 @@ public class HibernateModelRepository implements ModelRepository {
     public List<Model> getAllModelsByBrandId(int brandId) {
         return crudRepository.query(FIND_ALL_MODELS,
                 Model.class,
-                Map.of("pId", brandId));
+                Map.of("bId", brandId));
     }
 
     /**
@@ -51,7 +51,7 @@ public class HibernateModelRepository implements ModelRepository {
         return crudRepository.optional(
                 FIND_MODEL_BY_ID,
                 Model.class,
-                Map.of("pId", modelId));
+                Map.of("mId", modelId));
     }
 
 }

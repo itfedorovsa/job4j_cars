@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.service;
 
 import ru.job4j.cars.model.Owner;
 
@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Owner repository interface
+ * Owner service interface
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
- * @since 09.01.23
+ * @since 24.01.23
  */
-public interface OwnerRepository {
+public interface OwnerService {
 
     Optional<Owner> addOwner(Owner owner);
 

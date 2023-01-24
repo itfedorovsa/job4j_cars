@@ -20,15 +20,15 @@ public interface UserRepository {
 
     void delete(int userId);
 
-    List<User> findAllOrderById();
+    List<User> findAllUsersOrderById();
 
-    Optional<User> findById(int userId);
+    Optional<User> findUserById(int userId);
 
-    List<User> findByLikeLogin(String key);
+    List<User> findUserByLikeLogin(String key);
 
-    Optional<User> findByLogin(String login);
+    Optional<User> findUserByLogin(String login);
 
-    Optional<User> findByLoginAndPassword(String login, String password);
+    Optional<User> findUserByLoginAndPassword(String login, String password);
 
 }
 

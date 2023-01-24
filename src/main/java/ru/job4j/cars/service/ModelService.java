@@ -14,8 +14,8 @@ import java.util.Optional;
  */
 public interface ModelService {
 
-    List<Model> getAllModelsByBrandId(int brandId);
+    List<Model> findAllModelsByBrandId(int brandId);
 
-    Optional<Model> getModelById(int modelId);
+    Optional<Model> findModelById(int modelId);
 
 }

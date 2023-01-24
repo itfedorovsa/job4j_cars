@@ -23,7 +23,7 @@ public class HibernateFuelTypeRepository implements FuelTypeRepository {
 
     private static final String FIND_ALL_FUEL_TYPES = "FROM FuelType";
 
-    private static final String FIND_FUEL_TYPE_BY_ID = "FROM FuelType WHERE id = :pId";
+    private static final String FIND_FUEL_TYPE_BY_ID = "FROM FuelType WHERE id = :fId";
 
     private final CrudRepository crudRepository;
 
@@ -33,22 +33,22 @@ public class HibernateFuelTypeRepository implements FuelTypeRepository {
      * @return List of FuelType
      */
     @Override
-    public List<FuelType> getAllFuelTypes() {
+    public List<FuelType> findAllFuelTypes() {
         return crudRepository.query(FIND_ALL_FUEL_TYPES, FuelType.class);
     }
 
     /**
      * Find FuelType by id
      *
-     * @param id FuelType id
+     * @param fuelTypeId FuelType id
      * @return Optional of FuelType or empty Optional
      */
     @Override
-    public Optional<FuelType> getFuelTypeById(int id) {
+    public Optional<FuelType> findFuelTypeById(int fuelTypeId) {
         return crudRepository.optional(
                 FIND_FUEL_TYPE_BY_ID,
                 FuelType.class,
-                Map.of("pId", id));
+                Map.of("fId", fuelTypeId));
     }
 
 }

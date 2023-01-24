@@ -23,7 +23,7 @@ public class HibernateBodyRepository implements BodyRepository {
 
     private static final String FIND_ALL_BODIES = "FROM Body";
 
-    private static final String FIND_BODY_BY_ID = "FROM Body WHERE id = :pId";
+    private static final String FIND_BODY_BY_ID = "FROM Body WHERE id = :bId";
 
     private final CrudRepository crudRepository;
 
@@ -33,22 +33,22 @@ public class HibernateBodyRepository implements BodyRepository {
      * @return List of Body
      */
     @Override
-    public List<Body> getAllBodies() {
+    public List<Body> findAllBodies() {
         return crudRepository.query(FIND_ALL_BODIES, Body.class);
     }
 
     /**
      * Find Body by id
      *
-     * @param id Body id
+     * @param bodyId Body id
      * @return Optional of Body or empty Optional
      */
     @Override
-    public Optional<Body> getBodyById(int id) {
+    public Optional<Body> findBodyById(int bodyId) {
         return crudRepository.optional(
                 FIND_BODY_BY_ID,
                 Body.class,
-                Map.of("pId", id));
+                Map.of("bId", bodyId));
     }
 
 }
