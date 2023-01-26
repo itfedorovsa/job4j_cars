@@ -2,22 +2,23 @@ package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
-import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.File;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * MemoryFile repository
+ * Memory File repository
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
  * @since 22.01.23
  */
-@Repository
+/*@Repository*/
 @AllArgsConstructor
 @ThreadSafe
 public class MemoryFileRepository implements FileRepository {
@@ -27,32 +28,54 @@ public class MemoryFileRepository implements FileRepository {
     private final Map<Integer, File> files = new ConcurrentHashMap<>();
 
     /**
-     * @param file
-     * @return
+     * Save file into memory
+     *
+     * @param file File
+     * @return File with the installed id
      */
     @Override
-    public File save(File file) {
+    public File saveFile(File file) {
         file.setId(nextId.incrementAndGet());
         files.put(file.getId(), file);
         return file;
     }
 
     /**
-     * @param fileId
-     * @return
+     * Find File by id
+     *
+     * @param fileId File id
+     * @return Optional of File
      */
     @Override
-    public Optional<File> findById(int fileId) {
+    public Optional<File> findFileById(int fileId) {
         return Optional.ofNullable(files.get(fileId));
     }
 
     /**
-     * @param fileId
-     * @return
+     * Delete File by id
+     *
+     * @param fileId File id
+     * @return true if deleted, otherwise false
      */
     @Override
-    public boolean deleteById(int fileId) {
+    public boolean deleteFileById(int fileId) {
         return files.remove(fileId) != null;
+    }
+
+    /**
+     * Find all File by Post id
+     *
+     * @return List of File
+     */
+    @Override
+    public List<File> findAllFilesByPostId(int postId) {
+        List<File> filesByPostId = new ArrayList<>();
+        for (File file : files.values()) {
+            if (file.getPost().getId() == postId) {
+                filesByPostId.add(file);
+            }
+        }
+        return filesByPostId;
     }
 
 }

@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.cars.model.Post;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.service.PostService;
+import ru.job4j.cars.service.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -31,13 +31,27 @@ public class PostController {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm yyyy-MM-dd");
 
     private final PostService postService;
+    private final BodyService bodyService;
+    private final BrandService brandService;
+    private final CarService carService;
+    private final ColourService colourService;
+    private final DoorCountService doorCountService;
+    private final DrivetrainService drivetrainService;
+    private final EngineVolumeService engineVolumeService;
+    private final FuelTypeService fuelTypeService;
+    private final ModelService modelService;
+    private final OwnerService ownerService;
+    private final PriceHistoryService priceHistoryService;
+    private final ReleaseYearService releaseYearService;
+    private final TransmissionService transmissionService;
+    private final FileService fileService;
 
     /**
-     * All tasks page
+     * Last posts page
      *
      * @param model       Model
      * @param httpSession HTTP Session
-     * @return allTasks.html - all tasks from list
+     * @return lastPosts.html - last posts from list
      */
     @GetMapping("/lastPosts")
     public String lastPosts(Model model, HttpSession httpSession) {
@@ -46,7 +60,21 @@ public class PostController {
         getFormattedPosts(user, lastPosts);
         model.addAttribute("lastPosts", lastPosts);
         model.addAttribute("user", user);
-        return "task/allTasks";
+        return "post/lastPosts";
+    }
+
+    /**
+     * New Post creating page
+     *
+     * @param model       Model
+     * @param httpSession HTTPSession
+     * @return newTask.html - new task creating page
+     */
+    @GetMapping("/formAddPost")
+    public String formAddPost(Model model, HttpSession httpSession) {
+        model.addAttribute("user", getUser(httpSession));
+        model.addAttribute("bodies", bodyService.findAllBodies());
+        return "post/createPost";
     }
 
     /**

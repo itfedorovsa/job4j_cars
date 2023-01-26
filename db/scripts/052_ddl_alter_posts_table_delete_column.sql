@@ -1,0 +1,1 @@
+ALTER TABLE posts DROP COLUMN file_id;

@@ -48,7 +48,8 @@ public class HibernateFuelTypeRepository implements FuelTypeRepository {
         return crudRepository.optional(
                 FIND_FUEL_TYPE_BY_ID,
                 FuelType.class,
-                Map.of("fId", fuelTypeId));
+                Map.of("fId", fuelTypeId)
+        );
     }
 
 }

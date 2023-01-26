@@ -2,7 +2,9 @@ package ru.job4j.cars.service;
 
 import ru.job4j.cars.dto.FileDto;
 import ru.job4j.cars.model.File;
+import ru.job4j.cars.model.Post;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,10 +16,12 @@ import java.util.Optional;
  */
 public interface FileService {
 
-    File save(FileDto fileDto);
+    File saveFile(FileDto fileDto, Post post);
 
     Optional<FileDto> getFileById(int fileId);
 
-    boolean deleteById(int fileId);
+    boolean deleteFileById(int fileId);
+
+    List<FileDto> findAllFilesByPostId(int postId);
 
 }

@@ -5,9 +5,10 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Post;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Hibernate Post repository
@@ -21,10 +22,11 @@ import java.util.Map;
 @ThreadSafe
 public class HibernatePostRepository implements PostRepository {
 
-    private final CrudRepository crudRepository;
+    private static final String DELETE_POST = "DELETE FROM Post WHERE id = :pId";
 
-    private static final String FIND_BY_LAST_DAY = """
-            SELECT *
+    private static final String FIND_POST_BY_ID = "FROM Post WHERE id = :pId";
+
+    private static final String FIND_POSTS_BY_LAST_DAY = """
             FROM Post
             WHERE created
             BETWEEN :pMinusDay AND :pNow
@@ -34,24 +36,98 @@ public class HibernatePostRepository implements PostRepository {
 
     private static final String FIND_BY_BRAND_AND_MODEL = "FROM Post WHERE brand = :pBrand AND model = :pModel";
 
+    private final CrudRepository crudRepository;
+
+    /**
+     * Save Post in DB
+     *
+     * @param post Post
+     * @return Optional of Post
+     */
     @Override
-    public List<Post> findPostsByLastDay() {
-        return crudRepository.query(FIND_BY_LAST_DAY,
-                Post.class,
-                Map.of("pMinusDay", LocalDate.now().minusDays(1), "pNow", LocalDate.now()));
+    public Optional<Post> addPost(Post post) {
+        try {
+            crudRepository.run(session -> session.persist(post));
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+        return post.getId() == 0 ? Optional.empty() : Optional.of(post);
     }
 
+    /**
+     * Update Post in DB
+     *
+     * @param post Post
+     */
+    @Override
+    public void updatePost(Post post) {
+        crudRepository.run(session -> session.merge(post));
+    }
+
+    /**
+     * Delete Post by id
+     *
+     * @param postId Post id
+     */
+    @Override
+    public void deletePost(int postId) {
+        crudRepository.run(
+                DELETE_POST,
+                Map.of("pId", postId)
+        );
+    }
+
+    /**
+     * Find Post by id
+     *
+     * @param postId Post id
+     * @return Optional of Post
+     */
+    @Override
+    public Optional<Post> findPostById(int postId) {
+        return crudRepository.optional(
+                FIND_POST_BY_ID,
+                Post.class,
+                Map.of("pId", postId)
+        );
+    }
+
+    /**
+     * Find posts by last day
+     *
+     * @return List of Post
+     */
+    @Override
+    public List<Post> findPostsByLastDay() {
+        return crudRepository.query(FIND_POSTS_BY_LAST_DAY,
+                Post.class,
+                Map.of("pMinusDay", LocalDateTime.now().minusDays(1), "pNow", LocalDateTime.now()));
+    }
+
+    /**
+     * Find posts which contains a photo
+     *
+     * @return List of Post
+     */
     @Override
     public List<Post> findPostsWithPhoto() {
         return crudRepository.query(FIND_WITH_PHOTO, Post.class);
     }
 
+    /**
+     * Find all Post by Brand and Model
+     *
+     * @param brand Brand
+     * @param model Model
+     * @return List of Post
+     */
     @Override
     public List<Post> findPostsByBrandAndModel(String brand, String model) {
         return crudRepository.query(
                 FIND_BY_BRAND_AND_MODEL,
                 Post.class,
-                Map.of("pBrand", brand, "pModel", model));
+                Map.of("pBrand", brand, "pModel", model)
+        );
     }
 
 }

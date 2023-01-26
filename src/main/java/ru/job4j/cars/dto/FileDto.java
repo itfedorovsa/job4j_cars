@@ -3,6 +3,7 @@ package ru.job4j.cars.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Include;
 
 /**
  * File dto
@@ -16,10 +17,9 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public class FileDto {
 
+    @Include
     private String name;
 
     private byte[] content;
-
-
 
 }

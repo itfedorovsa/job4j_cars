@@ -31,4 +31,8 @@ public class PriceHistory {
 
     private LocalDateTime created;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
 }

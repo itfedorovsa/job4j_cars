@@ -44,4 +44,18 @@
     <include file="scripts/037_ddl_create_doors_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/038_ddl_alter_engines_volume_table_rename.sql" relativeToChangelogFile="true"/>
     <include file="scripts/039_ddl_alter_cars_table_add_columns.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/040_dml_insert_transmissions_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/041_dml_insert_drivetrains_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/042_dml_insert_fuel_types_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/043_dml_insert_bodies_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/044_dml_insert_doors_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/045_dml_insert_colours_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/046_dml_insert_brands_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/047_dml_insert_models_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/048_dml_insert_release_years_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/049_dml_insert_engine_volumes_table_data.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/050_ddl_alter_prices_history_table_add_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/051_ddl_create_files_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/052_ddl_alter_posts_table_delete_column.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/053_ddl_alter_posts_table_add_column.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

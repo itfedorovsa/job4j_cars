@@ -48,7 +48,8 @@ public class HibernateDoorCountRepository implements DoorCountRepository {
         return crudRepository.optional(
                 FIND_DOOR_COUNT_BY_ID,
                 DoorCount.class,
-                Map.of("dId", doorCountId));
+                Map.of("dId", doorCountId)
+        );
     }
 
 }

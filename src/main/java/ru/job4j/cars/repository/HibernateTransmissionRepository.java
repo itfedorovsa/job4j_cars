@@ -48,7 +48,8 @@ public class HibernateTransmissionRepository implements TransmissionRepository {
         return crudRepository.optional(
                 FIND_TRANSMISSION_BY_ID,
                 Transmission.class,
-                Map.of("tId", transmissionId));
+                Map.of("tId", transmissionId)
+        );
     }
 
 }

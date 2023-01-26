@@ -34,7 +34,7 @@ public class FileController {
      * @return Status 200 with file's content or status 404
      */
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable int id) {
+    public ResponseEntity<?> getFileDtoById(@PathVariable int id) {
         Optional<FileDto> contentOptional = fileService.getFileById(id);
         if (contentOptional.isEmpty()) {
             return ResponseEntity.notFound().build();

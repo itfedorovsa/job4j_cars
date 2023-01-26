@@ -45,7 +45,11 @@ public class HibernateEngineVolumeRepository implements EngineVolumeRepository {
      */
     @Override
     public Optional<EngineVolume> findEngineVolumeById(int engineVolumeId) {
-        return crudRepository.optional(FIND_ENGINE_VOLUME_BY_ID, EngineVolume.class, Map.of("eId", engineVolumeId));
+        return crudRepository.optional(
+                FIND_ENGINE_VOLUME_BY_ID,
+                EngineVolume.class,
+                Map.of("eId", engineVolumeId)
+        );
     }
 
 }

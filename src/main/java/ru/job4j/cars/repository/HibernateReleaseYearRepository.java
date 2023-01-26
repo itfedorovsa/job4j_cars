@@ -48,7 +48,8 @@ public class HibernateReleaseYearRepository implements ReleaseYearRepository {
         return crudRepository.optional(
                 FIND_RELEASE_YEAR_BY_ID,
                 ReleaseYear.class,
-                Map.of("rId", releaseYearId));
+                Map.of("rId", releaseYearId)
+        );
     }
 
 }

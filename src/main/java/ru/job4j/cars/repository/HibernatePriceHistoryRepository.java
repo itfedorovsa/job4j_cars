@@ -23,8 +23,8 @@ public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
 
     private static final String FIND_ALL_PRICE_HISTORY_BY_POST_ID = """
             SELECT DISTINCT p
-            FROM Post p
-            JOIN FETCH p.priceHistories
+            FROM PriceHistory p
+            JOIN FETCH p.post
             WHERE post_id = :pId
             """;
 
@@ -57,7 +57,8 @@ public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
         return crudRepository.query(
                 FIND_ALL_PRICE_HISTORY_BY_POST_ID,
                 PriceHistory.class,
-                Map.of("pId", postId));
+                Map.of("pId", postId)
+        );
     }
 
 }

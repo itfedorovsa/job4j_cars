@@ -37,7 +37,8 @@ public class HibernateModelRepository implements ModelRepository {
     public List<Model> getAllModelsByBrandId(int brandId) {
         return crudRepository.query(FIND_ALL_MODELS,
                 Model.class,
-                Map.of("bId", brandId));
+                Map.of("bId", brandId)
+        );
     }
 
     /**
@@ -51,7 +52,8 @@ public class HibernateModelRepository implements ModelRepository {
         return crudRepository.optional(
                 FIND_MODEL_BY_ID,
                 Model.class,
-                Map.of("mId", modelId));
+                Map.of("mId", modelId)
+        );
     }
 
 }

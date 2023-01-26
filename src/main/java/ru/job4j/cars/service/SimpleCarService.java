@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Car;
 import ru.job4j.cars.repository.CarRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -42,4 +43,8 @@ public class SimpleCarService implements CarService {
         return store.findCarById(carId);
     }
 
+    @Override
+    public List<Car> findAllCarsByOwnerId(int ownerId) {
+        return store.findAllCarsByOwnerId(ownerId);
+    }
 }

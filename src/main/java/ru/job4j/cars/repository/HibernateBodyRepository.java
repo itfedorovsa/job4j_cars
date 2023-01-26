@@ -48,7 +48,8 @@ public class HibernateBodyRepository implements BodyRepository {
         return crudRepository.optional(
                 FIND_BODY_BY_ID,
                 Body.class,
-                Map.of("bId", bodyId));
+                Map.of("bId", bodyId)
+        );
     }
 
 }

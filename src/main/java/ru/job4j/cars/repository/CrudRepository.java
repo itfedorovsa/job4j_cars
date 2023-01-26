@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -63,7 +64,7 @@ public class CrudRepository {
      * @param cl    Classname.Class
      * @param args  Arguments to be inserted into the query
      * @param <T>   Used generic data type
-     * @return Command object
+     * @return Optional of T
      */
     public <T> Optional<T> optional(String query, Class<T> cl, Map<String, Object> args) {
         Function<Session, Optional<T>> command = session -> {
@@ -83,7 +84,7 @@ public class CrudRepository {
      * @param query Sql/hql query
      * @param cl    Classname.Class
      * @param <T>   Used generic data type
-     * @return List of queried objects
+     * @return List of queried T objects
      */
     public <T> List<T> query(String query, Class<T> cl) {
         Function<Session, List<T>> command = session -> session
@@ -111,6 +112,26 @@ public class CrudRepository {
             return sq.list();
         };
         return tx(command);
+    }
+
+    /**
+     * Create and run command with arguments
+     *
+     * @param query Sql/hql query
+     * @param cl    Classname.Class
+     * @param args  Arguments to be inserted into the query
+     * @param <T>   Used generic data type
+     * @return true if number of affected rows after executing the command  > 0, otherwise false
+     */
+    public <T> boolean deleteObjQuery(String query, Class<T> cl, Map<String, Object> args) {
+        Function<Session, Integer> command = session -> {
+            Query<T> sessionQuery = session.createQuery(query, cl);
+            for (Map.Entry<String, Object> arg : args.entrySet()) {
+                sessionQuery.setParameter(arg.getKey(), arg.getValue());
+            }
+            return sessionQuery.executeUpdate();
+        };
+        return tx(command) > 0;
     }
 
     /**

@@ -5,11 +5,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.dto.FileDto;
 import ru.job4j.cars.model.File;
+import ru.job4j.cars.model.Post;
 import ru.job4j.cars.repository.FileRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,18 +27,18 @@ import java.util.UUID;
 @ThreadSafe
 public class SimpleFileService implements FileService {
 
-    private final FileRepository fileRepository;
+    private final FileRepository store;
 
     private final String storageDirectory;
 
-    public SimpleFileService(FileRepository fileRepository, @Value("${file.directory}") String storageDirectory) {
-        this.fileRepository = fileRepository;
+    public SimpleFileService(FileRepository store, @Value("${file.directory}") String storageDirectory) {
+        this.store = store;
         this.storageDirectory = storageDirectory;
         createStorageDirectory(storageDirectory);
     }
 
     /**
-     * Creates storage directory
+     * Create storage directory
      *
      * @param path parameter "file.directory" from application.properties
      */
@@ -48,20 +51,23 @@ public class SimpleFileService implements FileService {
     }
 
     /**
-     * Saves File from FileDto to File storage
+     * Save File from FileDto to File storage
      *
      * @param fileDto FileDto
+     * @param post    Post
      * @return File
      */
     @Override
-    public File save(FileDto fileDto) {
+    public File saveFile(FileDto fileDto, Post post) {
         String path = getNewFilePath(fileDto.getName());
         writeFileBytes(path, fileDto.getContent());
-        return fileRepository.save(new File(fileDto.getName(), path));
+        File file = new File(fileDto.getName(), path);
+        file.setPost(post);
+        return store.saveFile(file);
     }
 
     /**
-     * Creates random string of a certain format
+     * Create random string of a certain format
      *
      * @param sourceName FileDto's name
      * @return String
@@ -71,7 +77,7 @@ public class SimpleFileService implements FileService {
     }
 
     /**
-     * Writes content in file storage
+     * Write content in file storage
      *
      * @param path    Generated random path
      * @param content File content
@@ -85,14 +91,14 @@ public class SimpleFileService implements FileService {
     }
 
     /**
-     * Finds FindDto by id
+     * Find FindDto by id
      *
      * @param fileId File id
      * @return Optional of FileDto
      */
     @Override
     public Optional<FileDto> getFileById(int fileId) {
-        Optional<File> fileOptional = fileRepository.findById(fileId);
+        Optional<File> fileOptional = store.findFileById(fileId);
         if (fileOptional.isEmpty()) {
             return Optional.empty();
         }
@@ -101,7 +107,7 @@ public class SimpleFileService implements FileService {
     }
 
     /**
-     * Reads content from file
+     * Read content from file
      *
      * @param path Content source
      * @return byte array
@@ -115,23 +121,23 @@ public class SimpleFileService implements FileService {
     }
 
     /**
-     * Deletes file from repository
+     * Delete file from repository
      *
      * @param fileId File id
      * @return true if deleted, otherwise false
      */
     @Override
-    public boolean deleteById(int fileId) {
-        Optional<File> fileOptional = fileRepository.findById(fileId);
+    public boolean deleteFileById(int fileId) {
+        Optional<File> fileOptional = store.findFileById(fileId);
         if (fileOptional.isEmpty()) {
             return false;
         }
         deleteFile(fileOptional.get().getPath());
-        return fileRepository.deleteById(fileId);
+        return store.deleteFileById(fileId);
     }
 
     /**
-     * Deletes file at the specified path
+     * Delete file at the specified path
      *
      * @param path Source file path
      */
@@ -141,6 +147,21 @@ public class SimpleFileService implements FileService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * @param postId Post id
+     * @return List of FileDto
+     */
+    @Override
+    public List<FileDto> findAllFilesByPostId(int postId) {
+        List<File> filesByPostId = store.findAllFilesByPostId(postId);
+        List<FileDto> filesDtoByPostId = new ArrayList<>();
+        for (File file : filesByPostId) {
+            byte[] content = readFileAsBytes(file.getPath());
+            filesDtoByPostId.add(new FileDto(file.getName(), content));
+        }
+        return filesDtoByPostId;
     }
 
 }

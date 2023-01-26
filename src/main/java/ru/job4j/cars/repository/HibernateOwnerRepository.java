@@ -21,15 +21,15 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateOwnerRepository implements OwnerRepository {
 
-    private static final String FIND_ALL_OWNERS_BY_CAR_ID = """
-            SELECT DISTINCT c
-            FROM Car c
-            JOIN FETCH c.owners WHERE car_id = :cId
-            """;
+    private static final String DELETE_OWNER = "DELETE FROM Owner WHERE id = :oId";
 
     private static final String FIND_OWNER_BY_ID = "FROM Owner WHERE id = :oId";
 
-    private static final String DELETE_OWNER = "DELETE FROM Owner WHERE id = :oId";
+    private static final String FIND_ALL_OWNERS_BY_CAR_ID = """
+            SELECT DISTINCT o
+            FROM Owner o
+            JOIN FETCH o.cars WHERE car_id = :cId
+            """;
 
     private final CrudRepository crudRepository;
 
@@ -83,7 +83,8 @@ public class HibernateOwnerRepository implements OwnerRepository {
         return crudRepository.optional(
                 FIND_OWNER_BY_ID,
                 Owner.class,
-                Map.of("oId", ownerId));
+                Map.of("oId", ownerId)
+        );
     }
 
     /**
@@ -97,6 +98,7 @@ public class HibernateOwnerRepository implements OwnerRepository {
         return crudRepository.query(
                 FIND_ALL_OWNERS_BY_CAR_ID,
                 Owner.class,
-                Map.of("cId", carId));
+                Map.of("cId", carId)
+        );
     }
 }

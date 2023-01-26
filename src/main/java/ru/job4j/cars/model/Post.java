@@ -28,7 +28,7 @@ public class Post {
 
     private String description;
 
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now().withSecond(0).withNano(0);
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -52,6 +52,10 @@ public class Post {
 
     private int price;
 
-    private int fileId;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
+    private List<File> files;
+
+    private boolean sold;
 
 }

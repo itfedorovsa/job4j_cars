@@ -2,6 +2,7 @@ package ru.job4j.cars.repository;
 
 import ru.job4j.cars.model.File;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -13,10 +14,12 @@ import java.util.Optional;
  */
 public interface FileRepository {
 
-    File save(File file);
+    File saveFile(File file);
 
-    Optional<File> findById(int fileId);
+    Optional<File> findFileById(int fileId);
 
-    boolean deleteById(int fileId);
+    boolean deleteFileById(int fileId);
+
+    List<File> findAllFilesByPostId(int postId);
 
 }

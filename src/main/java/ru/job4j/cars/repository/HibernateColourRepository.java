@@ -48,7 +48,8 @@ public class HibernateColourRepository implements ColourRepository {
         return crudRepository.optional(
                 FIND_COLOUR_BY_ID,
                 Colour.class,
-                Map.of("cId", colourId));
+                Map.of("cId", colourId)
+        );
     }
 
 }

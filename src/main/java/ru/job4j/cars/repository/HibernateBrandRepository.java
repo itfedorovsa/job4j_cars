@@ -48,7 +48,8 @@ public class HibernateBrandRepository implements BrandRepository {
         return crudRepository.optional(
                 FIND_BRAND_BY_ID,
                 Brand.class,
-                Map.of("bId", brandId));
+                Map.of("bId", brandId)
+        );
     }
 
 }

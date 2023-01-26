@@ -3,6 +3,7 @@ package ru.job4j.cars.service;
 import ru.job4j.cars.model.Post;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Post service interface
@@ -12,6 +13,14 @@ import java.util.List;
  * @since 22.01.23
  */
 public interface PostService {
+
+    Optional<Post> addPost(Post post);
+
+    void updatePost(Post post);
+
+    void deletePost(int postId);
+
+    Optional<Post> findPostById(int postId);
 
     List<Post> findPostsByLastDay();
 

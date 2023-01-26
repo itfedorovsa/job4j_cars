@@ -48,7 +48,8 @@ public class HibernateDrivetrainRepository implements DrivetrainRepository {
         return crudRepository.optional(
                 FIND_DRIVETRAIN_BY_ID,
                 Drivetrain.class,
-                Map.of("dId", drivetrainId));
+                Map.of("dId", drivetrainId)
+        );
     }
 
 }
