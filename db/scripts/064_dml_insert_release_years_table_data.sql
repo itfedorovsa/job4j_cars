@@ -1,0 +1,1 @@
+INSERT INTO drivetrains (type) VALUES ('-Other / Unknown-');

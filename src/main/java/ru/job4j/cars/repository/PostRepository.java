@@ -3,7 +3,6 @@ package ru.job4j.cars.repository;
 import ru.job4j.cars.model.Post;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Post repository interface
@@ -14,13 +13,13 @@ import java.util.Optional;
  */
 public interface PostRepository {
 
-    Optional<Post> addPost(Post post);
+    Post addPost(Post post);
 
     void updatePost(Post post);
 
     void deletePost(int postId);
 
-    Optional<Post> findPostById(int postId);
+    Post findPostById(int postId);
 
     List<Post> findPostsByLastDay();
 

@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Car model
@@ -25,6 +25,10 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Include
     private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "model_id")
@@ -50,13 +54,12 @@ public class Car {
     @JoinColumn(name = "engine_volume_id")
     private EngineVolume engineVolume;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "owners_history", joinColumns = {
-            @JoinColumn(name = "car_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "owner_id", nullable = false, updatable = false)}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "owners_history",
+            joinColumns = {@JoinColumn(name = "car_id")},
+            inverseJoinColumns = {@JoinColumn(name = "owner_id")}
     )
-    private List<Owner> owners = new ArrayList<>();
+    private Set<Owner> owners = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
@@ -65,6 +68,10 @@ public class Car {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drivetrain_id")
     private Drivetrain drivetrain;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transmission_id")
+    private Transmission transmission;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fuel_type_id")

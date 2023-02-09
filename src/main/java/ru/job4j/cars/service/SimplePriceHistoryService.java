@@ -7,7 +7,6 @@ import ru.job4j.cars.model.PriceHistory;
 import ru.job4j.cars.repository.PriceHistoryRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * PriceHistory service layer
@@ -24,7 +23,7 @@ public class SimplePriceHistoryService implements PriceHistoryService {
     private final PriceHistoryRepository store;
 
     @Override
-    public Optional<PriceHistory> addPriceHistory(PriceHistory priceHistory) {
+    public PriceHistory addPriceHistory(PriceHistory priceHistory) {
         return store.addPriceHistory(priceHistory);
     }
 

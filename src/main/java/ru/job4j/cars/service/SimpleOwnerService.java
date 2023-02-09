@@ -7,7 +7,6 @@ import ru.job4j.cars.model.Owner;
 import ru.job4j.cars.repository.OwnerRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Owner service layer
@@ -24,7 +23,7 @@ public class SimpleOwnerService implements OwnerService {
     private final OwnerRepository store;
 
     @Override
-    public Optional<Owner> addOwner(Owner owner) {
+    public Owner addOwner(Owner owner) {
         return store.addOwner(owner);
     }
 
@@ -39,7 +38,7 @@ public class SimpleOwnerService implements OwnerService {
     }
 
     @Override
-    public Optional<Owner> findOwnerById(int ownerId) {
+    public Owner findOwnerById(int ownerId) {
         return store.findOwnerById(ownerId);
     }
 

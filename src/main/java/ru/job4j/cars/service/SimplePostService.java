@@ -7,7 +7,6 @@ import ru.job4j.cars.model.Post;
 import ru.job4j.cars.repository.PostRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Post service layer
@@ -26,7 +25,7 @@ public class SimplePostService implements PostService {
     private final FileService fileService;
 
     @Override
-    public Optional<Post> addPost(Post post) {
+    public Post addPost(Post post) {
         return store.addPost(post);
     }
 
@@ -41,7 +40,7 @@ public class SimplePostService implements PostService {
     }
 
     @Override
-    public Optional<Post> findPostById(int postId) {
+    public Post findPostById(int postId) {
         return store.findPostById(postId);
     }
 

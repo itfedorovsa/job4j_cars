@@ -3,7 +3,6 @@ package ru.job4j.cars.repository;
 import ru.job4j.cars.model.Owner;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Owner repository interface
@@ -14,13 +13,13 @@ import java.util.Optional;
  */
 public interface OwnerRepository {
 
-    Optional<Owner> addOwner(Owner owner);
+    Owner addOwner(Owner owner);
 
     void updateOwner(Owner owner);
 
     void deleteOwner(int ownerId);
 
-    Optional<Owner> findOwnerById(int ownerId);
+    Owner findOwnerById(int ownerId);
 
     List<Owner> findAllOwnersByCarId(int carId);
 

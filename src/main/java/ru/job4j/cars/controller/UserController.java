@@ -31,9 +31,9 @@ public class UserController {
 
     /**
      * Registration post page
-     *
      * @param model Model
-     * @param user  Empty user to fill
+     * @param user Empty user to fill
+     * @param timezone Timezone
      * @return fail or success registration page
      */
     @PostMapping("/registration")
@@ -182,10 +182,10 @@ public class UserController {
     }
 
     /**
-     * Gives "Guest" name if user is unregistered
+     * Create a user with name "Guest" if user is missing
      *
      * @param httpSession Http Session
-     * @return user with "Guest" name or user with currrent name
+     * @return new User with "Guest" name or current User
      */
     private User getUser(HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("user");

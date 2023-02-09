@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Model;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Model repository
@@ -21,9 +21,14 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateModelRepository implements ModelRepository {
 
-    private static final String FIND_ALL_MODELS = "FROM Model WHERE brand_id = :bId";
+    private static final String FIND_ALL_MODELS_ORDER_BY_NAME_ASC = "FROM Model WHERE brand_id = :bId ORDER BY name ASC";
 
-    private static final String FIND_MODEL_BY_ID = "FROM Model WHERE id = :mId";
+    private static final String FIND_MODEL_BY_ID = """
+            SELECT DISTINCT m
+            FROM Model m
+            JOIN FETCH m.brand br
+            WHERE m.id = :mId
+            """;
 
     private final CrudRepository crudRepository;
 
@@ -35,7 +40,7 @@ public class HibernateModelRepository implements ModelRepository {
      */
     @Override
     public List<Model> getAllModelsByBrandId(int brandId) {
-        return crudRepository.query(FIND_ALL_MODELS,
+        return crudRepository.query(FIND_ALL_MODELS_ORDER_BY_NAME_ASC,
                 Model.class,
                 Map.of("bId", brandId)
         );
@@ -45,15 +50,15 @@ public class HibernateModelRepository implements ModelRepository {
      * Find Model by id
      *
      * @param modelId Model id
-     * @return Optional of Model or empty Optional
+     * @return Model or NoSuchElementException
      */
     @Override
-    public Optional<Model> getModelById(int modelId) {
+    public Model getModelById(int modelId) {
         return crudRepository.optional(
-                FIND_MODEL_BY_ID,
-                Model.class,
-                Map.of("mId", modelId)
-        );
+                        FIND_MODEL_BY_ID,
+                        Model.class,
+                        Map.of("mId", modelId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Model by id."));
     }
 
 }

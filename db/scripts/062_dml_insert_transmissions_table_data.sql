@@ -1,0 +1,1 @@
+INSERT INTO transmissions (type) VALUES ('-Other / Unknown-');

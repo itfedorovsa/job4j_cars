@@ -8,7 +8,7 @@ import ru.job4j.cars.model.Post;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Post repository
@@ -24,7 +24,16 @@ public class HibernatePostRepository implements PostRepository {
 
     private static final String DELETE_POST = "DELETE FROM Post WHERE id = :pId";
 
-    private static final String FIND_POST_BY_ID = "FROM Post WHERE id = :pId";
+    private static final String FIND_POST_BY_ID = """
+            SELECT DISTINCT p
+            FROM Post p
+            JOIN FETCH p.user
+            JOIN FETCH p.priceHistories
+            JOIN FETCH p.participates
+            JOIN FETCH p.car
+            JOIN FETCH p.files
+            WHERE p.id = :pId
+            """;
 
     private static final String FIND_POSTS_BY_LAST_DAY = """
             FROM Post
@@ -45,13 +54,9 @@ public class HibernatePostRepository implements PostRepository {
      * @return Optional of Post
      */
     @Override
-    public Optional<Post> addPost(Post post) {
-        try {
-            crudRepository.run(session -> session.persist(post));
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
-        return post.getId() == 0 ? Optional.empty() : Optional.of(post);
+    public Post addPost(Post post) {
+        crudRepository.run(session -> session.persist(post));
+        return post;
     }
 
     /**
@@ -81,15 +86,21 @@ public class HibernatePostRepository implements PostRepository {
      * Find Post by id
      *
      * @param postId Post id
-     * @return Optional of Post
+     * @return Post or NoSuchElementException
      */
     @Override
-    public Optional<Post> findPostById(int postId) {
-        return crudRepository.optional(
-                FIND_POST_BY_ID,
-                Post.class,
-                Map.of("pId", postId)
-        );
+    public Post findPostById(int postId) {
+        Post post = null;
+        try {
+            post = crudRepository.optional(
+                            FIND_POST_BY_ID,
+                            Post.class,
+                            Map.of("pId", postId))
+                    .orElseThrow(() -> new NoSuchElementException("Couldn't find the Post by id."));
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+        return post;
     }
 
     /**

@@ -7,7 +7,7 @@ import ru.job4j.cars.model.FuelType;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate FuelType repository
@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateFuelTypeRepository implements FuelTypeRepository {
 
-    private static final String FIND_ALL_FUEL_TYPES = "FROM FuelType";
+    private static final String FIND_ALL_FUEL_TYPES_ORDER_BY_TYPE_ASC = "FROM FuelType ORDER BY type ASC";
 
     private static final String FIND_FUEL_TYPE_BY_ID = "FROM FuelType WHERE id = :fId";
 
@@ -34,22 +34,23 @@ public class HibernateFuelTypeRepository implements FuelTypeRepository {
      */
     @Override
     public List<FuelType> findAllFuelTypes() {
-        return crudRepository.query(FIND_ALL_FUEL_TYPES, FuelType.class);
+        return crudRepository.query(FIND_ALL_FUEL_TYPES_ORDER_BY_TYPE_ASC, FuelType.class);
     }
 
     /**
      * Find FuelType by id
      *
      * @param fuelTypeId FuelType id
-     * @return Optional of FuelType or empty Optional
+     * @return FuelType or NoSuchElementException
      */
     @Override
-    public Optional<FuelType> findFuelTypeById(int fuelTypeId) {
+    public FuelType findFuelTypeById(int fuelTypeId) {
         return crudRepository.optional(
-                FIND_FUEL_TYPE_BY_ID,
-                FuelType.class,
-                Map.of("fId", fuelTypeId)
-        );
+                        FIND_FUEL_TYPE_BY_ID,
+                        FuelType.class,
+                        Map.of("fId", fuelTypeId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the FuelType by id."));
+
     }
 
 }

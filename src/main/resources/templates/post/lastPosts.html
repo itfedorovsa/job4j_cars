@@ -33,7 +33,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="#">Cars for sale<span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" th:href="@{/formAddPost}">Sell your car</a>
+                <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
                 <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
                 <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                     <span th:text="${user.name}"></span>

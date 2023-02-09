@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Drivetrain;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Drivetrain repository
@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateDrivetrainRepository implements DrivetrainRepository {
 
-    private static final String FIND_ALL_DRIVETRAINS = "FROM Drivetrain";
+    private static final String FIND_ALL_DRIVETRAINS_ORDER_BY_TYPE_ASC = "FROM Drivetrain ORDER BY type ASC";
 
     private static final String FIND_DRIVETRAIN_BY_ID = "FROM Drivetrain WHERE id = :dId";
 
@@ -34,22 +34,22 @@ public class HibernateDrivetrainRepository implements DrivetrainRepository {
      */
     @Override
     public List<Drivetrain> findAllDrivetrains() {
-        return crudRepository.query(FIND_ALL_DRIVETRAINS, Drivetrain.class);
+        return crudRepository.query(FIND_ALL_DRIVETRAINS_ORDER_BY_TYPE_ASC, Drivetrain.class);
     }
 
     /**
      * Find Drivetrain by id
      *
      * @param drivetrainId Drivetrain id
-     * @return Optional of Drivetrain or empty Optional
+     * @return Drivetrain or NoSuchElementException
      */
     @Override
-    public Optional<Drivetrain> findDrivetrainById(int drivetrainId) {
+    public Drivetrain findDrivetrainById(int drivetrainId) {
         return crudRepository.optional(
-                FIND_DRIVETRAIN_BY_ID,
-                Drivetrain.class,
-                Map.of("dId", drivetrainId)
-        );
+                        FIND_DRIVETRAIN_BY_ID,
+                        Drivetrain.class,
+                        Map.of("dId", drivetrainId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Drivetrain by id."));
     }
 
 }

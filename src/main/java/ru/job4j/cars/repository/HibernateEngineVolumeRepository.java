@@ -7,7 +7,7 @@ import ru.job4j.cars.model.EngineVolume;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate EngineVolume repository
@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateEngineVolumeRepository implements EngineVolumeRepository {
 
-    private static final String FIND_ALL_ENGINE_VOLUMES = "FROM EngineVolume";
+    private static final String FIND_ALL_ENGINE_VOLUMES_ORDER_BY_VOLUME_ASC = "FROM EngineVolume ORDER BY volume ASC";
 
     private static final String FIND_ENGINE_VOLUME_BY_ID = "FROM EngineVolume WHERE id = :eId";
 
@@ -34,22 +34,22 @@ public class HibernateEngineVolumeRepository implements EngineVolumeRepository {
      */
     @Override
     public List<EngineVolume> findAllEngineVolumes() {
-        return crudRepository.query(FIND_ALL_ENGINE_VOLUMES, EngineVolume.class);
+        return crudRepository.query(FIND_ALL_ENGINE_VOLUMES_ORDER_BY_VOLUME_ASC, EngineVolume.class);
     }
 
     /**
      * Find EngineVolume by id
      *
      * @param engineVolumeId EngineVolume id
-     * @return Optional of EngineVolume or empty Optional
+     * @return EngineVolume or NoSuchElementException
      */
     @Override
-    public Optional<EngineVolume> findEngineVolumeById(int engineVolumeId) {
+    public EngineVolume findEngineVolumeById(int engineVolumeId) {
         return crudRepository.optional(
                 FIND_ENGINE_VOLUME_BY_ID,
                 EngineVolume.class,
-                Map.of("eId", engineVolumeId)
-        );
+                Map.of("eId", engineVolumeId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the EngineVolume by id."));
     }
 
 }

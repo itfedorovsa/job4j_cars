@@ -3,7 +3,6 @@ package ru.job4j.cars.repository;
 import ru.job4j.cars.model.Transmission;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Transmission repository interface
@@ -16,6 +15,6 @@ public interface TransmissionRepository {
 
     List<Transmission> findAllTransmissions();
 
-    Optional<Transmission> findTransmissionById(int transmissionId);
+    Transmission findTransmissionById(int transmissionId);
 
 }

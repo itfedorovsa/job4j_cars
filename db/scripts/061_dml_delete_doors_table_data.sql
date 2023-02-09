@@ -1,0 +1,1 @@
+DELETE FROM doors WHERE amount = 'Other';

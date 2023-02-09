@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Colour;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Colour repository
@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateColourRepository implements ColourRepository {
 
-    private static final String FIND_ALL_COLOURS = "FROM Colour";
+    private static final String FIND_ALL_COLOURS_ORDER_BY_NAME_ASC = "FROM Colour ORDER BY name ASC";
 
     private static final String FIND_COLOUR_BY_ID = "FROM Colour WHERE id = :cId";
 
@@ -34,22 +34,22 @@ public class HibernateColourRepository implements ColourRepository {
      */
     @Override
     public List<Colour> findAllColours() {
-        return crudRepository.query(FIND_ALL_COLOURS, Colour.class);
+        return crudRepository.query(FIND_ALL_COLOURS_ORDER_BY_NAME_ASC, Colour.class);
     }
 
     /**
      * Find Colour by id
      *
      * @param colourId Colour id
-     * @return Optional of Colour or empty Optional
+     * @return Colour or NoSuchElementException
      */
     @Override
-    public Optional<Colour> findColourById(int colourId) {
+    public Colour findColourById(int colourId) {
         return crudRepository.optional(
-                FIND_COLOUR_BY_ID,
-                Colour.class,
-                Map.of("cId", colourId)
-        );
+                        FIND_COLOUR_BY_ID,
+                        Colour.class,
+                        Map.of("cId", colourId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Colour by id."));
     }
 
 }

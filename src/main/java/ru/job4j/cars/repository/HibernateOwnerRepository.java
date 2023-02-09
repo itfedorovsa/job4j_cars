@@ -5,9 +5,10 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Owner;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Owner repository
@@ -23,12 +24,20 @@ public class HibernateOwnerRepository implements OwnerRepository {
 
     private static final String DELETE_OWNER = "DELETE FROM Owner WHERE id = :oId";
 
-    private static final String FIND_OWNER_BY_ID = "FROM Owner WHERE id = :oId";
+    private static final String FIND_OWNER_BY_ID = """
+            SELECT DISTINCT o
+            FROM Owner o
+            JOIN FETCH o.user
+            JOIN FETCH o.cars
+            WHERE o.id = :oId
+            """;
 
     private static final String FIND_ALL_OWNERS_BY_CAR_ID = """
             SELECT DISTINCT o
             FROM Owner o
-            JOIN FETCH o.cars WHERE car_id = :cId
+            JOIN FETCH o.user
+            JOIN FETCH o.cars
+            WHERE o.car_id = :cId
             """;
 
     private final CrudRepository crudRepository;
@@ -40,13 +49,9 @@ public class HibernateOwnerRepository implements OwnerRepository {
      * @return Optional of Owner
      */
     @Override
-    public Optional<Owner> addOwner(Owner owner) {
-        try {
-            crudRepository.run(session -> session.persist(owner));
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
-        return owner.getId() == 0 ? Optional.empty() : Optional.of(owner);
+    public Owner addOwner(Owner owner) {
+        crudRepository.run(session -> session.persist(owner));
+        return owner;
     }
 
     /**
@@ -76,15 +81,22 @@ public class HibernateOwnerRepository implements OwnerRepository {
      * Find Owner by id
      *
      * @param ownerId Owner id
-     * @return Optional of Owner
+     * @return Owner or NoSuchElementException
      */
     @Override
-    public Optional<Owner> findOwnerById(int ownerId) {
-        return crudRepository.optional(
-                FIND_OWNER_BY_ID,
-                Owner.class,
-                Map.of("oId", ownerId)
-        );
+    @Transactional
+    public Owner findOwnerById(int ownerId) {
+        Owner owner = null;
+        try {
+            owner = crudRepository.optional(
+                            FIND_OWNER_BY_ID,
+                            Owner.class,
+                            Map.of("oId", ownerId))
+                    .orElseThrow(() -> new NoSuchElementException("Couldn't find the Owner by id."));
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+        return owner;
     }
 
     /**

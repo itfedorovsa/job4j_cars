@@ -3,7 +3,6 @@ package ru.job4j.cars.service;
 import ru.job4j.cars.model.PriceHistory;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * PriceHistory service interface
@@ -14,7 +13,7 @@ import java.util.Optional;
  */
 public interface PriceHistoryService {
 
-    Optional<PriceHistory> addPriceHistory(PriceHistory priceHistory);
+    PriceHistory addPriceHistory(PriceHistory priceHistory);
 
     List<PriceHistory> findAllPriceHistoryByPostId(int postId);
 

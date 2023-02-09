@@ -13,7 +13,7 @@ Implemented with:
  <li>Spring Boot 2.5.2</li>
  <li>JDBC 4</li>
  <li>Bootstrap 4.4.1</li>
- <li>Thymeleaf</li>
+ <li>Thymeleaf 2.7.3</li>
  <li>PostgreSQL 42.2.16</li>
  <li>Liquibase 3.6.2</li>
 </ul>

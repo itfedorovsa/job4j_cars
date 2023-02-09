@@ -7,7 +7,6 @@ import ru.job4j.cars.model.ReleaseYear;
 import ru.job4j.cars.repository.ReleaseYearRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Release year service layer
@@ -29,7 +28,7 @@ public class SimpleReleaseYearService implements ReleaseYearService {
     }
 
     @Override
-    public Optional<ReleaseYear> findReleaseYearById(int releaseYearId) {
+    public ReleaseYear findReleaseYearById(int releaseYearId) {
         return store.findReleaseYearById(releaseYearId);
     }
 }

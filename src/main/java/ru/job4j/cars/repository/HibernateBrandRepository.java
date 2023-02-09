@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Brand;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Brand repository
@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateBrandRepository implements BrandRepository {
 
-    private static final String FIND_ALL_BRANDS = "FROM Brand";
+    private static final String FIND_ALL_BRANDS_ORDER_BY_NAME_ASC = "FROM Brand ORDER BY name ASC";
 
     private static final String FIND_BRAND_BY_ID = "FROM Brand WHERE id = :bId";
 
@@ -34,22 +34,22 @@ public class HibernateBrandRepository implements BrandRepository {
      */
     @Override
     public List<Brand> findAllBrands() {
-        return crudRepository.query(FIND_ALL_BRANDS, Brand.class);
+        return crudRepository.query(FIND_ALL_BRANDS_ORDER_BY_NAME_ASC, Brand.class);
     }
 
     /**
      * Find Brand by id
      *
      * @param brandId Brand id
-     * @return Optional of Brand or empty Optional
+     * @return Brand or NoSuchElementException
      */
     @Override
-    public Optional<Brand> findBrandById(int brandId) {
+    public Brand findBrandById(int brandId) {
         return crudRepository.optional(
-                FIND_BRAND_BY_ID,
-                Brand.class,
-                Map.of("bId", brandId)
-        );
+                        FIND_BRAND_BY_ID,
+                        Brand.class,
+                        Map.of("bId", brandId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Brand by id."));
     }
 
 }

@@ -1,0 +1,1 @@
+INSERT INTO fuel_types (type) VALUES ('-Other / Unknown-');

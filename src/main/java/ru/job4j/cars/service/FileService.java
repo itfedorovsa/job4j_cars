@@ -22,6 +22,6 @@ public interface FileService {
 
     boolean deleteFileById(int fileId);
 
-    List<FileDto> findAllFilesByPostId(int postId);
+    List<File> findAllFilesByPostId(int postId);
 
 }

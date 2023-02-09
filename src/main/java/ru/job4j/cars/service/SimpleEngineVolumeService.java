@@ -7,7 +7,6 @@ import ru.job4j.cars.model.EngineVolume;
 import ru.job4j.cars.repository.EngineVolumeRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Engine volume service layer
@@ -29,7 +28,7 @@ public class SimpleEngineVolumeService implements EngineVolumeService {
     }
 
     @Override
-    public Optional<EngineVolume> findEngineVolumeById(int engineVolumeId) {
+    public EngineVolume findEngineVolumeById(int engineVolumeId) {
         return store.findEngineVolumeById(engineVolumeId);
     }
 }

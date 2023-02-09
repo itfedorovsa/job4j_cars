@@ -7,7 +7,6 @@ import ru.job4j.cars.model.DoorCount;
 import ru.job4j.cars.repository.DoorCountRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Door count service layer
@@ -29,7 +28,7 @@ public class SimpleDoorCountService implements DoorCountService {
     }
 
     @Override
-    public Optional<DoorCount> findDoorCountById(int doorCountId) {
+    public DoorCount findDoorCountById(int doorCountId) {
         return store.findDoorCountById(doorCountId);
     }
 }

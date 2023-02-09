@@ -7,7 +7,7 @@ import ru.job4j.cars.model.ReleaseYear;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate ReleaseYear repository
@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateReleaseYearRepository implements ReleaseYearRepository {
 
-    private static final String FIND_ALL_RELEASE_YEARS = "FROM ReleaseYear";
+    private static final String FIND_ALL_RELEASE_YEARS_ORDER_BY_YEAR_DESC = "FROM ReleaseYear ORDER BY year DESC";
 
     private static final String FIND_RELEASE_YEAR_BY_ID = "FROM ReleaseYear WHERE id = :rId";
 
@@ -34,22 +34,22 @@ public class HibernateReleaseYearRepository implements ReleaseYearRepository {
      */
     @Override
     public List<ReleaseYear> findAllReleaseYears() {
-        return crudRepository.query(FIND_ALL_RELEASE_YEARS, ReleaseYear.class);
+        return crudRepository.query(FIND_ALL_RELEASE_YEARS_ORDER_BY_YEAR_DESC, ReleaseYear.class);
     }
 
     /**
      * Find ReleaseYear by id
      *
      * @param releaseYearId ReleaseYear id
-     * @return Optional of ReleaseYear or empty Optional
+     * @return ReleaseYear or NoSuchElementException
      */
     @Override
-    public Optional<ReleaseYear> findReleaseYearById(int releaseYearId) {
+    public ReleaseYear findReleaseYearById(int releaseYearId) {
         return crudRepository.optional(
-                FIND_RELEASE_YEAR_BY_ID,
-                ReleaseYear.class,
-                Map.of("rId", releaseYearId)
-        );
+                        FIND_RELEASE_YEAR_BY_ID,
+                        ReleaseYear.class,
+                        Map.of("rId", releaseYearId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the ReleaseYear by id."));
     }
 
 }

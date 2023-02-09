@@ -1,0 +1,1 @@
+INSERT INTO bodies (type) VALUES ('-Other / Unknown-');

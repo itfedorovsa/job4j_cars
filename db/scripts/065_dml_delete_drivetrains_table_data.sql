@@ -1,0 +1,1 @@
+DELETE FROM drivetrains WHERE type = 'Other';

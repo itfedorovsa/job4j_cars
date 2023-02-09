@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Car;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Car repository
@@ -23,13 +23,27 @@ public class HibernateCarRepository implements CarRepository {
 
     private static final String DELETE_CAR = "DELETE FROM Car WHERE id = :cId";
 
-    private static final String FIND_CAR_BY_ID = "FROM Car WHERE id = :cId";
+    private static final String FIND_CAR_BY_ID = """
+            SELECT DISTINCT c FROM Car c
+            JOIN FETCH c.brand br
+            JOIN FETCH c.model mo
+            JOIN FETCH c.body bo
+            JOIN FETCH c.colour co
+            JOIN FETCH c.releaseYear re
+            JOIN FETCH c.engineVolume en
+            JOIN FETCH c.drivetrain dr
+            JOIN FETCH c.fuelType fu
+            JOIN FETCH c.doorCount do
+            JOIN FETCH c.transmission tr
+            JOIN FETCH c.owner ow
+            JOIN FETCH c.owners ows
+            WHERE c.id = :cId
+            """;
 
     private static final String FIND_ALL_CARS_BY_OWNER_ID = """
             SELECT DISTINCT o
             FROM Car o
-            JOIN FETCH o.owners WHERE owner_id = :oId
-            """;
+            JOIN FETCH o.owners WHERE owner_id = :oId""";
 
     private final CrudRepository crudRepository;
 
@@ -40,13 +54,9 @@ public class HibernateCarRepository implements CarRepository {
      * @return Optional of Car
      */
     @Override
-    public Optional<Car> addCar(Car car) {
-        try {
-            crudRepository.run(session -> session.persist(car));
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
-        return car.getId() == 0 ? Optional.empty() : Optional.of(car);
+    public Car addCar(Car car) {
+        crudRepository.run(session -> session.persist(car));
+        return car;
     }
 
     /**
@@ -76,15 +86,15 @@ public class HibernateCarRepository implements CarRepository {
      * Find Car by id
      *
      * @param carId Car id
-     * @return Optional of Car
+     * @return Car or NoSuchElementException
      */
     @Override
-    public Optional<Car> findCarById(int carId) {
+    public Car findCarById(int carId) {
         return crudRepository.optional(
-                FIND_CAR_BY_ID,
-                Car.class,
-                Map.of("cId", carId)
-        );
+                        FIND_CAR_BY_ID,
+                        Car.class,
+                        Map.of("cId", carId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Car by id."));
     }
 
     /**
@@ -101,4 +111,5 @@ public class HibernateCarRepository implements CarRepository {
                 Map.of("oId", ownerId)
         );
     }
+
 }

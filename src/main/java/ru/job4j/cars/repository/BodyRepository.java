@@ -3,7 +3,6 @@ package ru.job4j.cars.repository;
 import ru.job4j.cars.model.Body;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Body repository interface
@@ -16,6 +15,6 @@ public interface BodyRepository {
 
     List<Body> findAllBodies();
 
-    Optional<Body> findBodyById(int bodyId);
+    Body findBodyById(int bodyId);
 
 }
