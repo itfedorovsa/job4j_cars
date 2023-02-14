@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Model;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Model repository
@@ -50,15 +50,15 @@ public class HibernateModelRepository implements ModelRepository {
      * Find Model by id
      *
      * @param modelId Model id
-     * @return Optional of Model or empty Optional
+     * @return Model or NoSuchElementException
      */
     @Override
-    public Optional<Model> getModelById(int modelId) {
+    public Model getModelById(int modelId) {
         return crudRepository.optional(
-                FIND_MODEL_BY_ID,
-                Model.class,
-                Map.of("mId", modelId)
-        );
+                        FIND_MODEL_BY_ID,
+                        Model.class,
+                        Map.of("mId", modelId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Model by id."));
     }
 
 }

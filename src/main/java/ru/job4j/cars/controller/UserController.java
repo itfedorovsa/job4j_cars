@@ -31,9 +31,9 @@ public class UserController {
 
     /**
      * Registration post page
-     *
      * @param model Model
-     * @param user  Empty user to fill
+     * @param user Empty user to fill
+     * @param timezone Timezone
      * @return fail or success registration page
      */
     @PostMapping("/registration")

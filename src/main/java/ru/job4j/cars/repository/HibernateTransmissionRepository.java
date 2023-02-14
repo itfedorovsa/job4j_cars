@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Transmission;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Transmission repository
@@ -41,15 +41,15 @@ public class HibernateTransmissionRepository implements TransmissionRepository {
      * Find Transmission by id
      *
      * @param transmissionId Transmission id
-     * @return Optional of Transmission or empty Optional
+     * @return Transmission or NoSuchElementException
      */
     @Override
-    public Optional<Transmission> findTransmissionById(int transmissionId) {
+    public Transmission findTransmissionById(int transmissionId) {
         return crudRepository.optional(
-                FIND_TRANSMISSION_BY_ID,
-                Transmission.class,
-                Map.of("tId", transmissionId)
-        );
+                        FIND_TRANSMISSION_BY_ID,
+                        Transmission.class,
+                        Map.of("tId", transmissionId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Transmission by id."));
     }
 
 }

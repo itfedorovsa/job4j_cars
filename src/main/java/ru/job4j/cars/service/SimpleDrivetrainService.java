@@ -7,7 +7,6 @@ import ru.job4j.cars.model.Drivetrain;
 import ru.job4j.cars.repository.DrivetrainRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Drivetrain service layer
@@ -29,7 +28,7 @@ public class SimpleDrivetrainService implements DrivetrainService {
     }
 
     @Override
-    public Optional<Drivetrain> findDrivetrainById(int drivetrainId) {
+    public Drivetrain findDrivetrainById(int drivetrainId) {
         return store.findDrivetrainById(drivetrainId);
     }
 }

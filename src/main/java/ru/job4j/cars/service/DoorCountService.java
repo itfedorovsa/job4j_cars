@@ -3,7 +3,6 @@ package ru.job4j.cars.service;
 import ru.job4j.cars.model.DoorCount;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * DoorCount service interface
@@ -16,6 +15,6 @@ public interface DoorCountService {
 
     List<DoorCount> findAllDoorCounts();
 
-    Optional<DoorCount> findDoorCountById(int doorCountId);
+    DoorCount findDoorCountById(int doorCountId);
 
 }

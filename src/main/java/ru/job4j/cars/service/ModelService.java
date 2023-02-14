@@ -3,7 +3,6 @@ package ru.job4j.cars.service;
 import ru.job4j.cars.model.Model;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Model service interface
@@ -16,6 +15,6 @@ public interface ModelService {
 
     List<Model> findAllModelsByBrandId(int brandId);
 
-    Optional<Model> findModelById(int modelId);
+    Model findModelById(int modelId);
 
 }

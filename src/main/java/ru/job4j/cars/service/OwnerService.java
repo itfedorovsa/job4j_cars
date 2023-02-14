@@ -3,7 +3,6 @@ package ru.job4j.cars.service;
 import ru.job4j.cars.model.Owner;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Owner service interface
@@ -20,7 +19,7 @@ public interface OwnerService {
 
     void deleteOwner(int ownerId);
 
-    Optional<Owner> findOwnerById(int ownerId);
+    Owner findOwnerById(int ownerId);
 
     List<Owner> findAllOwnersByCarId(int carId);
 

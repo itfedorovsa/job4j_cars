@@ -7,7 +7,7 @@ import ru.job4j.cars.model.EngineVolume;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate EngineVolume repository
@@ -41,15 +41,15 @@ public class HibernateEngineVolumeRepository implements EngineVolumeRepository {
      * Find EngineVolume by id
      *
      * @param engineVolumeId EngineVolume id
-     * @return Optional of EngineVolume or empty Optional
+     * @return EngineVolume or NoSuchElementException
      */
     @Override
-    public Optional<EngineVolume> findEngineVolumeById(int engineVolumeId) {
+    public EngineVolume findEngineVolumeById(int engineVolumeId) {
         return crudRepository.optional(
                 FIND_ENGINE_VOLUME_BY_ID,
                 EngineVolume.class,
-                Map.of("eId", engineVolumeId)
-        );
+                Map.of("eId", engineVolumeId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the EngineVolume by id."));
     }
 
 }

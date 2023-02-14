@@ -3,7 +3,6 @@ package ru.job4j.cars.repository;
 import ru.job4j.cars.model.EngineVolume;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * EngineVolume repository interface
@@ -16,6 +15,6 @@ public interface EngineVolumeRepository {
 
     List<EngineVolume> findAllEngineVolumes();
 
-    Optional<EngineVolume> findEngineVolumeById(int engineVolumeId);
+    EngineVolume findEngineVolumeById(int engineVolumeId);
 
 }

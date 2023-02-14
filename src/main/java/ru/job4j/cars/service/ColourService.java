@@ -3,7 +3,6 @@ package ru.job4j.cars.service;
 import ru.job4j.cars.model.Colour;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Colour service interface
@@ -16,6 +15,6 @@ public interface ColourService {
 
     List<Colour> findAllColours();
 
-    Optional<Colour> findColourById(int colourId);
+    Colour findColourById(int colourId);
 
 }

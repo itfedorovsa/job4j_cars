@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Colour;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Colour repository
@@ -41,15 +41,15 @@ public class HibernateColourRepository implements ColourRepository {
      * Find Colour by id
      *
      * @param colourId Colour id
-     * @return Optional of Colour or empty Optional
+     * @return Colour or NoSuchElementException
      */
     @Override
-    public Optional<Colour> findColourById(int colourId) {
+    public Colour findColourById(int colourId) {
         return crudRepository.optional(
-                FIND_COLOUR_BY_ID,
-                Colour.class,
-                Map.of("cId", colourId)
-        );
+                        FIND_COLOUR_BY_ID,
+                        Colour.class,
+                        Map.of("cId", colourId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Colour by id."));
     }
 
 }

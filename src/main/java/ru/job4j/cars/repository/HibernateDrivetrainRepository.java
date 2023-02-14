@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Drivetrain;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 /**
  * Hibernate Drivetrain repository
@@ -41,15 +41,15 @@ public class HibernateDrivetrainRepository implements DrivetrainRepository {
      * Find Drivetrain by id
      *
      * @param drivetrainId Drivetrain id
-     * @return Optional of Drivetrain or empty Optional
+     * @return Drivetrain or NoSuchElementException
      */
     @Override
-    public Optional<Drivetrain> findDrivetrainById(int drivetrainId) {
+    public Drivetrain findDrivetrainById(int drivetrainId) {
         return crudRepository.optional(
-                FIND_DRIVETRAIN_BY_ID,
-                Drivetrain.class,
-                Map.of("dId", drivetrainId)
-        );
+                        FIND_DRIVETRAIN_BY_ID,
+                        Drivetrain.class,
+                        Map.of("dId", drivetrainId))
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Drivetrain by id."));
     }
 
 }

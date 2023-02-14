@@ -7,7 +7,6 @@ import ru.job4j.cars.model.Colour;
 import ru.job4j.cars.repository.ColourRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Colour service layer
@@ -29,7 +28,7 @@ public class SimpleColourService implements ColourService {
     }
 
     @Override
-    public Optional<Colour> findColourById(int colourId) {
+    public Colour findColourById(int colourId) {
         return store.findColourById(colourId);
     }
 }
