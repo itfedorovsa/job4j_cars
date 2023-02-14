@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateDrivetrainRepository implements DrivetrainRepository {
 
-    private static final String FIND_ALL_DRIVETRAINS = "FROM Drivetrain";
+    private static final String FIND_ALL_DRIVETRAINS_ORDER_BY_TYPE_ASC = "FROM Drivetrain ORDER BY type ASC";
 
     private static final String FIND_DRIVETRAIN_BY_ID = "FROM Drivetrain WHERE id = :dId";
 
@@ -34,7 +34,7 @@ public class HibernateDrivetrainRepository implements DrivetrainRepository {
      */
     @Override
     public List<Drivetrain> findAllDrivetrains() {
-        return crudRepository.query(FIND_ALL_DRIVETRAINS, Drivetrain.class);
+        return crudRepository.query(FIND_ALL_DRIVETRAINS_ORDER_BY_TYPE_ASC, Drivetrain.class);
     }
 
     /**

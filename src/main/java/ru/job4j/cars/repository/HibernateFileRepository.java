@@ -41,12 +41,8 @@ public class HibernateFileRepository implements FileRepository {
      */
     @Override
     public File saveFile(File file) {
-        try {
-            crudRepository.run(session -> session.persist(file));
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
-        return file.getId() == 0 ? null : file;
+        crudRepository.run(session -> session.save(file));
+        return file;
     }
 
     /**
@@ -72,7 +68,7 @@ public class HibernateFileRepository implements FileRepository {
      */
     @Override
     public boolean deleteFileById(int fileId) {
-        return crudRepository.deleteObjQuery(
+        return crudRepository.deleteEntityById(
                 DELETE_FILE,
                 File.class,
                 Map.of("fId", fileId)

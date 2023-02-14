@@ -29,5 +29,6 @@
         <mapping class="ru.job4j.cars.model.DoorCount"/>
         <mapping class="ru.job4j.cars.model.Drivetrain"/>
         <mapping class="ru.job4j.cars.model.FuelType"/>
+        <mapping class="ru.job4j.cars.model.OwnerHistory"/>
     </session-factory>
 </hibernate-configuration>

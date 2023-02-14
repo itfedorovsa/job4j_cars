@@ -1,0 +1,1 @@
+ALTER TABLE cars DROP CONSTRAINT cars_vin_key;

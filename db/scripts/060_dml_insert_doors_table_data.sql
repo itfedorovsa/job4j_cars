@@ -1,0 +1,1 @@
+INSERT INTO doors (amount) VALUES ('-Other / Unknown-');

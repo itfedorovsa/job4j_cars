@@ -43,7 +43,7 @@ public class HibernateUserRepository implements UserRepository {
      */
     public Optional<User> add(User user) {
         try {
-            crudRepository.run(session -> session.persist(user));
+            crudRepository.run(session -> session.save(user));
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
@@ -56,7 +56,7 @@ public class HibernateUserRepository implements UserRepository {
      * @param user User
      */
     public void update(User user) {
-        crudRepository.run(session -> session.merge(user));
+        crudRepository.run(session -> session.update(user));
     }
 
     /**
@@ -138,4 +138,5 @@ public class HibernateUserRepository implements UserRepository {
         }
         return user;
     }
+
 }

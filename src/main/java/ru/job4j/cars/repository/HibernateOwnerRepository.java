@@ -5,6 +5,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Owner;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,7 +24,12 @@ public class HibernateOwnerRepository implements OwnerRepository {
 
     private static final String DELETE_OWNER = "DELETE FROM Owner WHERE id = :oId";
 
-    private static final String FIND_OWNER_BY_ID = "FROM Owner WHERE id = :oId";
+    private static final String FIND_OWNER_BY_ID = """
+            SELECT DISTINCT o
+            FROM Owner o
+            JOIN FETCH o.user
+            WHERE o.id = :oId
+            """;
 
     private static final String FIND_ALL_OWNERS_BY_CAR_ID = """
             SELECT DISTINCT o
@@ -37,16 +43,12 @@ public class HibernateOwnerRepository implements OwnerRepository {
      * Save Owner in DB
      *
      * @param owner Owner
-     * @return Optional of Owner
+     * @return Owner
      */
     @Override
-    public Optional<Owner> addOwner(Owner owner) {
-        try {
-            crudRepository.run(session -> session.persist(owner));
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
-        return owner.getId() == 0 ? Optional.empty() : Optional.of(owner);
+    public Owner addOwner(Owner owner) {
+        crudRepository.run(session -> session.save(owner));
+        return owner;
     }
 
     /**
@@ -56,7 +58,7 @@ public class HibernateOwnerRepository implements OwnerRepository {
      */
     @Override
     public void updateOwner(Owner owner) {
-        crudRepository.run(session -> session.merge(owner));
+        crudRepository.run(session -> session.update(owner));
     }
 
     /**
@@ -76,9 +78,10 @@ public class HibernateOwnerRepository implements OwnerRepository {
      * Find Owner by id
      *
      * @param ownerId Owner id
-     * @return Optional of Owner
+     * @return Optional of Owner or empty Optional
      */
     @Override
+    @Transactional
     public Optional<Owner> findOwnerById(int ownerId) {
         return crudRepository.optional(
                 FIND_OWNER_BY_ID,
@@ -101,4 +104,5 @@ public class HibernateOwnerRepository implements OwnerRepository {
                 Map.of("cId", carId)
         );
     }
+
 }

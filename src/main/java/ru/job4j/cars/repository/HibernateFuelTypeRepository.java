@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateFuelTypeRepository implements FuelTypeRepository {
 
-    private static final String FIND_ALL_FUEL_TYPES = "FROM FuelType";
+    private static final String FIND_ALL_FUEL_TYPES_ORDER_BY_TYPE_ASC = "FROM FuelType ORDER BY type ASC";
 
     private static final String FIND_FUEL_TYPE_BY_ID = "FROM FuelType WHERE id = :fId";
 
@@ -34,7 +34,7 @@ public class HibernateFuelTypeRepository implements FuelTypeRepository {
      */
     @Override
     public List<FuelType> findAllFuelTypes() {
-        return crudRepository.query(FIND_ALL_FUEL_TYPES, FuelType.class);
+        return crudRepository.query(FIND_ALL_FUEL_TYPES_ORDER_BY_TYPE_ASC, FuelType.class);
     }
 
     /**

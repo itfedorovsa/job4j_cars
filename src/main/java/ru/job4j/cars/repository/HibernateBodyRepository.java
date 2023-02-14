@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateBodyRepository implements BodyRepository {
 
-    private static final String FIND_ALL_BODIES = "FROM Body";
+    private static final String FIND_ALL_BODIES = "FROM Body ORDER BY type ASC";
 
     private static final String FIND_BODY_BY_ID = "FROM Body WHERE id = :bId";
 

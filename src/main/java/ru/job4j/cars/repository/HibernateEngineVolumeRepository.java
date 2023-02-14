@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateEngineVolumeRepository implements EngineVolumeRepository {
 
-    private static final String FIND_ALL_ENGINE_VOLUMES = "FROM EngineVolume";
+    private static final String FIND_ALL_ENGINE_VOLUMES_ORDER_BY_VOLUME_ASC = "FROM EngineVolume ORDER BY volume ASC";
 
     private static final String FIND_ENGINE_VOLUME_BY_ID = "FROM EngineVolume WHERE id = :eId";
 
@@ -34,7 +34,7 @@ public class HibernateEngineVolumeRepository implements EngineVolumeRepository {
      */
     @Override
     public List<EngineVolume> findAllEngineVolumes() {
-        return crudRepository.query(FIND_ALL_ENGINE_VOLUMES, EngineVolume.class);
+        return crudRepository.query(FIND_ALL_ENGINE_VOLUMES_ORDER_BY_VOLUME_ASC, EngineVolume.class);
     }
 
     /**

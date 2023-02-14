@@ -21,9 +21,14 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateModelRepository implements ModelRepository {
 
-    private static final String FIND_ALL_MODELS = "FROM Model WHERE brand_id = :bId";
+    private static final String FIND_ALL_MODELS_ORDER_BY_NAME_ASC = "FROM Model WHERE brand_id = :bId ORDER BY name ASC";
 
-    private static final String FIND_MODEL_BY_ID = "FROM Model WHERE id = :mId";
+    private static final String FIND_MODEL_BY_ID = """
+            SELECT DISTINCT m
+            FROM Model m
+            JOIN FETCH m.brand br
+            WHERE m.id = :mId
+            """;
 
     private final CrudRepository crudRepository;
 
@@ -35,7 +40,7 @@ public class HibernateModelRepository implements ModelRepository {
      */
     @Override
     public List<Model> getAllModelsByBrandId(int brandId) {
-        return crudRepository.query(FIND_ALL_MODELS,
+        return crudRepository.query(FIND_ALL_MODELS_ORDER_BY_NAME_ASC,
                 Model.class,
                 Map.of("bId", brandId)
         );

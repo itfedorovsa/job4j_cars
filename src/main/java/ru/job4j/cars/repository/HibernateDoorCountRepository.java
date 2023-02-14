@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateDoorCountRepository implements DoorCountRepository {
 
-    private static final String FIND_ALL_DOOR_COUNTS = "FROM DoorCount";
+    private static final String FIND_ALL_DOOR_COUNTS_ORDER_BY_AMOUNT_ASC = "FROM DoorCount ORDER BY amount ASC";
 
     private static final String FIND_DOOR_COUNT_BY_ID = "FROM DoorCount WHERE id = :dId";
 
@@ -34,7 +34,7 @@ public class HibernateDoorCountRepository implements DoorCountRepository {
      */
     @Override
     public List<DoorCount> findAllDoorCounts() {
-        return crudRepository.query(FIND_ALL_DOOR_COUNTS, DoorCount.class);
+        return crudRepository.query(FIND_ALL_DOOR_COUNTS_ORDER_BY_AMOUNT_ASC, DoorCount.class);
     }
 
     /**

@@ -7,7 +7,6 @@ import ru.job4j.cars.model.PriceHistory;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Hibernate PriceHistory repository
@@ -21,11 +20,11 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
 
-    private static final String FIND_ALL_PRICE_HISTORY_BY_POST_ID = """
+    private static final String FIND_ALL_PRICE_HISTORY_BY_POST_ID_ORDER_BY_CREATED_DESC = """
             SELECT DISTINCT p
             FROM PriceHistory p
             JOIN FETCH p.post
-            WHERE post_id = :pId
+            WHERE post_id = :pId ORDER BY created DESC
             """;
 
     private final CrudRepository crudRepository;
@@ -34,16 +33,12 @@ public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
      * Save PriceHistory in DB
      *
      * @param priceHistory PriceHistory
-     * @return Optional of PriceHistory
+     * @return PriceHistory
      */
     @Override
-    public Optional<PriceHistory> addPriceHistory(PriceHistory priceHistory) {
-        try {
-            crudRepository.run(session -> session.persist(priceHistory));
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
-        return priceHistory.getId() == 0 ? Optional.empty() : Optional.of(priceHistory);
+    public PriceHistory addPriceHistory(PriceHistory priceHistory) {
+        crudRepository.run(session -> session.persist(priceHistory));
+        return priceHistory;
     }
 
     /**
@@ -55,7 +50,7 @@ public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
     @Override
     public List<PriceHistory> findAllPriceHistoryByPostId(int postId) {
         return crudRepository.query(
-                FIND_ALL_PRICE_HISTORY_BY_POST_ID,
+                FIND_ALL_PRICE_HISTORY_BY_POST_ID_ORDER_BY_CREATED_DESC,
                 PriceHistory.class,
                 Map.of("pId", postId)
         );

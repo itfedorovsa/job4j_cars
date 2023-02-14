@@ -11,7 +11,6 @@ import ru.job4j.cars.repository.FileRepository;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -150,18 +149,14 @@ public class SimpleFileService implements FileService {
     }
 
     /**
+     * Find all File by Post id
+     *
      * @param postId Post id
-     * @return List of FileDto
+     * @return List of File
      */
     @Override
-    public List<FileDto> findAllFilesByPostId(int postId) {
-        List<File> filesByPostId = store.findAllFilesByPostId(postId);
-        List<FileDto> filesDtoByPostId = new ArrayList<>();
-        for (File file : filesByPostId) {
-            byte[] content = readFileAsBytes(file.getPath());
-            filesDtoByPostId.add(new FileDto(file.getName(), content));
-        }
-        return filesDtoByPostId;
+    public List<File> findAllFilesByPostId(int postId) {
+        return store.findAllFilesByPostId(postId);
     }
 
 }

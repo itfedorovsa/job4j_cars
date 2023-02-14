@@ -24,7 +24,7 @@ public class SimpleCarService implements CarService {
     private final CarRepository store;
 
     @Override
-    public Optional<Car> addCar(Car car) {
+    public Car addCar(Car car) {
         return store.addCar(car);
     }
 

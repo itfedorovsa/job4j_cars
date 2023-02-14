@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 public interface OwnerService {
 
-    Optional<Owner> addOwner(Owner owner);
+    Owner addOwner(Owner owner);
 
     void updateOwner(Owner owner);
 

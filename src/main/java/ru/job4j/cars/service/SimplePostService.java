@@ -26,7 +26,7 @@ public class SimplePostService implements PostService {
     private final FileService fileService;
 
     @Override
-    public Optional<Post> addPost(Post post) {
+    public Post addPost(Post post) {
         return store.addPost(post);
     }
 
@@ -59,4 +59,5 @@ public class SimplePostService implements PostService {
     public List<Post> findPostsByBrandAndModel(String brand, String model) {
         return store.findPostsByBrandAndModel(brand, model);
     }
+
 }

@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateReleaseYearRepository implements ReleaseYearRepository {
 
-    private static final String FIND_ALL_RELEASE_YEARS = "FROM ReleaseYear";
+    private static final String FIND_ALL_RELEASE_YEARS_ORDER_BY_YEAR_DESC = "FROM ReleaseYear ORDER BY year DESC";
 
     private static final String FIND_RELEASE_YEAR_BY_ID = "FROM ReleaseYear WHERE id = :rId";
 
@@ -34,7 +34,7 @@ public class HibernateReleaseYearRepository implements ReleaseYearRepository {
      */
     @Override
     public List<ReleaseYear> findAllReleaseYears() {
-        return crudRepository.query(FIND_ALL_RELEASE_YEARS, ReleaseYear.class);
+        return crudRepository.query(FIND_ALL_RELEASE_YEARS_ORDER_BY_YEAR_DESC, ReleaseYear.class);
     }
 
     /**

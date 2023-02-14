@@ -24,7 +24,16 @@ public class HibernatePostRepository implements PostRepository {
 
     private static final String DELETE_POST = "DELETE FROM Post WHERE id = :pId";
 
-    private static final String FIND_POST_BY_ID = "FROM Post WHERE id = :pId";
+    private static final String FIND_POST_BY_ID = """
+            SELECT DISTINCT p
+            FROM Post p
+            JOIN FETCH p.user
+            JOIN FETCH p.priceHistories
+            JOIN FETCH p.participates
+            JOIN FETCH p.car
+            JOIN FETCH p.files
+            WHERE p.id = :pId
+            """;
 
     private static final String FIND_POSTS_BY_LAST_DAY = """
             FROM Post
@@ -42,16 +51,12 @@ public class HibernatePostRepository implements PostRepository {
      * Save Post in DB
      *
      * @param post Post
-     * @return Optional of Post
+     * @return Post
      */
     @Override
-    public Optional<Post> addPost(Post post) {
-        try {
-            crudRepository.run(session -> session.persist(post));
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
-        return post.getId() == 0 ? Optional.empty() : Optional.of(post);
+    public Post addPost(Post post) {
+        crudRepository.run(session -> session.save(post));
+        return post;
     }
 
     /**
@@ -61,7 +66,7 @@ public class HibernatePostRepository implements PostRepository {
      */
     @Override
     public void updatePost(Post post) {
-        crudRepository.run(session -> session.merge(post));
+        crudRepository.run(session -> session.update(post));
     }
 
     /**
@@ -81,7 +86,7 @@ public class HibernatePostRepository implements PostRepository {
      * Find Post by id
      *
      * @param postId Post id
-     * @return Optional of Post
+     * @return Optional of Post or empty Optional
      */
     @Override
     public Optional<Post> findPostById(int postId) {

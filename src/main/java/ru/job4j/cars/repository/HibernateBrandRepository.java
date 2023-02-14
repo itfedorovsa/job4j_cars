@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateBrandRepository implements BrandRepository {
 
-    private static final String FIND_ALL_BRANDS = "FROM Brand";
+    private static final String FIND_ALL_BRANDS_ORDER_BY_NAME_ASC = "FROM Brand ORDER BY name ASC";
 
     private static final String FIND_BRAND_BY_ID = "FROM Brand WHERE id = :bId";
 
@@ -34,7 +34,7 @@ public class HibernateBrandRepository implements BrandRepository {
      */
     @Override
     public List<Brand> findAllBrands() {
-        return crudRepository.query(FIND_ALL_BRANDS, Brand.class);
+        return crudRepository.query(FIND_ALL_BRANDS_ORDER_BY_NAME_ASC, Brand.class);
     }
 
     /**

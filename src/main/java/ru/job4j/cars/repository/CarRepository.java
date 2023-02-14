@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 public interface CarRepository {
 
-    Optional<Car> addCar(Car car);
+    Car addCar(Car car);
 
     void updateCar(Car car);
 

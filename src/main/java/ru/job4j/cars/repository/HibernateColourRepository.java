@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateColourRepository implements ColourRepository {
 
-    private static final String FIND_ALL_COLOURS = "FROM Colour";
+    private static final String FIND_ALL_COLOURS_ORDER_BY_NAME_ASC = "FROM Colour ORDER BY name ASC";
 
     private static final String FIND_COLOUR_BY_ID = "FROM Colour WHERE id = :cId";
 
@@ -34,7 +34,7 @@ public class HibernateColourRepository implements ColourRepository {
      */
     @Override
     public List<Colour> findAllColours() {
-        return crudRepository.query(FIND_ALL_COLOURS, Colour.class);
+        return crudRepository.query(FIND_ALL_COLOURS_ORDER_BY_NAME_ASC, Colour.class);
     }
 
     /**

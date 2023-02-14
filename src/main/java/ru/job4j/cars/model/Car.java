@@ -1,12 +1,12 @@
 package ru.job4j.cars.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.EqualsAndHashCode.Include;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Car model
@@ -15,16 +15,19 @@ import java.util.List;
  * @version 1.0
  * @since 08.01.23
  */
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter
+@Setter
 @Entity
 @Table(name = "cars")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Include
     private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "model_id")
@@ -50,13 +53,12 @@ public class Car {
     @JoinColumn(name = "engine_volume_id")
     private EngineVolume engineVolume;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "owners_history", joinColumns = {
-            @JoinColumn(name = "car_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "owner_id", nullable = false, updatable = false)}
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(name = "owners_history",
+            joinColumns = {@JoinColumn(name = "car_id")},
+            inverseJoinColumns = {@JoinColumn(name = "owner_id")}
     )
-    private List<Owner> owners = new ArrayList<>();
+    private Set<Owner> owners = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
@@ -67,11 +69,57 @@ public class Car {
     private Drivetrain drivetrain;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transmission_id")
+    private Transmission transmission;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fuel_type_id")
     private FuelType fuelType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "door_count_id")
     private DoorCount doorCount;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Car car = (Car) o;
+        return id == car.id && mileage == car.mileage && Objects.equals(brand, car.brand)
+                && Objects.equals(model, car.model) && Objects.equals(vin, car.vin) && Objects.equals(body, car.body) && Objects.equals(colour, car.colour) && Objects.equals(releaseYear, car.releaseYear)
+                && Objects.equals(engineVolume, car.engineVolume) && Objects.equals(owners, car.owners)
+                && Objects.equals(owner, car.owner) && Objects.equals(drivetrain, car.drivetrain)
+                && Objects.equals(transmission, car.transmission) && Objects.equals(fuelType, car.fuelType)
+                && Objects.equals(doorCount, car.doorCount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{"
+                + "id=" + id
+                + ", brand=" + brand
+                + ", model=" + model
+                + ", vin='" + vin + '\''
+                + ", mileage=" + mileage
+                + ", body=" + body
+                + ", colour=" + colour
+                + ", releaseYear=" + releaseYear
+                + ", engineVolume=" + engineVolume
+                + ", owner=" + owner
+                + ", drivetrain=" + drivetrain
+                + ", transmission=" + transmission
+                + ", fuelType=" + fuelType
+                + ", doorCount=" + doorCount
+                + '}';
+    }
 
 }

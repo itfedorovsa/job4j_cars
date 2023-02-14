@@ -24,7 +24,7 @@ public class SimpleOwnerService implements OwnerService {
     private final OwnerRepository store;
 
     @Override
-    public Optional<Owner> addOwner(Owner owner) {
+    public Owner addOwner(Owner owner) {
         return store.addOwner(owner);
     }
 
@@ -47,4 +47,5 @@ public class SimpleOwnerService implements OwnerService {
     public List<Owner> findAllOwnersByCarId(int carId) {
         return store.findAllOwnersByCarId(carId);
     }
+
 }

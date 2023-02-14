@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 public interface PostService {
 
-    Optional<Post> addPost(Post post);
+    Post addPost(Post post);
 
     void updatePost(Post post);
 

@@ -21,7 +21,7 @@ import java.util.Optional;
 @ThreadSafe
 public class HibernateTransmissionRepository implements TransmissionRepository {
 
-    private static final String FIND_ALL_TRANSMISSIONS = "FROM Transmission";
+    private static final String FIND_ALL_TRANSMISSIONS_ORDER_BY_TYPE_ASC = "FROM Transmission ORDER BY type ASC";
 
     private static final String FIND_TRANSMISSION_BY_ID = "FROM Transmission WHERE id = :tId";
 
@@ -34,7 +34,7 @@ public class HibernateTransmissionRepository implements TransmissionRepository {
      */
     @Override
     public List<Transmission> findAllTransmissions() {
-        return crudRepository.query(FIND_ALL_TRANSMISSIONS, Transmission.class);
+        return crudRepository.query(FIND_ALL_TRANSMISSIONS_ORDER_BY_TYPE_ASC, Transmission.class);
     }
 
     /**
