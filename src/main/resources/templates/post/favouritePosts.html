@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Car Sales</title>
+</head>
+<body th:background="@{/images/bg_cars.jpg}" th:background-attachment="fixed" th:width="1920">
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/index}">Car Sales</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" th:href="@{/lastPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
+                <a class="nav-item nav-link" th:href="@{/postFilters}">Filters</a>
+                <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
+                <a class="nav-item nav-link active" href="#">Favourites<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
+                <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Log in</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Log out</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <br/>
+    <br/>
+    <span th:if="${favouritePosts.size() > 1 OR (favouritePosts.size() == 1 AND favouritePosts.get(0).user.id != user.id)}">
+    <h2 align="center">Your favourite posts:</h2>
+    <br/>
+    <div class="container py-3">
+        <div class="card p-3 mb-2 bg-label text-dark m-auto" style="width: 100%">
+            <table class="table">
+                <tbody th:each="post: ${favouritePosts}">
+                <span th:if="${post.user.id != user.id}">
+                <tr>
+                    <td rowspan="3">
+                        <p><a th:href="@{|/formShowPost/${post.id}|}">
+                            <img th:src="@{/files/{id}(id=*{post.files.get(0).id})}" width="400" alt="No image"/></a>
+                        </p>
+                    </td>
+                    <td>
+                        <h2><p><a th:href="@{|/formShowPost/${post.id}|}">
+                            <span th:text="${post.car.releaseYear.year} + ' ' + ${post.car.brand.name}
+                                + ' ' + ${post.car.model.name}">
+                            </span>
+                        </a></p></h2>
+                    </td>
+                <tr>
+                    <td>
+                        <p><b>Engine Capacity (CC): </b><span th:text="${post.car.engineVolume.volume}"></span></p>
+                        <p><b>Type of fuel: </b><span th:text="${post.car.fuelType.type}"></span></p>
+                        <p><b>Transmission: </b><span th:text="${post.car.transmission.type}"></span></p>
+                        <p><b>Drivetrain: </b><span th:text="${post.car.drivetrain.type}"></span></p>
+                        <span th:if="${post.sold}">
+                            <h3>Price: <span style="color: red">SOLD</span></h3>
+                        </span>
+                        <span th:if="${!post.sold}">
+                            <h3 th:text="'Price: $' + ${post.price}"></h3>
+                        </span>
+                    </td>
+                </tr>
+                </span>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </span>
+    <span th:if="${!(favouritePosts.size() > 1) OR (favouritePosts.size() == 1 AND favouritePosts.get(0).user.id == user.id)}">
+        <br/>
+        <br/>
+        <h2 align="center">You don't have any favourites</h2>
+        <br/>
+        <div class="vertical-center">
+            <form th:action="@{/lastPosts}" method="GET" th:align="center">
+                <button type="submit" class="btn btn-primary">Back</button>
+            </form>
+        </div>
+    </span>
+</div>
+</body>
+</html>

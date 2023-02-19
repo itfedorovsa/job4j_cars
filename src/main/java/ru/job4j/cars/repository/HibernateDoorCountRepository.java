@@ -7,7 +7,7 @@ import ru.job4j.cars.model.DoorCount;
 
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Hibernate DoorCount repository
@@ -41,16 +41,15 @@ public class HibernateDoorCountRepository implements DoorCountRepository {
      * Find DoorCount by id
      *
      * @param doorCountId DoorCount id
-     * @return DoorCount or NoSuchElementException
+     * @return Optional of DoorCount or empty Optional
      */
     @Override
-    public DoorCount findDoorCountById(int doorCountId) {
+    public Optional<DoorCount> findDoorCountById(int doorCountId) {
         return crudRepository.optional(
-                        FIND_DOOR_COUNT_BY_ID,
-                        DoorCount.class,
-                        Map.of("dId", doorCountId))
-                .orElseThrow(() -> new NoSuchElementException("Couldn't find the DoorCount by id."));
-
+                FIND_DOOR_COUNT_BY_ID,
+                DoorCount.class,
+                Map.of("dId", doorCountId)
+        );
     }
 
 }

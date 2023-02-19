@@ -18,11 +18,10 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
 
     <title>Car Sales</title>
 </head>
-<body th:background="@{/images/bg_cars.jpg}" th:width="1920">
+<body th:background="@{/images/bg_cars.jpg}" background-attachment="fixed" th:width="1920">
 
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -34,7 +33,9 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/lastPosts}">Cars for sale</a>
-                <a class="nav-item nav-link active" href="#">Sell your car<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
+                <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
+                <a class="nav-item nav-link" th:href="@{/favouritePosts}">Favourites</a>
                 <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
                 <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                     <span th:text="${user.name}"></span>
@@ -48,24 +49,99 @@
         </div>
     </nav>
     <br/>
-    <h2 align="center">Post</h2>
-
+    <br/>
+    <h2 align="center">Look at the details:</h2>
+    <br/>
     <div class="container py-3">
-        <div class="card p-3 mb-2 bg-label text-dark" style="width: 100%">
+        <div class="card p-3 mb-2 bg-label text-dark m-auto" style="width: 100%">
             <table>
                 <tbody>
-                <td>
-                    <p><b>Brand: </b><span th:text="${post.car.brand.name}"></span></p>
-                    <p><b>Model: </b><span th:text="${post.car.model.name}"></span></p>
-                    <p><b>Body style: </b><span th:text="${post.car.body.type}"></span></p>
-                    <p><b>Description: </b><span th:text="${post.description}"></span></p>
-                    <p><b>User name: </b><span th:text="${post.user.name}"></span></p>
-                </td>
+                <tr>
+                    <td>
+                        <p><b>Brand: </b><span th:text="${post.car.brand.name}"></span></p>
+                        <p><b>Model: </b><span th:text="${post.car.model.name}"></span></p>
+                        <p><b>Year of release: </b><span th:text="${post.car.releaseYear.year}"></span></p>
+                        <p><b>Mileage: </b><span th:text="${post.car.mileage}"></span></p>
+                    </td>
+                    <td>
+                        <p><b>Body style: </b><span th:text="${post.car.body.type}"></span></p>
+                        <p><b>Colour: </b><span th:text="${post.car.colour.name}"></span></p>
+                        <p><b>Engine Capacity (CC): </b><span th:text="${post.car.engineVolume.volume}"></span></p>
+                        <p><b>Door count: </b><span th:text="${post.car.doorCount.amount}"></span></p>
+                    </td>
+                    <td>
+                        <p><b>Drivetrain: </b><span th:text="${post.car.drivetrain.type}"></span></p>
+                        <p><b>Transmission: </b><span th:text="${post.car.transmission.type}"></span></p>
+                        <p><b>Type of fuel: </b><span th:text="${post.car.fuelType.type}"></span></p>
+                        <p><b>VIN: </b><span th:text="${post.car.vin}"></span></p>
+                    </td>
+                    <td>
+                        <p><b>Owner: </b><span th:text="${post.car.owner.name}"></span></p>
+                        <p><b>Price: </b><span th:text="${post.price}"></span></p>
+                        <p><b>Posted by: </b><span th:text="${post.user.name}"></span></p>
+                        <p><b>Creation date: </b><span th:text="${post.created + ' '}"></span></p>
+                    </td>
+                </tr>
                 </tbody>
             </table>
+            <br/>
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+                        <span th:if="${post.sold}">
+                            <p><b>Sold:</b> Yes</p>
+                        </span>
+                        <span th:if="${!post.sold}">
+                            <p><b>Sold:</b> No</p>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><b>Description: </b><span th:text="${post.description}"></span></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+            <table align="center">
+                <tbody>
+                <span th:each="file: ${post.files}">
+                    <td>
+                        <img th:src="@{/files/{id}(id=*{file.id})}" width="340" alt="No image">
+                    </td>
+                </span>
+                </tbody>
+            </table>
+            <br/>
+            <div class="vertical-center">
+                <span th:if="${post.user.id == user.id}">
+                    <form th:action="@{/formUpdatePost}" method="GET" th:align="center">
+                        <button type="submit" class="btn btn-primary">Edit post</button>
+                    </form>
+                <br/>
+                    <form th:action="@{/deletePost}" method="POST" th:object="${post}" th:align="center">
+                        <input type="hidden" name="id" th:field="*{id}"/>
+                        <button type="submit" class="btn btn-primary">Delete post</button>
+                    </form>
+                    <br/>
+                    </span>
+                <span th:if="${post.user.id == user.id and !post.sold}">
+                    <form th:action="@{/markPostAsSold}" method="POST" th:object="${post}" th:align="center">
+                        <input type="hidden" name="id" th:field="*{id}"/>
+                        <button type="submit" class="btn btn-primary">Mark as SOLD</button>
+                    </form>
+                </span>
+                <span th:if="${post.user.id != user.id and !#sets.contains(post.participants, user)}">
+                    <form th:action="@{/addPostToFavourites}" method="POST" th:object="${post}" th:align="center">
+                        <input type="hidden" name="id" th:field="*{id}"/>
+                        <button type="submit" class="btn btn-primary">Add to favourites</button>
+                    </form>
+                </span>
+            </div>
         </div>
     </div>
 </div>
 </body>
 </html>
-

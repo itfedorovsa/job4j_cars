@@ -7,6 +7,7 @@ import ru.job4j.cars.model.Post;
 import ru.job4j.cars.repository.PostRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Post service layer
@@ -35,12 +36,16 @@ public class SimplePostService implements PostService {
     }
 
     @Override
-    public void deletePost(int postId) {
-        store.deletePost(postId);
+    public void deletePost(Post post) {
+        /*List<File> filesByPostId = fileService.findAllFilesByPostId(post.getId());
+        for (File file : filesByPostId) {
+            fileService.deleteFileById(file.getId());
+        }*/
+        store.deletePost(post);
     }
 
     @Override
-    public Post findPostById(int postId) {
+    public Optional<Post> findPostById(int postId) {
         return store.findPostById(postId);
     }
 
@@ -55,8 +60,54 @@ public class SimplePostService implements PostService {
     }
 
     @Override
-    public List<Post> findPostsByBrandAndModel(String brand, String model) {
-        return store.findPostsByBrandAndModel(brand, model);
+    public List<Post> findPostsByBrandId(int brandId) {
+        return store.findPostsByBrandId(brandId);
+    }
+
+    @Override
+    public List<Post> findPostsByReleaseYearId(int releaseYearId) {
+        return store.findPostsByReleaseYearId(releaseYearId);
+    }
+
+    @Override
+    public List<Post> findPostsByBodyId(int bodyId) {
+        return store.findPostsByBodyId(bodyId);
+    }
+
+    @Override
+    public List<Post> findPostsByColourId(int colourId) {
+        return store.findPostsByColourId(colourId);
+    }
+
+    @Override
+    public List<Post> findPostsByTransmissionId(int transmissionId) {
+        return store.findPostsByTransmissionId(transmissionId);
+    }
+
+    @Override
+    public List<Post> findPostsByDrivetrainId(int drivetrainId) {
+        return store.findPostsByDrivetrainId(drivetrainId);
+    }
+
+    @Override
+    public List<Post> findPostsByEngineVolumeId(int engineVolumeId) {
+        return store.findPostsByEngineVolumeId(engineVolumeId);
+    }
+
+    @Override
+    public List<Post> findPostsByUserId(int userId) {
+        return store.findPostsByUserId(userId);
+    }
+
+    @Override
+    public List<Post> findFavouritePosts(int userId) {
+        return store.findFavouritePosts(userId);
+    }
+
+    @Override
+    public void markPostAsSold(Post post) {
+        post.setSold(true);
+        store.updatePost(post);
     }
 
 }

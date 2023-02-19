@@ -37,7 +37,7 @@ public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
      */
     @Override
     public PriceHistory addPriceHistory(PriceHistory priceHistory) {
-        crudRepository.run(session -> session.persist(priceHistory));
+        crudRepository.run(session -> session.save(priceHistory));
         return priceHistory;
     }
 

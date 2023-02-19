@@ -36,7 +36,7 @@ public class User {
 
     private String phone;
 
-    @ManyToMany(mappedBy = "participates", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "participants", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Set<Post> posts = new HashSet<>();
 
     @Override

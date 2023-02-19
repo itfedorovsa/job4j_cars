@@ -3,6 +3,7 @@ package ru.job4j.cars.service;
 import ru.job4j.cars.model.EngineVolume;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * EngineVolume service interface
@@ -15,6 +16,6 @@ public interface EngineVolumeService {
 
     List<EngineVolume> findAllEngineVolumes();
 
-    EngineVolume findEngineVolumeById(int engineVolumeId);
+    Optional<EngineVolume> findEngineVolumeById(int engineVolumeId);
 
 }

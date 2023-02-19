@@ -5,7 +5,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Owner;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,6 +33,7 @@ public class HibernateOwnerRepository implements OwnerRepository {
     private static final String FIND_ALL_OWNERS_BY_CAR_ID = """
             SELECT DISTINCT o
             FROM Owner o
+            JOIN FETCH o.user u
             JOIN FETCH o.cars WHERE car_id = :cId
             """;
 
@@ -43,7 +43,7 @@ public class HibernateOwnerRepository implements OwnerRepository {
      * Save Owner in DB
      *
      * @param owner Owner
-     * @return Owner
+     * @return Optional of Owner
      */
     @Override
     public Owner addOwner(Owner owner) {
@@ -78,10 +78,9 @@ public class HibernateOwnerRepository implements OwnerRepository {
      * Find Owner by id
      *
      * @param ownerId Owner id
-     * @return Optional of Owner or empty Optional
+     * @return Optional of Owner
      */
     @Override
-    @Transactional
     public Optional<Owner> findOwnerById(int ownerId) {
         return crudRepository.optional(
                 FIND_OWNER_BY_ID,
@@ -104,5 +103,4 @@ public class HibernateOwnerRepository implements OwnerRepository {
                 Map.of("cId", carId)
         );
     }
-
 }

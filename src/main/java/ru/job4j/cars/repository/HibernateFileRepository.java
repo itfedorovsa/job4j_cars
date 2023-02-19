@@ -37,7 +37,7 @@ public class HibernateFileRepository implements FileRepository {
      * Save File in DB
      *
      * @param file File
-     * @return Optional of File
+     * @return File
      */
     @Override
     public File saveFile(File file) {

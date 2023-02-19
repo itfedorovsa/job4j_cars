@@ -34,6 +34,9 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/lastPosts}">Cars for sale</a>
                 <a class="nav-item nav-link active" href="#">Sell your car<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:href="@{/postFilters}">Filters</a>
+                <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
+                <a class="nav-item nav-link" th:href="@{/favouritePosts}">Favourites</a>
                 <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
                 <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                     <span th:text="${user.name}"></span>
@@ -46,14 +49,13 @@
             </div>
         </div>
     </nav>
-    <br/>
-    <br/>
+    <br/><br/>
     <h2 align="center">Choose the brand of your car:</h2>
-    <br/><br/><br/>
+    <br/>
     <div class="container py-3 col-md-6">
         <div class="card p-3 mb-2 bg-label text-dark" style="width: 100%">
             <form class="col-md-6 m-auto" th:action="@{/formAddPost}" method="GET" th:object="${car}">
-                <label for="brand.id">Brand</label>
+                <label for="brand.id"><b>Brand</b></label>
                 <select class="form-control" id="brand.id" name="brand.id" required>
                     <option th:each="brand : ${brands}" th:value="${brand.id}"
                             th:text="${brand.name}"></option>

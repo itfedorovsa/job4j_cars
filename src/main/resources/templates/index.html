@@ -31,6 +31,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
             <div class="navbar-nav">
+                <a class="nav-item nav-link" th:href="@{/lastPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
+                <a class="nav-item nav-link" th:href="@{/postFilters}">Filters</a>
+                <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
+                <a class="nav-item nav-link" th:href="@{/favouritePosts}">Favourites</a>
                 <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
                 <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                     <span th:text="${user.name}"></span>

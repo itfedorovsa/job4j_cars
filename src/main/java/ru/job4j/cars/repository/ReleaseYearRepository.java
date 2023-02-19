@@ -3,6 +3,7 @@ package ru.job4j.cars.repository;
 import ru.job4j.cars.model.ReleaseYear;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * ReleaseYear repository interface
@@ -15,6 +16,6 @@ public interface ReleaseYearRepository {
 
     List<ReleaseYear> findAllReleaseYears();
 
-    ReleaseYear findReleaseYearById(int releaseYearId);
+    Optional<ReleaseYear> findReleaseYearById(int releaseYearId);
 
 }

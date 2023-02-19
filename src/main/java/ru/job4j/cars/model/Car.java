@@ -1,6 +1,7 @@
 package ru.job4j.cars.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "cars")
 public class Car {
 
@@ -53,14 +55,15 @@ public class Car {
     @JoinColumn(name = "engine_volume_id")
     private EngineVolume engineVolume;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(name = "owners_history",
-            joinColumns = {@JoinColumn(name = "car_id")},
-            inverseJoinColumns = {@JoinColumn(name = "owner_id")}
+            joinColumns = {@JoinColumn(name = "car_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "owner_id", nullable = false, updatable = false)}
     )
     private Set<Owner> owners = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
