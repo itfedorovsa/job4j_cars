@@ -1,11 +1,11 @@
 package ru.job4j.cars.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * File model
@@ -18,11 +18,13 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "files")
 public class File {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private String name;
@@ -36,24 +38,6 @@ public class File {
     public File(String name, String path) {
         this.name = name;
         this.path = path;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        File file = (File) o;
-        return id == file.id && Objects.equals(name, file.name) && Objects.equals(path, file.path)
-                && Objects.equals(post, file.post);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
     @Override

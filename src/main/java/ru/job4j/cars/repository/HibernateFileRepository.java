@@ -28,7 +28,14 @@ public class HibernateFileRepository implements FileRepository {
     private static final String FIND_ALL_FILES_BY_POST_ID = """
             SELECT DISTINCT f
             FROM File f
-            JOIN FETCH f.post WHERE post_id = :pId
+            JOIN FETCH f.post po
+            WHERE po.id = :pId
+            """;
+
+    private static final String DELETE_ALL_FILES_BY_POST_ID = """
+            DELETE
+            FROM File f
+            WHERE f.post.id = :pId
             """;
 
     private final CrudRepository crudRepository;
@@ -64,20 +71,18 @@ public class HibernateFileRepository implements FileRepository {
      * Delete File by id
      *
      * @param fileId File id
-     * @return true if deleted, otherwise false
      */
     @Override
-    public boolean deleteFileById(int fileId) {
-        return crudRepository.deleteEntityById(
+    public void deleteFileById(int fileId) {
+        crudRepository.run(
                 DELETE_FILE,
-                File.class,
                 Map.of("fId", fileId)
         );
     }
 
     /**
      * Find all File by Post id
-     *
+     * @param postId Post id
      * @return List of File
      */
     @Override
@@ -85,6 +90,18 @@ public class HibernateFileRepository implements FileRepository {
         return crudRepository.query(
                 FIND_ALL_FILES_BY_POST_ID,
                 File.class,
+                Map.of("pId", postId)
+        );
+    }
+
+    /**
+     * Delete all files by Post id
+     * @param postId Post id
+     */
+    @Override
+    public void deleteFilesByPostId(int postId) {
+        crudRepository.run(
+                DELETE_ALL_FILES_BY_POST_ID,
                 Map.of("pId", postId)
         );
     }

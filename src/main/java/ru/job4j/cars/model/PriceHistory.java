@@ -1,11 +1,12 @@
 package ru.job4j.cars.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * Price history model
@@ -17,11 +18,14 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "prices_history")
 public class PriceHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private int before;
@@ -34,22 +38,8 @@ public class PriceHistory {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        PriceHistory that = (PriceHistory) o;
-        return id == that.id && before == that.before && after == that.after && Objects.equals(created, that.created)
-                && Objects.equals(post, that.post);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public PriceHistory(int id) {
+        this.id = id;
     }
 
     @Override

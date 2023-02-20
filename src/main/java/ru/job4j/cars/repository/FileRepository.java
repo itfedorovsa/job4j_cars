@@ -18,8 +18,10 @@ public interface FileRepository {
 
     Optional<File> findFileById(int fileId);
 
-    boolean deleteFileById(int fileId);
+    void deleteFileById(int fileId);
 
     List<File> findAllFilesByPostId(int postId);
+
+    void deleteFilesByPostId(int postId);
 
 }

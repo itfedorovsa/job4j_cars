@@ -1,11 +1,9 @@
 package ru.job4j.cars.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -18,11 +16,15 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "owners")
 public class Owner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private String name;
@@ -36,22 +38,8 @@ public class Owner {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Car> cars = new HashSet<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Owner owner = (Owner) o;
-        return id == owner.id && Objects.equals(name, owner.name) && Objects.equals(user, owner.user)
-                && Objects.equals(cars, owner.cars);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public Owner(int id) {
+        this.id = id;
     }
 
     @Override

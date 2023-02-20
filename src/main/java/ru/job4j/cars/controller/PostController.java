@@ -36,8 +36,6 @@ public class PostController implements UserSessionController {
 
     private static final String IDENTIFIER_INSTEAD_NO_PHOTO = "mpt000.jpg";
 
-    private static final int SINGLE_POST_INDEX = 0;
-
     private final PostService postService;
     private final CarService carService;
     private final BodyService bodyService;
@@ -226,7 +224,7 @@ public class PostController implements UserSessionController {
         Post post = postService.findPostById(postId)
                 .orElseThrow(() -> new NoSuchElementException("Couldn't find the Post by id."));
         User user = getUser(httpSession);
-        post = formatDateTime(user, List.of(post)).get(SINGLE_POST_INDEX);
+        formatDateTime(user, post);
         model.addAttribute("post", post);
         return "post/showAddedPost";
     }
@@ -246,7 +244,7 @@ public class PostController implements UserSessionController {
         Post post = postService.findPostById(postId)
                 .orElseThrow(() -> new NoSuchElementException("Couldn't find the Post by id."));
         User user = getUser(httpSession);
-        post = formatDateTime(user, List.of(post)).get(SINGLE_POST_INDEX);
+        formatDateTime(user, post);
         model.addAttribute("post", post);
         httpSession.setAttribute("postId", postId);
         return "post/showPost";
@@ -267,7 +265,7 @@ public class PostController implements UserSessionController {
         Post post = postService.findPostById(postId)
                 .orElseThrow(() -> new NoSuchElementException("Couldn't find the Post by id."));
         User user = getUser(httpSession);
-        post = formatDateTime(user, List.of(post)).get(SINGLE_POST_INDEX);
+        formatDateTime(user, post);
         model.addAttribute("post", post);
         model.addAttribute("brands", List.of(post.getCar().getBrand()));
         model.addAttribute("models", List.of(post.getCar().getModel()));
@@ -419,25 +417,23 @@ public class PostController implements UserSessionController {
     /**
      * Changes posts' LocalDateTime to formatted LDT with user's timezone
      *
-     * @param user  Current User
-     * @param posts List of Post
-     * @return List of Post with changed LDT
+     * @param user Current User
+     * @param post Post
+     * @return Post with changed LDT
      */
-    private List<Post> formatDateTime(User user, List<Post> posts) {
+    private Post formatDateTime(User user, Post post) {
         String timezone = user.getTimezone();
         String defaultTimezone = TimeZone.getDefault().getID();
 
         if (timezone == null) {
             timezone = defaultTimezone;
         }
-        for (Post post : posts) {
-            String formatted = post.getCreated()
-                    .atZone(ZoneId.of(defaultTimezone))
-                    .withZoneSameInstant(ZoneId.of(timezone))
-                    .format(FORMATTER);
-            post.setCreated(LocalDateTime.parse(formatted, FORMATTER));
-        }
-        return posts;
+        String formatted = post.getCreated()
+                .atZone(ZoneId.of(defaultTimezone))
+                .withZoneSameInstant(ZoneId.of(timezone))
+                .format(FORMATTER);
+        post.setCreated(LocalDateTime.parse(formatted, FORMATTER));
+        return post;
     }
 
 }

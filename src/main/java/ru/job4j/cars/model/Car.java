@@ -1,12 +1,9 @@
 package ru.job4j.cars.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -20,11 +17,14 @@ import java.util.Set;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "cars")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -83,26 +83,8 @@ public class Car {
     @JoinColumn(name = "door_count_id")
     private DoorCount doorCount;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Car car = (Car) o;
-        return id == car.id && mileage == car.mileage && Objects.equals(brand, car.brand)
-                && Objects.equals(model, car.model) && Objects.equals(vin, car.vin) && Objects.equals(body, car.body) && Objects.equals(colour, car.colour) && Objects.equals(releaseYear, car.releaseYear)
-                && Objects.equals(engineVolume, car.engineVolume) && Objects.equals(owners, car.owners)
-                && Objects.equals(owner, car.owner) && Objects.equals(drivetrain, car.drivetrain)
-                && Objects.equals(transmission, car.transmission) && Objects.equals(fuelType, car.fuelType)
-                && Objects.equals(doorCount, car.doorCount);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public Car(int id) {
+        this.id = id;
     }
 
     @Override

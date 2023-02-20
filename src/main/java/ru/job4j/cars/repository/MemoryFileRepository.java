@@ -18,7 +18,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version 1.0
  * @since 22.01.23
  */
-/*@Repository*/
 @AllArgsConstructor
 @ThreadSafe
 public class MemoryFileRepository implements FileRepository {
@@ -55,11 +54,10 @@ public class MemoryFileRepository implements FileRepository {
      * Delete File by id
      *
      * @param fileId File id
-     * @return true if deleted, otherwise false
      */
     @Override
-    public boolean deleteFileById(int fileId) {
-        return files.remove(fileId) != null;
+    public void deleteFileById(int fileId) {
+        files.remove(fileId);
     }
 
     /**
@@ -76,6 +74,16 @@ public class MemoryFileRepository implements FileRepository {
             }
         }
         return filesByPostId;
+    }
+
+    @Override
+    public void deleteFilesByPostId(int postId) {
+        for (File file : files.values()) {
+            int fileId = file.getPost().getId();
+            if (fileId == postId) {
+                files.remove(fileId);
+            }
+        }
     }
 
 }

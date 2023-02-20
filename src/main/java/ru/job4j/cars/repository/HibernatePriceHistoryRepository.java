@@ -27,6 +27,12 @@ public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
             WHERE post_id = :pId ORDER BY created DESC
             """;
 
+    private static final String DELETE_PRICE_HISTORY_BY_POST_ID = """
+            DELETE
+            FROM PriceHistory p
+            WHERE p.post.id = :pId
+            """;
+
     private final CrudRepository crudRepository;
 
     /**
@@ -56,4 +62,15 @@ public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
         );
     }
 
+    /**
+     * Delete all PriceHistory by Post id
+     *
+     * @param postId Post id
+     * @return true if deleted, otherwise false
+     */
+    @Override
+    public void deletePriceHistoryByPostId(int postId) {
+        crudRepository.run(DELETE_PRICE_HISTORY_BY_POST_ID,
+                Map.of("pId", postId));
+    }
 }

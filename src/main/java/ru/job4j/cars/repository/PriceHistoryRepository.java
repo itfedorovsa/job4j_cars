@@ -17,4 +17,6 @@ public interface PriceHistoryRepository {
 
     List<PriceHistory> findAllPriceHistoryByPostId(int postId);
 
+    void deletePriceHistoryByPostId(int postId);
+
 }

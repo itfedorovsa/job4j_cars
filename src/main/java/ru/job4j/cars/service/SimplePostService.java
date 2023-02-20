@@ -7,6 +7,7 @@ import ru.job4j.cars.model.Post;
 import ru.job4j.cars.repository.PostRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -23,6 +24,10 @@ public class SimplePostService implements PostService {
 
     private final PostRepository store;
 
+    private final CarService carService;
+
+    private final PriceHistoryService priceHistoryService;
+
     private final FileService fileService;
 
     @Override
@@ -37,11 +42,12 @@ public class SimplePostService implements PostService {
 
     @Override
     public void deletePost(Post post) {
-        /*List<File> filesByPostId = fileService.findAllFilesByPostId(post.getId());
-        for (File file : filesByPostId) {
-            fileService.deleteFileById(file.getId());
-        }*/
-        store.deletePost(post);
+        Post postById = store.findPostById(post.getId())
+                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Post by id."));
+        carService.deleteCar(postById.getCar().getId());
+        fileService.deleteFilesByPostId(postById.getId());
+        priceHistoryService.deletePriceHistoryByPostId(postById.getId());
+        store.deletePost(postById);
     }
 
     @Override

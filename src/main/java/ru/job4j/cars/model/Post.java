@@ -1,13 +1,10 @@
 package ru.job4j.cars.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -21,11 +18,14 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "posts")
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private String description;
@@ -59,25 +59,8 @@ public class Post {
 
     private boolean sold;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Post post = (Post) o;
-        return id == post.id && price == post.price && sold == post.sold
-                && Objects.equals(description, post.description) && Objects.equals(created, post.created)
-                && Objects.equals(user, post.user) && Objects.equals(priceHistories, post.priceHistories)
-                && Objects.equals(participants, post.participants) && Objects.equals(car, post.car)
-                && Objects.equals(files, post.files);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public Post(int id) {
+        this.id = id;
     }
 
     @Override
