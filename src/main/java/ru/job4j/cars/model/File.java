@@ -31,9 +31,8 @@ public class File {
 
     private String path;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @Column(name = "post_id")
+    private int postId;
 
     public File(String name, String path) {
         this.name = name;
@@ -46,7 +45,7 @@ public class File {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", path='" + path + '\''
-                + ", post=" + post
+                + ", postId=" + postId
                 + '}';
     }
 

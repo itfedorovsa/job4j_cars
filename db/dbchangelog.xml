@@ -75,8 +75,8 @@
     <include file="scripts/068_dml_insert_fuel_types_table_data.sql" relativeToChangelogFile="true"/>
     <include file="scripts/069_ddl_alter_owners_history_table_drop_columns.sql" relativeToChangelogFile="true"/>
     <include file="scripts/070_ddl_alter_cars_table_delete_constraint.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/071_ddl_alter_posts_table_add_constraint.sql" relativeToChangelogFile="true"/>
+    <!--<include file="scripts/071_ddl_alter_posts_table_add_constraint.sql" relativeToChangelogFile="true"/>
     <include file="scripts/072_ddl_alter_participants_table_add_constraints.sql" relativeToChangelogFile="true"/>
     <include file="scripts/073_ddl_alter_prices_history_table_add_constraint.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/074_ddl_alter_files_table_add_constraint.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/074_ddl_alter_files_table_add_constraint.sql" relativeToChangelogFile="true"/>-->
 </databaseChangeLog>

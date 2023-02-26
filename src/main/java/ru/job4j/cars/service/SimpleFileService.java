@@ -61,7 +61,7 @@ public class SimpleFileService implements FileService {
         String path = getNewFilePath(fileDto.getName());
         writeFileBytes(path, fileDto.getContent());
         File file = new File(fileDto.getName(), path);
-        file.setPost(post);
+        file.setPostId(post.getId());
         return store.saveFile(file);
     }
 
@@ -161,7 +161,6 @@ public class SimpleFileService implements FileService {
      * Delete all files by Post id
      *
      * @param postId Post id
-     * @return true if deleted, otherwise false
      */
     @Override
     public void deleteFilesByPostId(int postId) {

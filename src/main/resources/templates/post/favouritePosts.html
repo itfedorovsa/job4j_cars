@@ -51,7 +51,6 @@
     </nav>
     <br/>
     <br/>
-    <span th:if="${favouritePosts.size() > 1 OR (favouritePosts.size() == 1 AND favouritePosts.get(0).user.id != user.id)}">
     <h2 align="center">Your favourite posts:</h2>
     <br/>
     <div class="container py-3">
@@ -91,18 +90,11 @@
             </table>
         </div>
     </div>
-    </span>
-    <span th:if="${!(favouritePosts.size() > 1) OR (favouritePosts.size() == 1 AND favouritePosts.get(0).user.id == user.id)}">
-        <br/>
-        <br/>
-        <h2 align="center">You don't have any favourites</h2>
-        <br/>
-        <div class="vertical-center">
-            <form th:action="@{/lastPosts}" method="GET" th:align="center">
-                <button type="submit" class="btn btn-primary">Back</button>
-            </form>
-        </div>
-    </span>
+    <div class="vertical-center">
+        <form th:action="@{/lastPosts}" method="GET" th:align="center">
+            <button type="submit" class="btn btn-primary">Back</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

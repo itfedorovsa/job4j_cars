@@ -7,6 +7,16 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import ru.job4j.cars.model.*;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Post hibernate repository test class
@@ -25,15 +35,107 @@ public class HibernatePostRepositoryTest {
 
     private final Session session = sf.openSession();
 
-    CrudRepository crudRepository = new CrudRepository(sf);
+    private CrudRepository crudRepository;
 
-    HibernatePostRepository repository = new HibernatePostRepository(crudRepository);
+    private PostRepository postRepository;
+
+    private PriceHistoryRepository priceHistoryRepository;
+
+    private OwnerRepository ownerRepository;
+
+    private UserRepository userRepository;
+
+    private CarRepository carRepository;
+
+    private OwnerHistoryRepository ownerHistoryRepository;
+
+    private ParticipantRepository participantRepository;
+
+    private Post post;
+
+    private Car car;
+
+    private User user;
+
+    private Owner owner;
+
+    private OwnerHistory ownerHistory;
+
+    private PriceHistory priceHistory;
+
+    private Participant participant;
+
+    @BeforeEach
+    void initServices() {
+        crudRepository = new CrudRepository(sf);
+        postRepository = new HibernatePostRepository(crudRepository);
+        ownerRepository = new HibernateOwnerRepository(crudRepository);
+        userRepository = new HibernateUserRepository(crudRepository);
+        priceHistoryRepository = new HibernatePriceHistoryRepository(crudRepository);
+        carRepository = new HibernateCarRepository(crudRepository);
+        ownerHistoryRepository = new HibernateOwnerHistoryRepository(crudRepository);
+        participantRepository = new HibernateParticipantRepository(crudRepository);
+        user = User.of()
+                .login("login10")
+                .password("password")
+                .name("name")
+                .timezone("timezone")
+                .phone("phone")
+                .posts(Set.of())
+                .build();
+        userRepository.add(user);
+        owner = Owner.of()
+                .name("name")
+                .user(user)
+                .build();
+        ownerRepository.addOwner(owner);
+        Brand brand = new Brand(1, "brand1");
+        car = Car.of()
+                .brand(brand)
+                .model(new ru.job4j.cars.model.Model(1, "model1", brand))
+                .vin("11111111111111111")
+                .mileage(100)
+                .body(new Body(1, "body1"))
+                .colour(new Colour(1, "colour1"))
+                .releaseYear(new ReleaseYear(1, 2000))
+                .engineVolume(new EngineVolume(1, 2.0))
+                .owners(Set.of(owner))
+                .owner(owner)
+                .drivetrain(new Drivetrain(1, "drivetrain1"))
+                .transmission(new Transmission(1, "transmission1"))
+                .fuelType(new FuelType(1, "fuelType1"))
+                .doorCount(new DoorCount(1, "doorCount1"))
+                .build();
+        owner.setCars(Set.of(car));
+        carRepository.addCar(car);
+        ownerHistory = new OwnerHistory();
+        ownerHistory.setOwnerId(owner.getId());
+        ownerHistory.setCarId(car.getId());
+        ownerHistoryRepository.addOwnerHistory(ownerHistory);
+        priceHistory = PriceHistory.of()
+                .before(100)
+                .after(200)
+                .postId(1)
+                .build();
+        participant = new Participant();
+        post = Post.of()
+                .description("desc1")
+                .user(user)
+                .participants(Set.of(user))
+                .car(car)
+                .price(100)
+                .files(List.of())
+                .sold(true)
+                .build();
+    }
 
     @AfterEach
     public void wipeTable() {
         try {
             session.beginTransaction();
-            session.createQuery("DELETE FROM Item")
+            session.createQuery("DELETE FROM participants; DELETE FROM files; DELETE FROM prices_history; "
+                            + "DELETE FROM owners_history; DELETE FROM posts; DELETE FROM cars; DELETE FROM owners; "
+                            + "DELETE FROM users;")
                     .executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -44,18 +146,33 @@ public class HibernatePostRepositoryTest {
     }
 
     @AfterAll
-    static void close() {
+    public static void closeConnection() {
         StandardServiceRegistryBuilder.destroy(REGISTRY);
     }
 
-    /*@Test
-    public void whenAddNewItemThenTrackerHasSameItem() {
-        try (var tracker = new PostHibernateRepository(sf)) {
-            Post post = new Post();
-            item.setName("test1");
-            tracker.add(item);
-            Item result = tracker.findById(item.getId());
-            assertThat(result.getName(), is(item.getName()));
-        }
-    }*/
+    @Test
+    public void whenAddPostThenFindPostById() {
+        postRepository.addPost(post);
+        priceHistory.setPostId(post.getId());
+        priceHistoryRepository.addPriceHistory(priceHistory);
+        post.setPriceHistories(Set.of(priceHistory));
+        participant.setPostId(post.getId());
+        participant.setUserId(post.getUser().getId());
+        participantRepository.addParticipant(participant);
+        assertEquals(post, postRepository.findPostById(post.getId()).get());
+    }
+
+    @Test
+    public void whenDeletePostThenPostDeleted() {
+        postRepository.addPost(post);
+        priceHistory.setPostId(post.getId());
+        priceHistoryRepository.addPriceHistory(priceHistory);
+        post.setPriceHistories(Set.of(priceHistory));
+        participant.setPostId(post.getId());
+        participant.setUserId(post.getUser().getId());
+        participantRepository.addParticipant(participant);
+        postRepository.deletePost(post);
+        assertThrows(NoSuchElementException.class, () -> postRepository.findPostById(post.getId()));
+    }
+
 }

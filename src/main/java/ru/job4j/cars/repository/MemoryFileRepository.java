@@ -69,7 +69,7 @@ public class MemoryFileRepository implements FileRepository {
     public List<File> findAllFilesByPostId(int postId) {
         List<File> filesByPostId = new ArrayList<>();
         for (File file : files.values()) {
-            if (file.getPost().getId() == postId) {
+            if (file.getPostId() == postId) {
                 filesByPostId.add(file);
             }
         }
@@ -79,7 +79,7 @@ public class MemoryFileRepository implements FileRepository {
     @Override
     public void deleteFilesByPostId(int postId) {
         for (File file : files.values()) {
-            int fileId = file.getPost().getId();
+            int fileId = file.getPostId();
             if (fileId == postId) {
                 files.remove(fileId);
             }

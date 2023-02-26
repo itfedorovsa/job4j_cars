@@ -66,7 +66,6 @@ public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
      * Delete all PriceHistory by Post id
      *
      * @param postId Post id
-     * @return true if deleted, otherwise false
      */
     @Override
     public void deletePriceHistoryByPostId(int postId) {

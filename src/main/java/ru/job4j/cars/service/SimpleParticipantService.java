@@ -16,7 +16,7 @@ import ru.job4j.cars.repository.ParticipantRepository;
 @Service
 @AllArgsConstructor
 @ThreadSafe
-public class SimpleParticipantService implements ParticipantService {
+public class SimpleParticipantService implements ru.job4j.cars.service.ParticipantService {
 
     private final ParticipantRepository store;
 

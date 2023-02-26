@@ -1,9 +1,6 @@
 package ru.job4j.cars.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +16,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Builder(builderMethodName = "of")
 @Table(name = "prices_history")
 public class PriceHistory {
 
@@ -32,11 +31,10 @@ public class PriceHistory {
 
     private int after;
 
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created = LocalDateTime.now().withSecond(0).withNano(0);
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @Column(name = "post_id")
+    private int postId;
 
     public PriceHistory(int id) {
         this.id = id;
@@ -49,7 +47,7 @@ public class PriceHistory {
                 + ", before=" + before
                 + ", after=" + after
                 + ", created=" + created
-                + ", post=" + post
+                + ", postId=" + postId
                 + '}';
     }
 

@@ -177,12 +177,12 @@ public class PostController implements UserSessionController {
         Participant participant = new Participant();
         participant.setPostId(post.getId());
         participant.setUserId(user.getId());
+        participantService.addParticipant(participant);
         PriceHistory priceHistory = new PriceHistory();
         priceHistory.setBefore(post.getPrice());
         priceHistory.setAfter(post.getPrice());
-        priceHistory.setPost(post);
+        priceHistory.setPostId(post.getId());
         priceHistoryService.addPriceHistory(priceHistory);
-        participantService.addParticipant(participant);
         try {
             String filename1 = file1.getOriginalFilename();
             String filename2 = file2.getOriginalFilename();
@@ -297,7 +297,7 @@ public class PostController implements UserSessionController {
             PriceHistory priceHistory = new PriceHistory();
             priceHistory.setBefore(postById.getPrice());
             priceHistory.setAfter(post.getPrice());
-            priceHistory.setPost(post);
+            priceHistory.setPostId(post.getId());
             priceHistoryService.addPriceHistory(priceHistory);
         }
         post.setUser(postById.getUser());
