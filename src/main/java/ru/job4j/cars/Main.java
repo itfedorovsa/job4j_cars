@@ -24,7 +24,7 @@ public class Main {
 
     private Properties loadDbProperties() {
         Properties cfg = new Properties();
-        try (InputStream io = new FileInputStream("db/liquibase.properties")) {
+        try (InputStream io = new FileInputStream("db/liquibase_test.properties")) {
             cfg.load(io);
         } catch (Exception e) {
             throw new IllegalStateException(e);

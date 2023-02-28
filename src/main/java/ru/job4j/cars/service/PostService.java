@@ -22,6 +22,8 @@ public interface PostService {
 
     Optional<Post> findPostById(int postId);
 
+    List<Post> findAllPosts();
+
     List<Post> findPostsByLastDay();
 
     List<Post> findPostsWithPhoto();

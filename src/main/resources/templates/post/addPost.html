@@ -33,7 +33,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/lastPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/allPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/lastPosts}">Last posts</a>
                 <a class="nav-item nav-link active" href="#">Sell your car<span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" th:href="@{/postFilters}">Filters</a>
                 <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
@@ -58,7 +59,7 @@
             <form class="row" th:action="@{/createPost}" method="POST" th:object="${car}" enctype="multipart/form-data">
                 <!-- Brand -->
                 <div class="col-md-4">
-                    <label><b>Brand*</b></label>
+                    <label><b>Brand (Already selected)</b></label>
                     <select class="form-control" th:field="*{brand.id}" aria-readonly="true">
                         <option th:each="brand : ${brands}"
                                 th:value="${brand.id}"

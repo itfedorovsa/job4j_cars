@@ -38,7 +38,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private Set<PriceHistory> priceHistories;
 
@@ -49,13 +49,13 @@ public class Post {
     private Set<User> participants;
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+            cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")
     private Car car;
 
     private int price;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private List<File> files;
 

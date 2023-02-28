@@ -47,6 +47,30 @@ public class HibernatePostRepository implements PostRepository {
             WHERE p.id = :pId
             """;
 
+    private static final String FIND_ALL_POSTS = """ 
+            SELECT DISTINCT p
+            FROM Post p
+            JOIN FETCH p.user u
+            JOIN FETCH p.priceHistories prs
+            JOIN FETCH p.participants pas
+            JOIN FETCH p.car ca
+            JOIN FETCH ca.brand br
+            JOIN FETCH ca.model mo
+            JOIN FETCH ca.body bo
+            JOIN FETCH ca.colour co
+            JOIN FETCH ca.releaseYear re
+            JOIN FETCH ca.engineVolume en
+            JOIN FETCH ca.drivetrain dr
+            JOIN FETCH ca.fuelType fu
+            JOIN FETCH ca.doorCount do
+            JOIN FETCH ca.transmission tr
+            JOIN FETCH ca.owner ow
+            JOIN FETCH ow.user us
+            JOIN FETCH ow.cars crs
+            JOIN FETCH ca.owners ows
+            JOIN FETCH p.files fi
+            """;
+
     private static final String FIND_POSTS_BY_LAST_DAY = """
             SELECT DISTINCT p
             FROM Post p
@@ -349,6 +373,17 @@ public class HibernatePostRepository implements PostRepository {
                 Post.class,
                 Map.of("pId", postId)
         );
+    }
+
+    /**
+     * Find all posts
+     *
+     * @return List of Posts
+     */
+    @Override
+    public List<Post> findAllPosts() {
+        return crudRepository.query(FIND_ALL_POSTS,
+                Post.class);
     }
 
     /**

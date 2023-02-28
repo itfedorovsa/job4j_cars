@@ -24,12 +24,6 @@ public class SimplePostService implements PostService {
 
     private final PostRepository store;
 
-    private final CarService carService;
-
-    private final PriceHistoryService priceHistoryService;
-
-    private final FileService fileService;
-
     @Override
     public Post addPost(Post post) {
         return store.addPost(post);
@@ -44,15 +38,17 @@ public class SimplePostService implements PostService {
     public void deletePost(Post post) {
         Post postById = store.findPostById(post.getId())
                 .orElseThrow(() -> new NoSuchElementException("Couldn't find the Post by id."));
-        carService.deleteCar(postById.getCar().getId());
-        fileService.deleteFilesByPostId(postById.getId());
-        priceHistoryService.deletePriceHistoryByPostId(postById.getId());
         store.deletePost(postById);
     }
 
     @Override
     public Optional<Post> findPostById(int postId) {
         return store.findPostById(postId);
+    }
+
+    @Override
+    public List<Post> findAllPosts() {
+        return store.findAllPosts();
     }
 
     @Override

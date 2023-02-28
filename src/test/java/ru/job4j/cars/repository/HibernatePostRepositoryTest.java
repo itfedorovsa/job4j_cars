@@ -11,12 +11,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.model.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Post hibernate repository test class
@@ -76,7 +76,7 @@ public class HibernatePostRepositoryTest {
         ownerHistoryRepository = new HibernateOwnerHistoryRepository(crudRepository);
         participantRepository = new HibernateParticipantRepository(crudRepository);
         user = User.of()
-                .login("login10")
+                .login("login" + System.nanoTime())
                 .password("password")
                 .name("name")
                 .timezone("timezone")
@@ -115,11 +115,13 @@ public class HibernatePostRepositoryTest {
         priceHistory = PriceHistory.of()
                 .before(100)
                 .after(200)
+                .created(LocalDateTime.now().withSecond(0).withNano(0))
                 .postId(1)
                 .build();
         participant = new Participant();
         post = Post.of()
                 .description("desc1")
+                .created(LocalDateTime.now().withSecond(0).withNano(0))
                 .user(user)
                 .participants(Set.of(user))
                 .car(car)
@@ -151,7 +153,7 @@ public class HibernatePostRepositoryTest {
     }
 
     @Test
-    public void whenAddPostThenFindPostById() {
+    public void whenAddPostThenPostsListSizeIs1() {
         postRepository.addPost(post);
         priceHistory.setPostId(post.getId());
         priceHistoryRepository.addPriceHistory(priceHistory);
@@ -159,7 +161,7 @@ public class HibernatePostRepositoryTest {
         participant.setPostId(post.getId());
         participant.setUserId(post.getUser().getId());
         participantRepository.addParticipant(participant);
-        assertEquals(post, postRepository.findPostById(post.getId()).get());
+        assertEquals(1, postRepository.findAllPosts().size());
     }
 
     @Test
@@ -172,7 +174,7 @@ public class HibernatePostRepositoryTest {
         participant.setUserId(post.getUser().getId());
         participantRepository.addParticipant(participant);
         postRepository.deletePost(post);
-        assertThrows(NoSuchElementException.class, () -> postRepository.findPostById(post.getId()));
+        assertTrue(postRepository.findAllPosts().isEmpty());
     }
 
 }

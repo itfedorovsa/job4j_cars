@@ -32,7 +32,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/lastPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/allPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/lastPosts}">Last posts</a>
                 <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
                 <a class="nav-item nav-link" th:href="@{/postFilters}">Filters</a>
                 <a class="nav-item nav-link active" href="#">Published<span class="sr-only">(current)</span></a>
@@ -96,7 +97,7 @@
         <h2 align="center">You don't have any published posts</h2>
         <br/>
         <div class="vertical-center">
-            <form th:action="@{/lastPosts}" method="GET" th:align="center">
+            <form th:action="@{/allPosts}" method="GET" th:align="center">
                 <button type="submit" class="btn btn-primary">Back</button>
             </form>
         </div>
