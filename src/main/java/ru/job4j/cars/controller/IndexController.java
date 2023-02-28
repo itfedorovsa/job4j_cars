@@ -5,7 +5,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.job4j.cars.model.User;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @AllArgsConstructor
 @ThreadSafe
-public class IndexController {
+public class IndexController implements UserSessionController {
 
     /**
      * Index page
@@ -30,12 +29,8 @@ public class IndexController {
      */
     @GetMapping("/index")
     public String index(Model model, HttpSession httpSession) {
-        User user = (User) httpSession.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Guest");
-        }
-        model.addAttribute("user", user);
+        model.addAttribute("user", getUser(httpSession));
         return "index";
     }
+
 }

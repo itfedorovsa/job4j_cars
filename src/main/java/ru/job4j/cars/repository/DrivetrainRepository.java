@@ -3,6 +3,7 @@ package ru.job4j.cars.repository;
 import ru.job4j.cars.model.Drivetrain;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Drivetrain repository interface
@@ -15,6 +16,6 @@ public interface DrivetrainRepository {
 
     List<Drivetrain> findAllDrivetrains();
 
-    Drivetrain findDrivetrainById(int drivetrainId);
+    Optional<Drivetrain> findDrivetrainById(int drivetrainId);
 
 }

@@ -21,7 +21,7 @@
 
     <title>Car Sales</title>
 </head>
-<body th:background="@{/images/bg_cars.jpg}" th:width="1920">
+<body th:background="@{/images/bg_cars.jpg}" th:background-attachment="fixed" th:width="1920">
 
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -34,6 +34,9 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="#">Cars for sale<span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
+                <a class="nav-item nav-link" th:href="@{/postFilters}">Filters</a>
+                <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
+                <a class="nav-item nav-link" th:href="@{/favouritePosts}">Favourites</a>
                 <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
                 <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                     <span th:text="${user.name}"></span>
@@ -50,57 +53,41 @@
     <br/>
     <h2 align="center">New posts by last day:</h2>
     <br/>
-<!--    <div class="card">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Car description</th>
-                <th scope="col">Task priority</th>
-                <th scope="col">Done</th>
-                <th scope="col">User</th>
-                <th scope="col">Task category</th>
-                <th scope="col">Created / Timezone</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="task: ${allTasks}">
-                <th>
-                    <a th:href="@{|/formTaskDesc/${task.id}|}" th:text="${task.description}"></a>
-                </th>
-                <th>
-                    <span th:text="${task.priority.name}"></span>
-                </th>
-                <th>
-                    <span th:if="${task.isDone}">
-                        <i class="fa fa-check-square-o"></i>
-                    </span>
-                    <span th:if="${!task.isDone}">
-                        <i class="fa fa-square-o"></i>
-                    </span>
-                </th>
-                <th>
-                    <span th:text="${task.user.name}"></span>
-                </th>
-                <th>
-                    <a th:each="category: ${task.categories}">
-                        <span th:utext="${category.name + '<br>'}"></span>
-                    </a>
-                </th>
-                <th>
-                    <span th:text="${task.created + ' / ' + task.user.timezone}"></span>
-                </th>
-            </tr>
-            </tbody>
-        </table>
+    <div class="container py-3">
+        <div class="card p-3 mb-2 bg-label text-dark m-auto" style="width: 100%">
+            <table class="table">
+                <tbody th:each="post: ${lastPosts}">
+                <tr>
+                    <td rowspan="3">
+                        <p><a th:href="@{|/formShowPost/${post.id}|}">
+                            <img th:src="@{/files/{id}(id=*{post.files.get(0).id})}" width="400" alt="No image"></a>
+                        </p>
+                    </td>
+                    <td>
+                        <h2><p><a th:href="@{|/formShowPost/${post.id}|}">
+                            <span th:text="${post.car.releaseYear.year} + ' ' + ${post.car.brand.name}
+                                + ' ' + ${post.car.model.name}">
+                            </span>
+                        </a></p></h2>
+                    </td>
+                <tr>
+                    <td>
+                        <p><b>Engine Capacity (CC): </b><span th:text="${post.car.engineVolume.volume}"></span></p>
+                        <p><b>Type of fuel: </b><span th:text="${post.car.fuelType.type}"></span></p>
+                        <p><b>Transmission: </b><span th:text="${post.car.transmission.type}"></span></p>
+                        <p><b>Drivetrain: </b><span th:text="${post.car.drivetrain.type}"></span></p>
+                        <span th:if="${post.sold}">
+                            <h3>Price: <span style="color: red">SOLD</span></h3>
+                        </span>
+                        <span th:if="${!post.sold}">
+                            <h3 th:text="'Price: $' + ${post.price}"></h3>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <br/>
-    <div class="vertical-center">
-        <form th:action="@{/newTask}" method="GET" th:align="center">
-            <button type="submit" class="btn btn-primary">Create new task</button>
-        </form>
-    </div> -->
 </div>
 </body>
 </html>
-
-

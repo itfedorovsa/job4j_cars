@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Car Sales</title>
+</head>
+<body th:background="@{/images/bg_cars.jpg}" th:background-attachment="fixed" th:width="1920">
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/index}">Car Sales</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" th:href="@{/lastPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
+                <a class="nav-item nav-link active" href="#">Filters<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
+                <a class="nav-item nav-link" th:href="@{/favouritePosts}">Favourites</a>
+                <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
+                <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Log in</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Log out</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <br/>
+
+    <div class="box p-3 mb-2 bg-label text-dark m-auto" style="width: 100%">
+        <div class="col-md-4 m-auto">
+            <!-- Brand -->
+            <form class="row" th:action="@{/filterByBrand}" method="GET" th:object="${car}">
+                <label><b>Brand</b></label>
+                <select class="form-control" th:field="*{brand.id}" aria-readonly="true">
+                    <option th:each="brand : ${brands}"
+                            th:value="${brand.id}"
+                            th:text="${brand.name}">
+                    </option>
+                </select>
+                <div class="button-a m-auto">
+                    <button type="submit" class="btn btn-primary mt-2">Search by brand</button>
+                </div>
+            </form>
+            <!-- Year of release -->
+            <form class="row" th:action="@{/filterByReleaseYear}" method="GET" th:object="${car}">
+                <label><b>Release Year</b></label>
+                <select class="form-control" th:field="*{releaseYear.id}">
+                    <option th:each="releaseYear : ${years}"
+                            th:value="${releaseYear.id}"
+                            th:text="${releaseYear.year}">
+                    </option>
+                </select>
+                <div class="button-a m-auto">
+                    <button type="submit" class="btn btn-primary mt-2">Search by year of release</button>
+                </div>
+            </form>
+            <!-- Body style -->
+            <form class="row" th:action="@{/filterByBody}" method="GET" th:object="${car}">
+                <label><b>Body Style</b></label>
+                <select class="form-control" th:field="*{body.id}">
+                    <option th:each="body : ${bodies}"
+                            th:value="${body.id}"
+                            th:text="${body.type}">
+                    </option>
+                </select>
+                <div class="button-a m-auto">
+                    <button type="submit" class="btn btn-primary mt-2">Search by body style</button>
+                </div>
+            </form>
+            <!-- Colour -->
+            <form class="row" th:action="@{/filterByColour}" method="GET" th:object="${car}">
+                <label><b>Colour</b></label>
+                <select class="form-control" th:field="*{colour.id}">
+                    <option th:each="colour : ${colours}"
+                            th:value="${colour.id}"
+                            th:text="${colour.name}">
+                    </option>
+                </select>
+                <div class="button-a m-auto">
+                    <button type="submit" class="btn btn-primary mt-2">Search by colour</button>
+                </div>
+            </form>
+            <!-- Transmission -->
+            <form class="row" th:action="@{/filterByTransmission}" method="GET" th:object="${car}">
+                <label><b>Transmission</b></label>
+                <select class="form-control" th:field="*{transmission.id}">
+                    <option th:each="transmission : ${transmissions}"
+                            th:value="${transmission.id}"
+                            th:text="${transmission.type}">
+                    </option>
+                </select>
+                <div class="button-a m-auto">
+                    <button type="submit" class="btn btn-primary mt-2">Search by transmission</button>
+                </div>
+            </form>
+            <!-- Drivetrain -->
+            <form class="row" th:action="@{/filterByDrivetrain}" method="GET" th:object="${car}">
+                <label><b>Drivetrain</b></label>
+                <select class="form-control" th:field="*{drivetrain.id}">
+                    <option th:each="drivetrain : ${drivetrains}"
+                            th:value="${drivetrain.id}"
+                            th:text="${drivetrain.type}">
+                    </option>
+                </select>
+                <div class="button-a m-auto">
+                    <button type="submit" class="btn btn-primary mt-2">Search by drivetrain</button>
+                </div>
+            </form>
+            <!-- Engine capacity -->
+            <form class="row" th:action="@{/filterByEngineVolume}" method="GET" th:object="${car}">
+                <label><b>Engine Capacity (CC)</b></label>
+                <select class="form-control" th:field="*{engineVolume.id}">
+                    <option th:each="engineVolume : ${volumes}"
+                            th:value="${engineVolume.id}"
+                            th:text="${engineVolume.volume}">
+                    </option>
+                </select>
+                <div class="button-a m-auto">
+                    <button type="submit" class="btn btn-primary mt-2">Search by engine capacity</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

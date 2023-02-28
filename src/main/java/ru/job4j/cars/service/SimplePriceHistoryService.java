@@ -32,4 +32,8 @@ public class SimplePriceHistoryService implements PriceHistoryService {
         return store.findAllPriceHistoryByPostId(postId);
     }
 
+    @Override
+    public void deletePriceHistoryByPostId(int postId) {
+        store.deletePriceHistoryByPostId(postId);
+    }
 }

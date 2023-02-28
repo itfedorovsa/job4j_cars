@@ -7,6 +7,7 @@ import ru.job4j.cars.model.Model;
 import ru.job4j.cars.repository.ModelRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Model service layer
@@ -28,7 +29,7 @@ public class SimpleModelService implements ModelService {
     }
 
     @Override
-    public Model findModelById(int modelId) {
+    public Optional<Model> findModelById(int modelId) {
         return store.getModelById(modelId);
     }
 

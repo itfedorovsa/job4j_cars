@@ -20,8 +20,10 @@ public interface FileService {
 
     Optional<FileDto> getFileById(int fileId);
 
-    boolean deleteFileById(int fileId);
+    void deleteFileById(int fileId);
 
     List<File> findAllFilesByPostId(int postId);
+
+    void deleteFilesByPostId(int postId);
 
 }

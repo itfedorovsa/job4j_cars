@@ -7,7 +7,7 @@ import ru.job4j.cars.model.Body;
 
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Hibernate Body repository
@@ -41,15 +41,15 @@ public class HibernateBodyRepository implements BodyRepository {
      * Find Body by id
      *
      * @param bodyId Body id
-     * @return Body or NoSuchElementException
+     * @return Optional of Body or empty Optional
      */
     @Override
-    public Body findBodyById(int bodyId) {
+    public Optional<Body> findBodyById(int bodyId) {
         return crudRepository.optional(
-                        FIND_BODY_BY_ID,
-                        Body.class,
-                        Map.of("bId", bodyId))
-                .orElseThrow(() -> new NoSuchElementException("Couldn't find the Body by id."));
+                FIND_BODY_BY_ID,
+                Body.class,
+                Map.of("bId", bodyId)
+        );
     }
 
 }

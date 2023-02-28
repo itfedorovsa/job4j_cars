@@ -1,11 +1,9 @@
 package ru.job4j.cars.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * Price history model
@@ -17,39 +15,29 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Builder(builderMethodName = "of")
 @Table(name = "prices_history")
 public class PriceHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private int before;
 
     private int after;
 
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created = LocalDateTime.now().withSecond(0).withNano(0);
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @Column(name = "post_id")
+    private int postId;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        PriceHistory that = (PriceHistory) o;
-        return id == that.id && before == that.before && after == that.after && Objects.equals(created, that.created)
-                && Objects.equals(post, that.post);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public PriceHistory(int id) {
+        this.id = id;
     }
 
     @Override
@@ -59,7 +47,7 @@ public class PriceHistory {
                 + ", before=" + before
                 + ", after=" + after
                 + ", created=" + created
-                + ", post=" + post
+                + ", postId=" + postId
                 + '}';
     }
 

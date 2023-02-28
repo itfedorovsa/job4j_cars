@@ -3,6 +3,7 @@ package ru.job4j.cars.service;
 import ru.job4j.cars.model.Body;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Body service interface
@@ -15,6 +16,6 @@ public interface BodyService {
 
     List<Body> findAllBodies();
 
-    Body findBodyById(int bodyId);
+    Optional<Body> findBodyById(int bodyId);
 
 }

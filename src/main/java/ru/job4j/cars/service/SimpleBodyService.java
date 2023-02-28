@@ -7,6 +7,7 @@ import ru.job4j.cars.model.Body;
 import ru.job4j.cars.repository.BodyRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Body service layer
@@ -28,7 +29,7 @@ public class SimpleBodyService implements BodyService {
     }
 
     @Override
-    public Body findBodyById(int bodyId) {
+    public Optional<Body> findBodyById(int bodyId) {
         return store.findBodyById(bodyId);
     }
 }

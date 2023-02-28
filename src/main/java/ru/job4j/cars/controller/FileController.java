@@ -28,13 +28,13 @@ public class FileController {
     private final FileService fileService;
 
     /**
-     * Returns FileDto content by id
+     * Returns image by File id
      *
      * @param id FileDto id
      * @return Status 200 with file's content or status 404
      */
     @GetMapping("/{id}")
-    public ResponseEntity<?> getFileDtoById(@PathVariable int id) {
+    public ResponseEntity<?> getContentById(@PathVariable int id) {
         Optional<FileDto> contentOptional = fileService.getFileById(id);
         if (contentOptional.isEmpty()) {
             return ResponseEntity.notFound().build();

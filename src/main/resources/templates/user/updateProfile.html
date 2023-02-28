@@ -20,6 +20,7 @@
 
     <title>Car Sales</title>
 </head>
+
 <body th:background="@{/images/bg_cars.jpg}" th:width="1920">
 
 <div class="container">
@@ -31,6 +32,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
             <div class="navbar-nav">
+                <a class="nav-item nav-link" th:href="@{/lastPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
+                <a class="nav-item nav-link" th:href="@{/postFilters}">Filters</a>
+                <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
+                <a class="nav-item nav-link" th:href="@{/favouritePosts}">Favourites</a>
                 <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
                 <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                     <span th:text="${user.name}"></span>
@@ -43,30 +49,39 @@
             </div>
         </div>
     </nav>
+    <br/>
+    <br/>
+    <h2 align="center">Update your profile:</h2>
+    <br/>
     <div class="row pt-3">
-        <div class="card" style="width: 100%">
-            <div class="card-header">
-                Update your profile.
-            </div>
+        <div class="card p-3 mb-2 bg-label text-dark col-md-6 m-auto" style="width: 100%">
             <div class="card-body">
                 <form th:action="@{/updateProfile}" method="POST" th:object="${user}">
                     <input type="hidden" name="id" th:field="*{id}"/>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" name="name" id="name" th:field="*{name}" required>
+                        <input type="text" class="form-control" name="name" id="name" th:field="*{name}"
+                               required><br/>
                         <label for="login">Login</label>
-                        <input type="text" class="form-control" name="login" id="login" th:field="*{login}" required>
+                        <input type="text" class="form-control" name="login" id="login" th:field="*{login}"
+                               required><br/>
                         <label for="password">Password</label>
                         <input type="text" class="form-control" name="password" id="password" th:field="*{password}"
-                               required>
-                        <label for="password">Phone</label>
+                               required/><br/>
+                        <label for="phone">Phone</label>
                         <input type="text" class="form-control" name="phone" id="phone" th:field="*{phone}"
-                               required>
+                               pattern="\d*"
+                               title="Only digits in a row"
+                               minlength="7"
+                               required/><br/>
                         <label for="timezone.getID()">Timezone</label>
                         <select class="form-control" id="timezone.getID()" name="timezone.getID()"
                                 th:field="*{timezone}" required>
-                            <option th:each="timezone : ${timezones}" th:value="${timezone.getID()}"
-                                    th:text="${timezone.getID() + ' : ' + timezone.getDisplayName()}"></option>
+                            <option th:each="timezone : ${timezones}"
+                                    th:value="${timezone.getID()}"
+                                    th:text="${timezone.getID() + ' : ' + timezone.getDisplayName()}"
+                                    th:selected="${timezone == user.timezone}">
+                            </option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -77,4 +92,3 @@
 </div>
 </body>
 </html>
-

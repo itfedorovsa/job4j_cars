@@ -1,11 +1,9 @@
 package ru.job4j.cars.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -19,11 +17,16 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Builder(builderMethodName = "of")
 @Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private String login;
@@ -36,26 +39,11 @@ public class User {
 
     private String phone;
 
-    @ManyToMany(mappedBy = "participates", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "participants", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Set<Post> posts = new HashSet<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return id == user.id && Objects.equals(login, user.login) && Objects.equals(password, user.password)
-                && Objects.equals(name, user.name) && Objects.equals(timezone, user.timezone)
-                && Objects.equals(phone, user.phone);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, login, password, name, timezone, phone);
+    public User(int id) {
+        this.id = id;
     }
 
     @Override

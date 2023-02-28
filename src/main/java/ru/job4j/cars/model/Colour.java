@@ -1,10 +1,8 @@
 package ru.job4j.cars.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * Colour model
@@ -16,31 +14,18 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "colours")
 public class Colour {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private String name;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Colour colour = (Colour) o;
-        return id == colour.id && Objects.equals(name, colour.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 
     @Override
     public String toString() {

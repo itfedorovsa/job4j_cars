@@ -7,6 +7,7 @@ import ru.job4j.cars.model.FuelType;
 import ru.job4j.cars.repository.FuelTypeRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Fuel type service layer
@@ -28,7 +29,7 @@ public class SimpleFuelTypeService implements FuelTypeService {
     }
 
     @Override
-    public FuelType findFuelTypeById(int fuelTypeId) {
+    public Optional<FuelType> findFuelTypeById(int fuelTypeId) {
         return store.findFuelTypeById(fuelTypeId);
     }
 

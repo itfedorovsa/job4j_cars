@@ -1,10 +1,8 @@
 package ru.job4j.cars.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * ReleaseYear model
@@ -16,31 +14,18 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "release_years")
 public class ReleaseYear {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private int year;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ReleaseYear that = (ReleaseYear) o;
-        return id == that.id && year == that.year;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 
     @Override
     public String toString() {

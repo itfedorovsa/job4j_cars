@@ -61,7 +61,7 @@ public class SimpleFileService implements FileService {
         String path = getNewFilePath(fileDto.getName());
         writeFileBytes(path, fileDto.getContent());
         File file = new File(fileDto.getName(), path);
-        file.setPost(post);
+        file.setPostId(post.getId());
         return store.saveFile(file);
     }
 
@@ -123,16 +123,14 @@ public class SimpleFileService implements FileService {
      * Delete file from repository
      *
      * @param fileId File id
-     * @return true if deleted, otherwise false
      */
     @Override
-    public boolean deleteFileById(int fileId) {
+    public void deleteFileById(int fileId) {
         Optional<File> fileOptional = store.findFileById(fileId);
-        if (fileOptional.isEmpty()) {
-            return false;
+        if (fileOptional.isPresent()) {
+            deleteFile(fileOptional.get().getPath());
+            store.deleteFileById(fileId);
         }
-        deleteFile(fileOptional.get().getPath());
-        return store.deleteFileById(fileId);
     }
 
     /**
@@ -157,6 +155,16 @@ public class SimpleFileService implements FileService {
     @Override
     public List<File> findAllFilesByPostId(int postId) {
         return store.findAllFilesByPostId(postId);
+    }
+
+    /**
+     * Delete all files by Post id
+     *
+     * @param postId Post id
+     */
+    @Override
+    public void deleteFilesByPostId(int postId) {
+        store.deleteFilesByPostId(postId);
     }
 
 }

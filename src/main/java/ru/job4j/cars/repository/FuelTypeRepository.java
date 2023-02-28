@@ -3,6 +3,7 @@ package ru.job4j.cars.repository;
 import ru.job4j.cars.model.FuelType;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * FuelType repository interface
@@ -15,6 +16,6 @@ public interface FuelTypeRepository {
 
     List<FuelType> findAllFuelTypes();
 
-    FuelType findFuelTypeById(int fuelTypeId);
+    Optional<FuelType> findFuelTypeById(int fuelTypeId);
 
 }

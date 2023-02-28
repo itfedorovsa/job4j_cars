@@ -124,7 +124,7 @@ public class CrudRepository {
      * @param <T>   Used generic data type
      * @return true if number of affected rows after executing the command  > 0, otherwise false
      */
-    public <T> boolean deleteEntityById(String query, Class<T> cl, Map<String, Object> args) {
+    public <T> boolean booleanQuery(String query, Class<T> cl, Map<String, Object> args) {
         Function<Session, Integer> command = session -> {
             Query<T> sessionQuery = session.createQuery(query, cl);
             for (Map.Entry<String, Object> arg : args.entrySet()) {

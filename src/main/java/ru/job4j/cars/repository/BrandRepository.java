@@ -3,6 +3,7 @@ package ru.job4j.cars.repository;
 import ru.job4j.cars.model.Brand;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Brand repository interface
@@ -15,6 +16,6 @@ public interface BrandRepository {
 
     List<Brand> findAllBrands();
 
-    Brand findBrandById(int brandId);
+    Optional<Brand> findBrandById(int brandId);
 
 }

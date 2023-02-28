@@ -1,10 +1,8 @@
 package ru.job4j.cars.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * OwnerHistory model
@@ -16,11 +14,15 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "owners_history")
 public class OwnerHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     @Column(name = "car_id")
@@ -28,23 +30,6 @@ public class OwnerHistory {
 
     @Column(name = "owner_id")
     private int ownerId;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        OwnerHistory that = (OwnerHistory) o;
-        return id == that.id && carId == that.carId && ownerId == that.ownerId;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 
     @Override
     public String toString() {

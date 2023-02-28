@@ -7,6 +7,7 @@ import ru.job4j.cars.model.Car;
 import ru.job4j.cars.repository.CarRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Car service layer
@@ -38,7 +39,7 @@ public class SimpleCarService implements CarService {
     }
 
     @Override
-    public Car findCarById(int carId) {
+    public Optional<Car> findCarById(int carId) {
         return store.findCarById(carId);
     }
 

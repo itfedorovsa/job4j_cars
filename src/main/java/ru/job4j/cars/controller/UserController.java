@@ -25,14 +25,15 @@ import java.util.TimeZone;
 @Controller
 @AllArgsConstructor
 @ThreadSafe
-public class UserController {
+public class UserController implements UserSessionController {
 
     private final UserService userService;
 
     /**
      * Registration post page
-     * @param model Model
-     * @param user Empty user to fill
+     *
+     * @param model    Model
+     * @param user     Empty user to fill
      * @param timezone Timezone
      * @return fail or success registration page
      */
@@ -179,21 +180,6 @@ public class UserController {
         userService.update(user);
         httpSession.invalidate();
         return "redirect:/loginPage";
-    }
-
-    /**
-     * Create a user with name "Guest" if user is missing
-     *
-     * @param httpSession Http Session
-     * @return new User with "Guest" name or current User
-     */
-    private User getUser(HttpSession httpSession) {
-        User user = (User) httpSession.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Guest");
-        }
-        return user;
     }
 
     /**

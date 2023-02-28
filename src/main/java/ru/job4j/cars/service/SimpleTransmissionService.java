@@ -7,6 +7,7 @@ import ru.job4j.cars.model.Transmission;
 import ru.job4j.cars.repository.TransmissionRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Transmission service layer
@@ -28,7 +29,7 @@ public class SimpleTransmissionService implements TransmissionService {
     }
 
     @Override
-    public Transmission findTransmissionById(int transmissionId) {
+    public Optional<Transmission> findTransmissionById(int transmissionId) {
         return store.findTransmissionById(transmissionId);
     }
 }

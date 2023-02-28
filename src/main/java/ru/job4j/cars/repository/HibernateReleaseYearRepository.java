@@ -7,7 +7,7 @@ import ru.job4j.cars.model.ReleaseYear;
 
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Hibernate ReleaseYear repository
@@ -41,15 +41,15 @@ public class HibernateReleaseYearRepository implements ReleaseYearRepository {
      * Find ReleaseYear by id
      *
      * @param releaseYearId ReleaseYear id
-     * @return ReleaseYear or NoSuchElementException
+     * @return Optional of ReleaseYear or empty Optional
      */
     @Override
-    public ReleaseYear findReleaseYearById(int releaseYearId) {
+    public Optional<ReleaseYear> findReleaseYearById(int releaseYearId) {
         return crudRepository.optional(
-                        FIND_RELEASE_YEAR_BY_ID,
-                        ReleaseYear.class,
-                        Map.of("rId", releaseYearId))
-                .orElseThrow(() -> new NoSuchElementException("Couldn't find the ReleaseYear by id."));
+                FIND_RELEASE_YEAR_BY_ID,
+                ReleaseYear.class,
+                Map.of("rId", releaseYearId)
+        );
     }
 
 }

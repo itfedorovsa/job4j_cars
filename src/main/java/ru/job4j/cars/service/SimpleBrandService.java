@@ -7,6 +7,7 @@ import ru.job4j.cars.model.Brand;
 import ru.job4j.cars.repository.BrandRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Brand service layer
@@ -28,7 +29,7 @@ public class SimpleBrandService implements BrandService {
     }
 
     @Override
-    public Brand findBrandById(int brandId) {
+    public Optional<Brand> findBrandById(int brandId) {
         return store.findBrandById(brandId);
     }
 }
