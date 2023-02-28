@@ -32,7 +32,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Cars for sale<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" th:href="@{/allPosts}">Cars for sale</a>
+                <a class="nav-item nav-link active" href="#">Last posts<span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
                 <a class="nav-item nav-link" th:href="@{/postFilters}">Filters</a>
                 <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
@@ -51,7 +52,7 @@
     </nav>
     <br/>
     <br/>
-    <h2 align="center">New posts by last day:</h2>
+    <h2 align="center">New posts for last day:</h2>
     <br/>
     <div class="container py-3">
         <div class="card p-3 mb-2 bg-label text-dark m-auto" style="width: 100%">

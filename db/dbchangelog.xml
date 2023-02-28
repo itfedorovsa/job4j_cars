@@ -2,9 +2,7 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <include file="scripts/001_ddl_create_users_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/002_ddl_create_posts_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/003_ddl_create_prices_history_table.sql" relativeToChangelogFile="true"/>
@@ -75,8 +73,13 @@
     <include file="scripts/068_dml_insert_fuel_types_table_data.sql" relativeToChangelogFile="true"/>
     <include file="scripts/069_ddl_alter_owners_history_table_drop_columns.sql" relativeToChangelogFile="true"/>
     <include file="scripts/070_ddl_alter_cars_table_delete_constraint.sql" relativeToChangelogFile="true"/>
-    <!--<include file="scripts/071_ddl_alter_posts_table_add_constraint.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/071_ddl_alter_posts_table_add_constraint.sql" relativeToChangelogFile="true"/>
     <include file="scripts/072_ddl_alter_participants_table_add_constraints.sql" relativeToChangelogFile="true"/>
     <include file="scripts/073_ddl_alter_prices_history_table_add_constraint.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/074_ddl_alter_files_table_add_constraint.sql" relativeToChangelogFile="true"/>-->
+    <include file="scripts/074_ddl_alter_files_table_add_constraint.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/075_ddl_alter_posts_table_update_constraints.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/076_ddl_alter_cars_table_update_constraints.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/077_ddl_alter_participants_table_update_constraints.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/078_ddl_alter_prices_history_table_update_constraints.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/079_ddl_alter_files_table_update_constraints.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

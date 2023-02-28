@@ -33,7 +33,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup" opacity="3">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/lastPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/allPosts}">Cars for sale</a>
+                <a class="nav-item nav-link" th:href="@{/lastPosts}">Last posts</a>
                 <a class="nav-item nav-link" th:href="@{/formGetBrand}">Sell your car</a>
                 <a class="nav-item nav-link" th:href="@{/postFilters}">Filters</a>
                 <a class="nav-item nav-link" th:href="@{/publishedPosts}">Published</a>
@@ -80,7 +81,7 @@
                     <td>
                         <p><b>Owner: </b><span th:text="${post.car.owner.name}"></span></p>
                         <p><b>Price: </b><span th:text="${post.price}"></span></p>
-                        <p><b>Posted by: </b><span th:text="${post.user.name}"></span></p>
+                        <p><b>Posted by: </b><span th:text="${post.user.name} + ' ' + ${post.user.phone}"></span></p>
                         <p><b>Creation date: </b><span th:text="${post.created + ' '}"></span></p>
                     </td>
                 </tr>

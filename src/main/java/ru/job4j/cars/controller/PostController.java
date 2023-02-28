@@ -66,16 +66,27 @@ public class PostController implements UserSessionController {
     }
 
     /**
+     * All posts page
+     *
+     * @param model Model
+     * @return allPosts.html - all posts page
+     */
+    @GetMapping("/allPosts")
+    public String allPosts(Model model) {
+        List<Post> allPosts = postService.findAllPosts();
+        model.addAttribute("allPosts", allPosts);
+        return "post/allPosts";
+    }
+
+    /**
      * Last posts page
      *
      * @param model Model
-     * @param car   Car model
-     * @return lastPosts.html - posts by last day
+     * @return lastPosts.html - posts for last day
      */
     @GetMapping("/lastPosts")
-    public String lastPosts(Model model, @ModelAttribute Car car) {
+    public String lastPosts(Model model) {
         List<Post> lastPosts = postService.findPostsByLastDay();
-        model.addAttribute("brands", brandService.findAllBrands());
         model.addAttribute("lastPosts", lastPosts);
         return "post/lastPosts";
     }
@@ -343,7 +354,7 @@ public class PostController implements UserSessionController {
      * Post deletion method
      *
      * @param post Post model
-     * @return lastPosts.html - posts by last day
+     * @return lastPosts.html - posts for last day
      */
     @PostMapping("/deletePost")
     public String deleteTask(@ModelAttribute Post post) {
