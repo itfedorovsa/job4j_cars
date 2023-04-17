@@ -1,6 +1,7 @@
 package ru.job4j.cars.model;
 
 import lombok.*;
+import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
+    @Include
     private int id;
 
     private String description;
@@ -38,7 +39,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.DETACH})
     @JoinColumn(name = "post_id")
     private Set<PriceHistory> priceHistories;
 

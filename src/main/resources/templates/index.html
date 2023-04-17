@@ -51,7 +51,7 @@
     </nav>
     <br/>
     <br/>
-    <h2 align="center">Welcome to The Car Sales Project!</h2>
+    <h2 align="center" th:text="'Hi, ' + ${user.name} + '! Welcome to The Car Sales Project!'"></h2>
     <br/>
     <div class="vertical-center">
         <form th:action="@{/allPosts}" method="GET" th:align="center">

@@ -1,6 +1,7 @@
 package ru.job4j.cars.model;
 
 import lombok.*;
+import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class PriceHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
+    @Include
     private int id;
 
     private int before;

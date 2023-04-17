@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
- * This class implements analogue of Command pattern
+ * This class implements the analogue of Command pattern
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
@@ -143,15 +144,15 @@ public class CrudRepository {
      * @return Object T
      */
     public <T> T tx(Function<Session, T> command) {
-        var session = sf.openSession();
+        Session session = sf.openSession();
         try (session) {
-            var tx = session.beginTransaction();
+            Transaction tx = session.beginTransaction();
             T rsl = command.apply(session);
             tx.commit();
             return rsl;
         } catch (Exception e) {
             e.printStackTrace();
-            var tx = session.getTransaction();
+            Transaction tx = session.getTransaction();
             if (tx.isActive()) {
                 tx.rollback();
             }
