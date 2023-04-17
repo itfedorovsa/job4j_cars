@@ -1,6 +1,7 @@
 package ru.job4j.cars.model;
 
 import lombok.*;
+import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -25,7 +26,7 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
+    @Include
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)

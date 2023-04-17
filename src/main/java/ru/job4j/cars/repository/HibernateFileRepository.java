@@ -82,6 +82,7 @@ public class HibernateFileRepository implements FileRepository {
 
     /**
      * Find all File by Post id
+     *
      * @param postId Post id
      * @return List of File
      */
@@ -96,6 +97,7 @@ public class HibernateFileRepository implements FileRepository {
 
     /**
      * Delete all files by Post id
+     *
      * @param postId Post id
      */
     @Override

@@ -92,6 +92,16 @@
                 <tbody>
                 <tr>
                     <td>
+                    <span th:if="${post.priceHistories.size() > 1}">
+                        <p><b>Price History: </b>
+                        <span th:each="priceHistory: ${post.priceHistories}">
+                            <span th:text="'-> ' + ${priceHistory.after}"></span>
+                        </span></p>
+                    </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <p><b>Description: </b><span th:text="${post.description}"></span></p>
                     </td>
                 </tr>

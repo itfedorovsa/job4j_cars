@@ -1,7 +1,15 @@
 # job4j_cars
 
-This application is a car sales website with published car sales announcements. Users can post, edit, close or
-re-publish their ads after signing up and logging in. It is also possible to sort ads by various parameters.
+This application is a car sales website with car sales posts (ads). 
+User can:
+- sign up, log in to profile, update profile data
+- post, browse, edit, mark as sold or delete his posts (ads).
+- add to his favourites another user's posts
+- filter posts by various parameters
+If the price has changed, it will be shown in the price history.
+If the user hasn't added any photos to post, then a picture "photos coming soon" will be added automatically.
+Post controls buttons and "Add to favourite" button are available on the view depending on whether the user is the creator of the post (ad).
+The publication time is displayed according to the user's time zone.
 
 # Used technologies
 
@@ -51,8 +59,8 @@ Implemented with:
   ![Car adding page](src/main/resources/app_screenshots/9_car_adding_page.png)
 - Added post showing page:
   ![Added post showing page](src/main/resources/app_screenshots/10_show_added_post_page.png)
-- Autoadding "photos coming soon" photo if added post don't have any photos:
-  ![Autoadding "photos coming soon" photo if added post don't have any photos:](src/main/resources/app_screenshots/11_if_added_post_dont_have_any_photos.png)
+- Autoadding "photos coming soon" picture if added post don't have any photos:
+  ![Autoadding "photos coming soon" picture if added post don't have any photos:](src/main/resources/app_screenshots/11_if_added_post_dont_have_any_photos.png)
 - Added post shows in all posts:
   ![Added post shows in all posts](src/main/resources/app_screenshots/12_new_post_shows_in_all_posts.png)
 - Posts published by user:
@@ -63,16 +71,16 @@ Implemented with:
   ![Adding another user's post to favourites](src/main/resources/app_screenshots/15_add_another_users_post_to_favourites.png)
 - User favourites:
   ![User favourites](src/main/resources/app_screenshots/16_user_favourites.png)
-- Filters page:
-  ![Filters page](src/main/resources/app_screenshots/17_filters_page.png)
+- Filters page (every filter works individual):
+  ![Filters page (every filter works individual)](src/main/resources/app_screenshots/17_filters_page.png)
 - Posts filtered by SUV body style:
   ![Posts filtered by SUV body style](src/main/resources/app_screenshots/18_filtered_by_suv.png)
 - Published post options (relogged as another user):
   ![Published post options (relogged as another user)](src/main/resources/app_screenshots/19_published_post_options.png)
 - Post updating page:
   ![Post updating page](src/main/resources/app_screenshots/20_post_updating_page.png)
-- Updated post showing page:
-  ![Updated post showing page](src/main/resources/app_screenshots/21_updated_post_showing_page.png)
+- Updated post showing page (with price history):
+  ![Updated post showing page (with price history)](src/main/resources/app_screenshots/21_updated_post_showing_page.png)
 - Post marked as sold:
   ![Post marked as sold](src/main/resources/app_screenshots/22_post_marked_as_sold.png)
 - Post options after marked as sold:
