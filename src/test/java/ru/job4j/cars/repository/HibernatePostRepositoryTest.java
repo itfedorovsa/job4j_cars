@@ -79,8 +79,8 @@ public class HibernatePostRepositoryTest {
                 .login("login" + System.nanoTime())
                 .password("password")
                 .name("name")
-                .timezone("timezone")
-                .phone("phone")
+                .timezone("UTC")
+                .phone("123456789123")
                 .posts(Set.of())
                 .build();
         userRepository.add(user);

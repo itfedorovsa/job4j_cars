@@ -1,30 +1,42 @@
 # job4j_cars
 
-This application is a car sales website with car sales posts (ads). 
+# About
+
+This application is a car sales website with car sales posts (ads).
 User can:
+
 - sign up, log in to profile, update profile data
 - post, browse, edit, mark as sold or delete his posts (ads).
 - add to his favourites another user's posts
 - filter posts by various parameters
-If the price has changed, it will be shown in the price history.
-If the user hasn't added any photos to post, then a picture "photos coming soon" will be added automatically.
-Post controls buttons and "Add to favourite" button are available on the view depending on whether the user is the creator of the post (ad).
-The publication time is displayed according to the user's time zone.
+  If the price has changed, it will be shown in the price history.
+  If the user hasn't added any photos to post, then a picture "photos coming soon" will be added automatically.
+  Post controls buttons and "Add to favourite" button are available on the view depending on whether the user is the
+  creator of the post (ad).
+  The publication time is displayed according to the user's time zone.
+
+***
 
 # Used technologies
 
-Implemented with:
 <ul>
  <li>JDK 17</li>
  <li>Maven 3.8.5</li>
  <li>Spring Boot 2.5.2</li>
+ <li>Hibernate 5.6.11.Final</li>
  <li>JDBC 4</li>
  <li>Lombok 1.18.22</li>
  <li>Bootstrap 4.4.1</li>
  <li>Thymeleaf 2.7.3</li>
- <li>PostgreSQL 42.2.16</li>
+ <li>PostgreSQL 42.2.27</li>
  <li>Liquibase 3.6.2</li>
+ <li>JUnit 5</li>
+ <li>Mockito 3.9.0</li>
+ <li>AssertJ 3.19.0</li>
+ <li>H2 1.4.200</li>
 </ul>
+
+***
 
 # Environment requirements
 
@@ -36,6 +48,8 @@ Implemented with:
  <li>Run this file through "java -jar job4j_cars-1.0-SNAPSHOT.jar" command</li>
  <li>Then go to the http://localhost:8080/index page</li>
 </ul>
+
+***
 
 # Screenshots
 
@@ -92,5 +106,16 @@ Implemented with:
 - User profile updating page:
   ![User profile updating page](src/main/resources/app_screenshots/26_user_updating_page.png)
 
-Contact me: itfedorovsa@gmail.com
+***
+
+# Todo list
+
+- Add more filters (by several parameters)
+- Cover the code to unit tests (add more tests)
+
+***
+
+# Contact
+
+Contact me if you have any questions: itfedorovsa@gmail.com
 
