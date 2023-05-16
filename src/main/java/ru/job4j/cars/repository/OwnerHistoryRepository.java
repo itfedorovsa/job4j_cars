@@ -11,6 +11,12 @@ import ru.job4j.cars.model.OwnerHistory;
  */
 public interface OwnerHistoryRepository {
 
+    /**
+     * Save OwnerHistory in DB
+     *
+     * @param ownerHistory OwnerHistory
+     * @return OwnerHistory
+     */
     OwnerHistory addOwnerHistory(OwnerHistory ownerHistory);
 
 }

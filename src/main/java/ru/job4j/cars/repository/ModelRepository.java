@@ -14,8 +14,20 @@ import java.util.Optional;
  */
 public interface ModelRepository {
 
+    /**
+     * Find all Model by Brand id
+     *
+     * @param brandId Brand id
+     * @return List of Model
+     */
     List<Model> getAllModelsByBrandId(int brandId);
 
+    /**
+     * Find Model by id
+     *
+     * @param modelId Model id
+     * @return Optional of Model or empty Optional
+     */
     Optional<Model> getModelById(int modelId);
 
 }

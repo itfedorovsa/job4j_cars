@@ -23,26 +23,54 @@ public class SimpleCarService implements CarService {
 
     private final CarRepository store;
 
+    /**
+     * Save Car in DB
+     *
+     * @param car Car
+     * @return Car
+     */
     @Override
     public Car addCar(Car car) {
         return store.addCar(car);
     }
 
+    /**
+     * Update Car in DB
+     *
+     * @param car Car
+     */
     @Override
     public void updateCar(Car car) {
         store.updateCar(car);
     }
 
+    /**
+     * Delete Car by id
+     *
+     * @param carId Car id
+     */
     @Override
     public void deleteCar(int carId) {
         store.deleteCar(carId);
     }
 
+    /**
+     * Find Car by id
+     *
+     * @param carId Car id
+     * @return Optional of Car or empty Optional
+     */
     @Override
     public Optional<Car> findCarById(int carId) {
         return store.findCarById(carId);
     }
 
+    /**
+     * Find all Car by Owner id
+     *
+     * @param ownerId Owner id
+     * @return List of Car
+     */
     @Override
     public List<Car> findAllCarsByOwnerId(int ownerId) {
         return store.findAllCarsByOwnerId(ownerId);

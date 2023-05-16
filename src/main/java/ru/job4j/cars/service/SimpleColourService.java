@@ -23,13 +23,25 @@ public class SimpleColourService implements ColourService {
 
     private final ColourRepository store;
 
+    /**
+     * Find all Colour
+     *
+     * @return List of Colour
+     */
     @Override
     public List<Colour> findAllColours() {
         return store.findAllColours();
     }
 
+    /**
+     * Find Colour by id
+     *
+     * @param colourId Colour id
+     * @return Optional of Colour or empty Optional
+     */
     @Override
     public Optional<Colour> findColourById(int colourId) {
         return store.findColourById(colourId);
     }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cars.dto.FileDto;
 import ru.job4j.cars.model.*;
 import ru.job4j.cars.service.*;
+import ru.job4j.cars.util.UserSessionUtil;
 
 import javax.servlet.http.HttpSession;
 import java.nio.file.Files;
@@ -30,7 +31,7 @@ import java.util.TimeZone;
 @Controller
 @AllArgsConstructor
 @ThreadSafe
-public class PostController implements UserSessionController {
+public class PostController implements UserSessionUtil {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm yyyy-MM-dd");
 

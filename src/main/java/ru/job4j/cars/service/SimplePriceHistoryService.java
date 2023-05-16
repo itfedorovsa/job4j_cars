@@ -22,16 +22,33 @@ public class SimplePriceHistoryService implements PriceHistoryService {
 
     private final PriceHistoryRepository store;
 
+    /**
+     * Save PriceHistory in DB
+     *
+     * @param priceHistory PriceHistory
+     * @return PriceHistory
+     */
     @Override
     public PriceHistory addPriceHistory(PriceHistory priceHistory) {
         return store.addPriceHistory(priceHistory);
     }
 
+    /**
+     * Find all PriceHistory by Post id
+     *
+     * @param postId Post id
+     * @return List of PriceHistory
+     */
     @Override
     public List<PriceHistory> findAllPriceHistoryByPostId(int postId) {
         return store.findAllPriceHistoryByPostId(postId);
     }
 
+    /**
+     * Delete all PriceHistory by Post id
+     *
+     * @param postId Post id
+     */
     @Override
     public void deletePriceHistoryByPostId(int postId) {
         store.deletePriceHistoryByPostId(postId);

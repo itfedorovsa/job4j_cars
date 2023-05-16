@@ -23,13 +23,25 @@ public class SimpleDrivetrainService implements DrivetrainService {
 
     private final DrivetrainRepository store;
 
+    /**
+     * Find all Drivetrain
+     *
+     * @return List of Drivetrain
+     */
     @Override
     public List<Drivetrain> findAllDrivetrains() {
         return store.findAllDrivetrains();
     }
 
+    /**
+     * Find Drivetrain by id
+     *
+     * @param drivetrainId Drivetrain id
+     * @return Optional of Drivetrain or empty Optional
+     */
     @Override
     public Optional<Drivetrain> findDrivetrainById(int drivetrainId) {
         return store.findDrivetrainById(drivetrainId);
     }
+
 }

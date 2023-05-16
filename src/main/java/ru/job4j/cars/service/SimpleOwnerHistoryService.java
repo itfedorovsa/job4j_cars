@@ -20,6 +20,12 @@ public class SimpleOwnerHistoryService implements OwnerHistoryService {
 
     private final OwnerHistoryRepository store;
 
+    /**
+     * Save OwnerHistory in DB
+     *
+     * @param ownerHistory OwnerHistory
+     * @return OwnerHistory
+     */
     @Override
     public OwnerHistory addOwnerHistory(OwnerHistory ownerHistory) {
         return store.addOwnerHistory(ownerHistory);

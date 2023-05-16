@@ -23,26 +23,54 @@ public class SimpleOwnerService implements OwnerService {
 
     private final OwnerRepository store;
 
+    /**
+     * Save Owner in DB
+     *
+     * @param owner Owner
+     * @return Optional of Owner
+     */
     @Override
     public Owner addOwner(Owner owner) {
         return store.addOwner(owner);
     }
 
+    /**
+     * Update Owner in DB
+     *
+     * @param owner Owner
+     */
     @Override
     public void updateOwner(Owner owner) {
         store.updateOwner(owner);
     }
 
+    /**
+     * Delete Owner by id
+     *
+     * @param ownerId Owner id
+     */
     @Override
     public void deleteOwner(int ownerId) {
         store.deleteOwner(ownerId);
     }
 
+    /**
+     * Find Owner by id
+     *
+     * @param ownerId Owner id
+     * @return Optional of Owner
+     */
     @Override
     public Optional<Owner> findOwnerById(int ownerId) {
         return store.findOwnerById(ownerId);
     }
 
+    /**
+     * Find all Owner by Car id
+     *
+     * @param carId Car id
+     * @return List of Owner
+     */
     @Override
     public List<Owner> findAllOwnersByCarId(int carId) {
         return store.findAllOwnersByCarId(carId);

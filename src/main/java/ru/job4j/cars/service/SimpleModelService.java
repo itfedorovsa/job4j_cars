@@ -23,11 +23,23 @@ public class SimpleModelService implements ModelService {
 
     private final ModelRepository store;
 
+    /**
+     * Find all Model by Brand id
+     *
+     * @param brandId Brand id
+     * @return List of Model
+     */
     @Override
     public List<Model> findAllModelsByBrandId(int brandId) {
         return store.getAllModelsByBrandId(brandId);
     }
 
+    /**
+     * Find Model by id
+     *
+     * @param modelId Model id
+     * @return Optional of Model or empty Optional
+     */
     @Override
     public Optional<Model> findModelById(int modelId) {
         return store.getModelById(modelId);

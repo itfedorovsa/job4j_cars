@@ -23,13 +23,25 @@ public class SimpleEngineVolumeService implements EngineVolumeService {
 
     private final EngineVolumeRepository store;
 
+    /**
+     * Find all EngineVolume
+     *
+     * @return List of EngineVolume
+     */
     @Override
     public List<EngineVolume> findAllEngineVolumes() {
         return store.findAllEngineVolumes();
     }
 
+    /**
+     * Find EngineVolume by id
+     *
+     * @param engineVolumeId EngineVolume id
+     * @return Optional of EngineVolume or empty Optional
+     */
     @Override
     public Optional<EngineVolume> findEngineVolumeById(int engineVolumeId) {
         return store.findEngineVolumeById(engineVolumeId);
     }
+
 }

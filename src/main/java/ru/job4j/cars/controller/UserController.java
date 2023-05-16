@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.cars.model.User;
 import ru.job4j.cars.service.UserService;
+import ru.job4j.cars.util.UserSessionUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,7 +26,7 @@ import java.util.TimeZone;
 @Controller
 @AllArgsConstructor
 @ThreadSafe
-public class UserController implements UserSessionController {
+public class UserController implements UserSessionUtil {
 
     private final UserService userService;
 

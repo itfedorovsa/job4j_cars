@@ -5,6 +5,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.job4j.cars.util.UserSessionUtil;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @AllArgsConstructor
 @ThreadSafe
-public class IndexController implements UserSessionController {
+public class IndexController implements UserSessionUtil {
 
     /**
      * Index page

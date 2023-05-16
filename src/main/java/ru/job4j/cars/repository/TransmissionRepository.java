@@ -14,8 +14,19 @@ import java.util.Optional;
  */
 public interface TransmissionRepository {
 
+    /**
+     * Find all Transmission
+     *
+     * @return List of Transmission
+     */
     List<Transmission> findAllTransmissions();
 
+    /**
+     * Find Transmission by id
+     *
+     * @param transmissionId Transmission id
+     * @return Optional of Transmission or empty Optional
+     */
     Optional<Transmission> findTransmissionById(int transmissionId);
 
 }

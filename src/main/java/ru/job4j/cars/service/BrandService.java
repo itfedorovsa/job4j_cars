@@ -14,8 +14,19 @@ import java.util.Optional;
  */
 public interface BrandService {
 
+    /**
+     * Find all Brand
+     *
+     * @return List of Brand
+     */
     List<Brand> findAllBrands();
 
+    /**
+     * Find Brand by id
+     *
+     * @param brandId Brand id
+     * @return Optional of Brand or empty Optional
+     */
     Optional<Brand> findBrandById(int brandId);
 
 }

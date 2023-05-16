@@ -16,14 +16,43 @@ import java.util.Optional;
  */
 public interface FileService {
 
+    /**
+     * Save File in DB
+     *
+     * @param fileDto FileDto
+     * @param post    Post
+     * @return File
+     */
     File saveFile(FileDto fileDto, Post post);
 
+    /**
+     * Find File by id
+     *
+     * @param fileId File id
+     * @return Optional of File
+     */
     Optional<FileDto> getFileById(int fileId);
 
+    /**
+     * Delete File by id
+     *
+     * @param fileId File id
+     */
     void deleteFileById(int fileId);
 
+    /**
+     * Find all File by Post id
+     *
+     * @param postId Post id
+     * @return List of File
+     */
     List<File> findAllFilesByPostId(int postId);
 
+    /**
+     * Delete all files by Post id
+     *
+     * @param postId Post id
+     */
     void deleteFilesByPostId(int postId);
 
 }

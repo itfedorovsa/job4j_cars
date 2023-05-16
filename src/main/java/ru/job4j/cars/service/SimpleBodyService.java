@@ -23,11 +23,22 @@ public class SimpleBodyService implements BodyService {
 
     private final BodyRepository store;
 
+    /**
+     * Find all Body
+     *
+     * @return List of Body
+     */
     @Override
     public List<Body> findAllBodies() {
         return store.findAllBodies();
     }
 
+    /**
+     * Find Body by id
+     *
+     * @param bodyId Body id
+     * @return Optional of Body or empty Optional
+     */
     @Override
     public Optional<Body> findBodyById(int bodyId) {
         return store.findBodyById(bodyId);

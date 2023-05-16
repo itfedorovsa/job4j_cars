@@ -14,8 +14,19 @@ import java.util.Optional;
  */
 public interface ReleaseYearService {
 
+    /**
+     * Find all ReleaseYear
+     *
+     * @return List of ReleaseYear
+     */
     List<ReleaseYear> findAllReleaseYears();
 
+    /**
+     * Find ReleaseYear by id
+     *
+     * @param releaseYearId ReleaseYear id
+     * @return Optional of ReleaseYear or empty Optional
+     */
     Optional<ReleaseYear> findReleaseYearById(int releaseYearId);
 
 }

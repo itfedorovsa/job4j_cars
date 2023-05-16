@@ -23,11 +23,22 @@ public class SimpleBrandService implements BrandService {
 
     private final BrandRepository store;
 
+    /**
+     * Find all Brand
+     *
+     * @return List of Brand
+     */
     @Override
     public List<Brand> findAllBrands() {
         return store.findAllBrands();
     }
 
+    /**
+     * Find Brand by id
+     *
+     * @param brandId Brand id
+     * @return Optional of Brand or empty Optional
+     */
     @Override
     public Optional<Brand> findBrandById(int brandId) {
         return store.findBrandById(brandId);

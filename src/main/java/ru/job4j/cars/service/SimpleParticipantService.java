@@ -20,6 +20,12 @@ public class SimpleParticipantService implements ru.job4j.cars.service.Participa
 
     private final ParticipantRepository store;
 
+    /**
+     * Save Participant in DB
+     *
+     * @param participant Participant
+     * @return Participant
+     */
     @Override
     public Participant addParticipant(Participant participant) {
         return store.addParticipant(participant);

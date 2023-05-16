@@ -14,8 +14,19 @@ import java.util.Optional;
  */
 public interface ColourService {
 
+    /**
+     * Find all Colour
+     *
+     * @return List of Colour
+     */
     List<Colour> findAllColours();
 
+    /**
+     * Find Colour by id
+     *
+     * @param colourId Colour id
+     * @return Optional of Colour or empty Optional
+     */
     Optional<Colour> findColourById(int colourId);
 
 }

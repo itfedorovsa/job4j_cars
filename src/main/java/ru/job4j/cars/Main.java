@@ -22,6 +22,11 @@ import java.util.Properties;
 @SpringBootApplication
 public class Main {
 
+    /**
+     * Load properties
+     *
+     * @return Properties
+     */
     private Properties loadDbProperties() {
         Properties cfg = new Properties();
         try (InputStream io = new FileInputStream("db/liquibase_test.properties")) {

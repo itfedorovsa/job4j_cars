@@ -23,13 +23,25 @@ public class SimpleReleaseYearService implements ReleaseYearService {
 
     private final ReleaseYearRepository store;
 
+    /**
+     * Find all ReleaseYear
+     *
+     * @return List of ReleaseYear
+     */
     @Override
     public List<ReleaseYear> findAllReleaseYears() {
         return store.findAllReleaseYears();
     }
 
+    /**
+     * Find ReleaseYear by id
+     *
+     * @param releaseYearId ReleaseYear id
+     * @return Optional of ReleaseYear or empty Optional
+     */
     @Override
     public Optional<ReleaseYear> findReleaseYearById(int releaseYearId) {
         return store.findReleaseYearById(releaseYearId);
     }
+
 }

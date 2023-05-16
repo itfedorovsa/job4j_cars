@@ -11,6 +11,12 @@ import ru.job4j.cars.model.Participant;
  */
 public interface ParticipantRepository {
 
+    /**
+     * Save Participant in DB
+     *
+     * @param participant Participant
+     * @return Participant
+     */
     Participant addParticipant(Participant participant);
 
 }

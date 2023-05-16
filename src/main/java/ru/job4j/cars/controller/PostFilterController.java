@@ -10,6 +10,7 @@ import ru.job4j.cars.model.Car;
 import ru.job4j.cars.model.Post;
 import ru.job4j.cars.model.User;
 import ru.job4j.cars.service.*;
+import ru.job4j.cars.util.UserSessionUtil;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 @ThreadSafe
-public class PostFilterController implements UserSessionController {
+public class PostFilterController implements UserSessionUtil {
 
     private final PostService postService;
     private final BodyService bodyService;

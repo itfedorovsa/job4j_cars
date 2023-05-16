@@ -14,8 +14,19 @@ import java.util.Optional;
  */
 public interface FuelTypeService {
 
+    /**
+     * Find all FuelType
+     *
+     * @return List of FuelType
+     */
     List<FuelType> findAllFuelTypes();
 
+    /**
+     * Find FuelType by id
+     *
+     * @param fuelTypeId FuelType id
+     * @return Optional of FuelType or empty Optional
+     */
     Optional<FuelType> findFuelTypeById(int fuelTypeId);
 
 }

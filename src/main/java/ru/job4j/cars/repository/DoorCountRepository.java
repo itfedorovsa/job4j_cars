@@ -14,8 +14,19 @@ import java.util.Optional;
  */
 public interface DoorCountRepository {
 
+    /**
+     * Find all DoorCount
+     *
+     * @return List of DoorCount
+     */
     List<DoorCount> findAllDoorCounts();
 
+    /**
+     * Find DoorCount by id
+     *
+     * @param doorCountId DoorCount id
+     * @return Optional of DoorCount or empty Optional
+     */
     Optional<DoorCount> findDoorCountById(int doorCountId);
 
 }

@@ -23,13 +23,25 @@ public class SimpleTransmissionService implements TransmissionService {
 
     private final TransmissionRepository store;
 
+    /**
+     * Find all Transmission
+     *
+     * @return List of Transmission
+     */
     @Override
     public List<Transmission> findAllTransmissions() {
         return store.findAllTransmissions();
     }
 
+    /**
+     * Find Transmission by id
+     *
+     * @param transmissionId Transmission id
+     * @return Optional of Transmission or empty Optional
+     */
     @Override
     public Optional<Transmission> findTransmissionById(int transmissionId) {
         return store.findTransmissionById(transmissionId);
     }
+
 }

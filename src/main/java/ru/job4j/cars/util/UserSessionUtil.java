@@ -1,17 +1,17 @@
-package ru.job4j.cars.controller;
+package ru.job4j.cars.util;
 
 import ru.job4j.cars.model.User;
 
 import javax.servlet.http.HttpSession;
 
 /**
- * User session interface
+ * User util interface
  *
  * @author itfedorovsa (itfedorovsa@gmail.com)
  * @version 1.0
  * @since 20.02.23
  */
-public interface UserSessionController {
+public interface UserSessionUtil {
 
     /**
      * Create a user with name "Guest" if user is missing
